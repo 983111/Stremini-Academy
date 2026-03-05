@@ -7,6 +7,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github.min.css"/>
 <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"/>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="window._katexReady=true"></script>
 <style>
 /* ── RESET & ROOT ──────────────────────────────────── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -207,6 +210,14 @@ a:hover{text-decoration:underline}
 .prose code{font-family:'DM Mono',monospace;font-size:12px;background:var(--surface2);border:1px solid var(--border);border-radius:3px;padding:1px 5px;color:#1e40af}
 .prose hr{border:none;border-top:1px solid var(--border);margin:20px 0}
 .prose a{color:var(--amber);text-decoration:underline}
+/* Math */
+.prose .math-block{
+  overflow-x:auto;padding:14px 18px;background:var(--surface2);
+  border:1px solid var(--border);border-radius:var(--r2);margin:14px 0;
+  text-align:center;font-size:15px;
+}
+.prose .math-inline .katex{font-size:1em}
+.katex-display{margin:0!important}
 
 /* Callouts */
 .callout{border-radius:var(--r2);padding:12px 15px;margin:14px 0;border-left:3px solid;font-size:13.5px;line-height:1.65}
@@ -308,33 +319,59 @@ a:hover{text-decoration:underline}
 
 .idea-input-wrap{
   background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);
-  overflow:hidden;transition:border-color .15s;box-shadow:var(--shadow);
+  overflow:hidden;transition:border-color .15s,box-shadow .15s;box-shadow:var(--shadow);
 }
-.idea-input-wrap:focus-within{border-color:var(--amber)}
+.idea-input-wrap:focus-within{border-color:var(--violet);box-shadow:0 0 0 3px rgba(124,58,237,.08),var(--shadow)}
 .idea-ta{
-  width:100%;border:none;background:transparent;padding:13px 15px;font-family:'DM Sans',sans-serif;
-  font-size:13.5px;color:var(--txt);min-height:80px;max-height:160px;resize:none;outline:none;line-height:1.6;
+  width:100%;border:none;background:transparent;padding:14px 16px;font-family:'DM Sans',sans-serif;
+  font-size:13.5px;color:var(--txt);min-height:88px;max-height:180px;resize:none;outline:none;line-height:1.65;
 }
 .idea-ta::placeholder{color:var(--muted)}
-.idea-bar{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:var(--surface2);border-top:1px solid var(--border)}
+.idea-bar{display:flex;align-items:center;justify-content:space-between;padding:9px 13px;background:var(--surface2);border-top:1px solid var(--border)}
 .idea-hint{font-size:11px;color:var(--muted)}
-.idea-send{display:flex;align-items:center;gap:5px;padding:6px 14px;background:var(--violet);color:#fff;border:none;border-radius:var(--r2);font-size:12.5px;font-weight:600;cursor:pointer;transition:all .14s}
-.idea-send:hover{background:#6d28d9}
-.idea-send:disabled{opacity:.4;cursor:not-allowed}
+.idea-send{display:flex;align-items:center;gap:5px;padding:7px 16px;background:var(--violet);color:#fff;border:none;border-radius:var(--r2);font-size:12.5px;font-weight:600;cursor:pointer;transition:all .14s;box-shadow:0 1px 3px rgba(124,58,237,.3)}
+.idea-send:hover{background:#6d28d9;transform:translateY(-1px);box-shadow:0 3px 8px rgba(124,58,237,.35)}
+.idea-send:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
 
-.idea-loading{display:flex;align-items:center;gap:9px;padding:14px;background:var(--violet-bg);border:1px solid #ddd6fe;border-radius:var(--r2);font-size:13px;color:var(--violet);margin-top:12px}
+.idea-loading{display:flex;align-items:center;gap:10px;padding:16px;background:var(--violet-bg);border:1px solid #ddd6fe;border-radius:var(--r2);font-size:13px;color:var(--violet);margin-top:14px;font-weight:500}
 .idea-dots span{width:5px;height:5px;background:var(--violet);border-radius:50%;display:inline-block;margin:0 2px;animation:bounce .9s infinite}
 .idea-dots span:nth-child(2){animation-delay:.15s}
 .idea-dots span:nth-child(3){animation-delay:.3s}
 @keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-4px)}}
 
+/* ── Idea output panel — full-width, readable ── */
 .idea-output{
-  margin-top:12px;background:var(--surface);border:1.5px solid #ddd6fe;border-radius:var(--r);
-  overflow:hidden;box-shadow:var(--shadow);
+  margin-top:16px;
+  background:var(--surface);
+  border:1.5px solid #ddd6fe;
+  border-radius:var(--r);
+  overflow:hidden;
+  box-shadow:var(--shadow-md);
+  animation:fadeUp .25s ease;
 }
-.idea-output-head{display:flex;align-items:center;justify-content:space-between;padding:10px 15px;background:var(--violet-bg);border-bottom:1px solid #ddd6fe}
-.io-head-left{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--violet)}
-.idea-output-body{padding:20px;font-size:13.5px;color:var(--txt2);line-height:1.7;max-height:480px;overflow-y:auto}
+.idea-output-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 18px;
+  background:linear-gradient(to right, var(--violet-bg), #faf8ff);
+  border-bottom:1.5px solid #ddd6fe;
+}
+.io-head-left{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--violet)}
+.idea-output-body{
+  padding:28px 32px;
+  /* No max-height — let content breathe fully */
+  overflow-y:visible;
+}
+/* Prose inside idea output gets slightly larger type for readability */
+.idea-output-body .prose{font-size:14.5px;line-height:1.85;color:var(--txt2)}
+.idea-output-body .prose h2{font-size:17px;margin-top:26px}
+.idea-output-body .prose h3{font-size:15px;margin-top:18px}
+.idea-output-body .prose p{margin-bottom:14px}
+.idea-output-body .prose ul,.idea-output-body .prose ol{margin-bottom:14px}
+.idea-output-body .prose li{margin-bottom:6px;line-height:1.65}
+/* Code blocks inside idea output */
+.idea-output-body .cblock{margin:14px 0}
+/* Subtle section divider */
+.idea-output-body .prose hr{margin:22px 0;border-color:var(--border2)}
 
 /* ── LOADING / ERROR STATES ─────────────────────────── */
 .loading{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:360px;gap:14px}
@@ -343,12 +380,53 @@ a:hover{text-decoration:underline}
 .loading-text{font-family:'Lora',serif;font-size:15px;color:var(--txt2)}
 .loading-sub{font-size:12px;color:var(--muted);text-align:center;max-width:280px;line-height:1.5}
 
-.error-box{background:var(--red-bg);border:1px solid var(--red-border);border-radius:var(--r);padding:18px 20px;display:flex;gap:12px;margin:20px 0}
-.error-icon{color:var(--red);flex-shrink:0;margin-top:2px}
-.error-title{font-weight:600;color:var(--red);font-size:13.5px;margin-bottom:3px}
+/* Full-page error state */
+.error-page{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  min-height:420px;padding:40px 20px;text-align:center;
+}
+.error-page-icon{
+  width:56px;height:56px;background:var(--red-bg);border:1.5px solid var(--red-border);
+  border-radius:14px;display:flex;align-items:center;justify-content:center;
+  margin-bottom:20px;color:var(--red);
+}
+.error-page-title{
+  font-family:'Lora',serif;font-size:20px;font-weight:500;color:var(--txt);
+  margin-bottom:8px;letter-spacing:-.2px;
+}
+.error-page-msg{
+  font-size:13.5px;color:var(--txt2);max-width:460px;line-height:1.7;margin-bottom:24px;
+}
+.error-diagnosis{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  padding:16px 20px;max-width:500px;width:100%;margin-bottom:22px;text-align:left;
+  box-shadow:var(--shadow);
+}
+.ed-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:10px}
+.ed-row{display:flex;align-items:flex-start;gap:9px;padding:8px 0;border-bottom:1px solid var(--border2);font-size:12.5px;color:var(--txt2);line-height:1.5}
+.ed-row:last-child{border-bottom:none}
+.ed-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.ed-dot-red{background:var(--red)}
+.ed-dot-amber{background:var(--amber)}
+.ed-dot-green{background:var(--green)}
+.ed-row strong{color:var(--txt);font-weight:600}
+.error-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.ea-btn{
+  display:inline-flex;align-items:center;gap:6px;padding:9px 18px;
+  border-radius:var(--r2);font-size:13px;font-weight:600;cursor:pointer;
+  border:none;transition:all .14s;
+}
+.ea-primary{background:var(--txt);color:#fff}
+.ea-primary:hover{background:#2d2a26}
+.ea-ghost{background:var(--surface2);color:var(--txt2);border:1.5px solid var(--border)}
+.ea-ghost:hover{border-color:var(--muted);color:var(--txt)}
+/* Inline small error (inside idea workshop etc.) */
+.error-box{background:var(--red-bg);border:1px solid var(--red-border);border-radius:var(--r);padding:14px 18px;display:flex;gap:10px;margin:14px 0}
+.error-icon{color:var(--red);flex-shrink:0;margin-top:1px}
+.error-title{font-weight:600;color:var(--red);font-size:13px;margin-bottom:3px}
 .error-msg{font-size:12.5px;color:var(--red);line-height:1.55;opacity:.85}
-.error-retry{margin-top:10px;padding:5px 12px;background:transparent;color:var(--red);border:1px solid var(--red-border);border-radius:var(--r2);font-size:12px;font-weight:600;cursor:pointer;transition:all .14s}
-.error-retry:hover{background:var(--red-bg)}
+.error-retry{margin-top:8px;padding:5px 12px;background:transparent;color:var(--red);border:1px solid var(--red-border);border-radius:var(--r2);font-size:12px;font-weight:600;cursor:pointer;transition:all .14s}
+.error-retry:hover{background:#fecaca50}
 
 /* ── SETUP MODAL ─────────────────────────────────────── */
 .modal-overlay{position:fixed;inset:0;background:rgba(26,24,20,.6);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(3px)}
@@ -547,7 +625,7 @@ const TRACKS = {
 //  PERSISTENT STATE  — survives page refresh
 // ══════════════════════════════════════════════════════════════════════
 const ST = {
-  workerUrl: localStorage.getItem("sa_url") || "",
+  workerUrl: localStorage.getItem("sa_url") || "https://stremini-academy.vishwajeetadkine705.workers.dev",
   // last open topic & track
   lastTrack: localStorage.getItem("sa_last_track") || null,
   lastTopic: localStorage.getItem("sa_last_topic") || null,
@@ -633,10 +711,7 @@ function saveSetup() {
   $("streakV").textContent = ST.streak;
   buildTrackList();
 
-  if (!ST.workerUrl) {
-    showHome();
-    setTimeout(openSetup, 400);
-  } else if (ST.lastTrack && TRACKS[ST.lastTrack]) {
+  if (ST.lastTrack && TRACKS[ST.lastTrack]) {
     // Resume previous session
     ST.track = ST.lastTrack;
     activateTrackItem(ST.lastTrack);
@@ -817,7 +892,7 @@ async function loadTopic(id) {
   scrollTop();
   persist();
 
-  const pg = $("page");
+  const pg    = $("page");
   const tData = TRACKS[ST.track].topics.find(t => t.id === id);
   if (!tData) return;
 
@@ -829,9 +904,12 @@ async function loadTopic(id) {
 
   // ── No Worker URL ──────────────────────────────────────────────────
   if (!ST.workerUrl) {
-    renderError(pg, "Worker URL not configured", "Click <strong>Setup</strong> in the top-right and enter your Cloudflare Worker URL.", "openSetup()");
+    renderError(pg, "Worker URL not configured", "Click Setup in the top-right and enter your Cloudflare Worker URL.", id, "setup");
     return;
   }
+
+  // Stamp this load so we can discard results from a superseded request
+  const myGen = ++_loadGen;
 
   // ── Loading state ──────────────────────────────────────────────────
   setStatus(true, "Loading…");
@@ -870,6 +948,9 @@ async function loadTopic(id) {
     const raw = data.content || data.solution || "";
     if (!raw) throw new Error("Worker returned empty content.");
 
+    // Discard if user navigated away while we were fetching
+    if (myGen !== _loadGen) return;
+
     // ── Store in localStorage cache ─────────────────────────────────
     ST.cache[id] = { topic: tData, raw, status: data.status };
     persist();
@@ -877,25 +958,132 @@ async function loadTopic(id) {
     render(id);
 
   } catch (err) {
+    if (myGen !== _loadGen) return;  // stale — don't clobber a newer load
     setStatus(false);
-    renderError(pg, "Failed to load lesson", esc(err.message), `retryTopic('${id}')`);
+    const msg = (err instanceof TypeError && !err.message) ? "Failed to fetch" : (err.message || "Unknown error");
+    renderError(pg, "Failed to load lesson", msg, id);
   }
 }
 
+// ── Load generation counter — prevents stale render() calls from a prior
+//    loadTopic() overlapping with a newer one's error state. ────────────
+let _loadGen = 0;
+
 function retryTopic(id) { delete ST.cache[id]; persist(); loadTopic(id); }
 
-function renderError(pg, title, msg, retryFn) {
+// ── Detect the type of error to show tailored diagnosis ──────────────
+function classifyError(msg) {
+  const m = (msg || "").toLowerCase();
+  if (m.includes("cors") || m.includes("networkerror") ||
+      m.includes("failed to fetch") || m.includes("load failed") ||
+      m.includes("network request failed") || m.includes("fetch")) {
+    return "cors";
+  }
+  if (m.includes("401") || m.includes("403") || m.includes("unauthorized") || m.includes("forbidden")) {
+    return "auth";
+  }
+  if (m.includes("timeout") || m.includes("timed out") || m.includes("abort")) {
+    return "timeout";
+  }
+  if (m.includes("502") || m.includes("503") || m.includes("504") || m.includes("bad gateway")) {
+    return "server";
+  }
+  return "generic";
+}
+
+function renderError(pg, title, msg, topicId, forceKind) {
+  // Wipe the entire page div so NO leftover content (nav, footer, lview) persists
+  pg.innerHTML = "";
+  const kind = forceKind || classifyError(msg);
+
+  const diagRows = {
+    cors: [
+      { dot: "red",   text: "<strong>CORS blocked</strong> — the Worker rejected this page's origin (<code>null</code> for local files). The updated <code>index.js</code> now includes <code>\"null\"</code> and localhost in the trusted-origins list." },
+      { dot: "amber", text: "<strong>To fix:</strong> redeploy the updated <code>index.js</code> to Cloudflare Workers with <code>wrangler deploy</code>, then reload this page." },
+      { dot: "green", text: "<strong>No-redeploy workaround:</strong> open this file via VS Code Live Server or run <code>npx serve .</code> — the origin becomes <code>http://localhost:5500</code> which doesn't trigger the CORS block." },
+    ],
+    setup: [
+      { dot: "red",   text: "<strong>No Worker URL set.</strong> The academy needs a Cloudflare Worker to generate AI lessons." },
+      { dot: "amber", text: "Click <strong>Setup</strong> in the top-right and paste your Worker URL (e.g. <code>https://stremini-academy.yourname.workers.dev</code>)." },
+      { dot: "green", text: "The default URL <code>stremini-academy.vishwajeetadkine705.workers.dev</code> should be pre-filled — if it's missing, add it in Setup." },
+    ],
+    auth: [
+      { dot: "red",   text: "<strong>Authentication failed</strong> — the worker returned 401 or 403." },
+      { dot: "amber", text: "Check that <code>MBZUAI_API_KEY</code> is set as a Cloudflare Workers secret and has not expired." },
+      { dot: "green", text: "Run: <code>wrangler secret put MBZUAI_API_KEY</code> then redeploy." },
+    ],
+    timeout: [
+      { dot: "red",   text: "<strong>Request timed out</strong> — the AI API took longer than 30 seconds." },
+      { dot: "amber", text: "This is usually a temporary spike. Try again in a few seconds." },
+      { dot: "green", text: "If it happens consistently, try a simpler topic query." },
+    ],
+    server: [
+      { dot: "red",   text: "<strong>Worker or AI service error</strong> — upstream returned 5xx." },
+      { dot: "amber", text: "Check your Cloudflare Worker logs with <code>wrangler tail</code>." },
+      { dot: "green", text: "Usually transient — retry in a moment." },
+    ],
+    generic: [
+      { dot: "red",   text: `<strong>Error:</strong> ${esc(msg)}` },
+      { dot: "amber", text: "Check the worker is deployed and the URL in Setup is correct." },
+      { dot: "green", text: "Open DevTools (F12) → Console and Network tabs for details." },
+    ],
+  };
+
+  const rows = (diagRows[kind] || diagRows.generic);
+  const diagHtml = rows.map(r =>
+    `<div class="ed-row"><span class="ed-dot ed-dot-${r.dot}"></span><span>${r.text}</span></div>`
+  ).join("");
+
+  const icons = {
+    cors:    `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>`,
+    setup:   `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>`,
+    auth:    `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>`,
+    timeout: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+    server:  `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/></svg>`,
+    generic: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`,
+  };
+
+  const titles = {
+    cors:    "CORS Policy Blocked",
+    setup:   "Worker Not Configured",
+    auth:    "Authentication Failed",
+    timeout: "Request Timed Out",
+    server:  "Service Unavailable",
+    generic: title || "Something went wrong",
+  };
+
+  const retryBtn = topicId
+    ? `<button class="ea-btn ea-primary" onclick="retryTopic('${topicId}')">
+         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+           <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/>
+         </svg> Try Again
+       </button>`
+    : "";
+
   pg.innerHTML = `
-    <div class="error-box">
-      <div class="error-icon">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-        </svg>
+    <div class="error-page">
+      <div class="error-page-icon">${icons[kind] || icons.generic}</div>
+      <div class="error-page-title">${titles[kind]}</div>
+      <div class="error-page-msg">
+        ${kind === "cors"
+          ? "The browser blocked the fetch because your Worker's CORS policy doesn't allow <code>file://</code> origins. Redeploy the updated <code>index.js</code> or use a local dev server — see the steps below."
+          : kind === "setup"
+          ? "A Worker URL is required to generate lessons. Click <strong>Setup</strong> to configure it."
+          : "The lesson couldn't be loaded. The diagnosis below should help you fix it quickly."
+        }
       </div>
-      <div>
-        <div class="error-title">${title}</div>
-        <div class="error-msg">${msg}</div>
-        <button class="error-retry" onclick="${retryFn}">↺ Try again</button>
+      <div class="error-diagnosis">
+        <div class="ed-label">What to do</div>
+        ${diagHtml}
+      </div>
+      <div class="error-actions">
+        ${retryBtn}
+        <button class="ea-btn ea-ghost" onclick="openSetup()">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+          </svg> Setup
+        </button>
+        <button class="ea-btn ea-ghost" onclick="showHome()">← Back to Tracks</button>
       </div>
     </div>`;
 }
@@ -1013,6 +1201,11 @@ function render(id) {
   pg.appendChild(wrap);
 
   pg.querySelectorAll("pre code").forEach(el => { try { hljs.highlightElement(el); } catch (e) {} });
+  // Render math — KaTeX may be deferred, retry after a tick if not ready
+  renderDeferredMath(pg);
+  if (!window.katex) {
+    window.addEventListener("load", () => renderDeferredMath(pg), { once: true });
+  }
 }
 
 // ══════════════════════════════════════════════════════════════════════
@@ -1081,16 +1274,27 @@ async function sendIdea(topicId, topicTitle, track) {
     // Render idea output in a styled block
     out.innerHTML = "";
     const box = document.createElement("div"); box.className = "idea-output";
-    box.innerHTML = `
-      <div class="idea-output-head">
-        <div class="io-head-left">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-            <polyline points="20 6 9 17 4 12"/>
-          </svg>
-          Your Personalised Project Guide
-        </div>
-        <button class="copy-btn" onclick="copyText(this, \`${raw.replace(/`/g,"\\`").replace(/\$/g,"\\$")}\`)">Copy</button>
-      </div>`;
+
+    // Header row
+    const head = document.createElement("div"); head.className = "idea-output-head";
+    const headLeft = document.createElement("div"); headLeft.className = "io-head-left";
+    headLeft.innerHTML = `
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+      Your Personalised Project Guide`;
+
+    const cpBtn = document.createElement("button"); cpBtn.className = "copy-btn";
+    cpBtn.innerHTML = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy`;
+    // Store raw content in WeakMap — never put it in an HTML attribute
+    _ideaRawStore.set(cpBtn, raw);
+    cpBtn.onclick = () => copyText(cpBtn);
+
+    head.appendChild(headLeft);
+    head.appendChild(cpBtn);
+    box.appendChild(head);
+
+    // Body: render parsed prose
     const body = document.createElement("div"); body.className = "idea-output-body";
     const prose = document.createElement("div"); prose.className = "prose";
     const { proseParts } = parseContent(raw);
@@ -1099,6 +1303,7 @@ async function sendIdea(topicId, topicTitle, track) {
     box.appendChild(body);
     out.appendChild(box);
     box.querySelectorAll("pre code").forEach(el => { try { hljs.highlightElement(el); } catch(e) {} });
+    renderDeferredMath(box);
     flashXP(15);
 
   } catch (err) {
@@ -1108,24 +1313,39 @@ async function sendIdea(topicId, topicTitle, track) {
   }
 }
 
-function copyText(btn, text) {
+// ── Idea output raw content store — avoids injecting content into HTML attributes ──
+const _ideaRawStore = new WeakMap();
+
+function copyText(btn) {
+  const text = _ideaRawStore.get(btn) || "";
   navigator.clipboard?.writeText(text).then(() => {
-    btn.textContent = "✓ Copied";
-    setTimeout(() => { btn.textContent = "Copy"; }, 2000);
+    const prev = btn.innerHTML;
+    btn.innerHTML = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Copied`;
+    btn.style.color = "var(--green)";
+    btn.style.borderColor = "var(--green-border)";
+    setTimeout(() => {
+      btn.innerHTML = prev;
+      btn.style.color = "";
+      btn.style.borderColor = "";
+    }, 2000);
   });
 }
 
 // ══════════════════════════════════════════════════════════════════════
 //  CONTENT PARSER
+//  Splits raw worker output into:
+//    proseParts — array of {type:"text"|"code"|"mathblock", content, lang?}
+//    quizQs     — parsed multiple-choice questions
 // ══════════════════════════════════════════════════════════════════════
 function parseContent(raw) {
+  // ── 1. Extract quiz questions ──────────────────────────────────────
   const quizQs = [];
-  const quizSectionRe = /(?:^QUIZ:?.*$|^MULTIPLE CHOICE.*$|^CONCEPTUAL QUESTIONS.*$)/im;
+  const quizSectionRe = /(?:^QUIZ:?.*$|^MULTIPLE[-\s]?CHOICE.*$|^CONCEPTUAL QUESTIONS.*$)/im;
   const quizSectionMatch = raw.match(quizSectionRe);
   let proseCut = raw.length;
   if (quizSectionMatch) {
     const pos = raw.indexOf(quizSectionMatch[0]);
-    if (pos > raw.length * 0.35) proseCut = pos;
+    if (pos > raw.length * 0.30) proseCut = pos;
   }
 
   const qRe = /(?:Question\s*\d+[:.]?\s*|Q\d+[:.]\s*)(.+?)[\r\n]+\s*A[).:]\s*(.+?)[\r\n]+\s*B[).:]\s*(.+?)[\r\n]+\s*C[).:]\s*(.+?)[\r\n]+\s*D[).:]\s*(.+?)[\r\n]+\s*(?:Correct\s+Answer|Answer)[:.]\s*([A-D])\b(?:[\r\n]+\s*Explanation[:.]\s*(.+?))?(?=[\r\n]+(?:Question\s*\d|Q\d)|$)/gis;
@@ -1134,91 +1354,245 @@ function parseContent(raw) {
     const opts    = [qm[2], qm[3], qm[4], qm[5]].map(s => s.trim());
     const corrKey = qm[6].trim().toUpperCase();
     const corrIdx = { A:0, B:1, C:2, D:3 }[corrKey] ?? 0;
-    const explain = (qm[7] || "").trim();
-    quizQs.push({ question: qm[1].trim(), options: opts, correct: corrIdx, explanation: explain });
-    if (qm.index < proseCut && qm.index > raw.length * 0.3) proseCut = Math.min(proseCut, qm.index);
+    quizQs.push({ question: qm[1].trim(), options: opts, correct: corrIdx, explanation: (qm[7]||"").trim() });
+    if (qm.index < proseCut && qm.index > raw.length * 0.28) proseCut = Math.min(proseCut, qm.index);
   }
 
+  // ── 2. Prose: strip metadata header lines ─────────────────────────
   let proseRaw = raw.slice(0, proseCut).trim();
-  proseRaw = proseRaw.replace(/^(INTERACTIVE LESSON|LESSON|PROJECT GUIDE|SKILL ASSESSMENT|PERSONALIZED|Topic|TOPIC|Learner Level|Assessment Date|Track|Skill Level|Duration|Time Commitment)[^\n]*\n?/gim, "");
+  proseRaw = proseRaw.replace(
+    /^(INTERACTIVE LESSON|LESSON|PROJECT GUIDE|SKILL ASSESSMENT|PERSONALIZED LESSON|Topic|TOPIC|Learner Level|Assessment Date|Track|Skill Level|Duration|Time Commitment|Estimated Read Time|Difficulty)[^\n]*\n?/gim,
+    ""
+  );
+  // Strip leading dividers / equals lines
+  proseRaw = proseRaw.replace(/^[=━─\-]{4,}\s*\n/gm, "\n");
 
+  // ── 3. Tokenise: code fences → {code} | display math \[…\] → {mathblock} | rest → {text} ──
   const parts = [];
-  const fenceRe = /```([a-zA-Z0-9]*)\n?([\s\S]*?)```/g;
-  let last = 0, fm;
-  while ((fm = fenceRe.exec(proseRaw)) !== null) {
-    if (fm.index > last) parts.push({ type: "text", content: proseRaw.slice(last, fm.index) });
-    parts.push({ type: "code", lang: fm[1] || "python", content: fm[2].trimEnd() });
-    last = fenceRe.lastIndex;
+  // Pattern: code fences OR display math blocks \[…\]
+  const tokenRe = /```([a-zA-Z0-9]*)\n?([\s\S]*?)```|\\\[([\s\S]*?)\\\]/g;
+  let last = 0, tm;
+  while ((tm = tokenRe.exec(proseRaw)) !== null) {
+    if (tm.index > last) parts.push({ type: "text", content: proseRaw.slice(last, tm.index) });
+    if (tm[1] !== undefined) {
+      // code fence
+      parts.push({ type: "code", lang: tm[1] || "python", content: tm[2].trimEnd() });
+    } else {
+      // display math \[…\]
+      parts.push({ type: "mathblock", content: tm[3].trim() });
+    }
+    last = tokenRe.lastIndex;
   }
   if (last < proseRaw.length) parts.push({ type: "text", content: proseRaw.slice(last) });
   return { proseParts: parts, quizQs };
 }
 
 // ══════════════════════════════════════════════════════════════════════
-//  PROSE RENDERER
+//  PROSE RENDERER  — block-level, paragraph-aware
+//  Key fix: accumulate consecutive non-blank lines into one paragraph
+//  before emitting a <p>. Blank lines are paragraph separators.
 // ══════════════════════════════════════════════════════════════════════
 function renderProse(parts, parent) {
   parts.forEach(part => {
-    if (part.type === "code") { parent.appendChild(buildCodeBlock(part.lang, part.content)); return; }
-    const lines = part.content.split("\n"); let i = 0;
-    while (i < lines.length) {
-      const line = lines[i]; const tr = line.trim();
-      if (!tr) { i++; continue; }
-      if (/^[━─=\-]{4,}$/.test(tr)) { parent.appendChild(document.createElement("hr")); i++; continue; }
-      if (/^NOTE[: ]/i.test(tr)) {
-        const co = document.createElement("div"); co.className = "callout c-warn";
-        co.innerHTML = `<span class="callout-head">⚠ Note</span>${fmt(tr.replace(/^NOTE[: ]*/i,""))}`;
-        parent.appendChild(co); i++; continue;
-      }
-      if (/^TIP[: ]/i.test(tr)) {
-        const co = document.createElement("div"); co.className = "callout c-tip";
-        co.innerHTML = `<span class="callout-head">💡 Tip</span>${fmt(tr.replace(/^TIP[: ]*/i,""))}`;
-        parent.appendChild(co); i++; continue;
-      }
-      if (/^#{1,3}\s/.test(tr)) {
-        const lv = tr.match(/^(#{1,3})/)[0].length;
-        const el = document.createElement(lv <= 2 ? "h2" : "h3");
-        el.innerHTML = fmt(tr.replace(/^#{1,3}\s+/,""));
-        parent.appendChild(el); i++; continue;
-      }
-      if (/^[A-Z][A-Z &:\/\-]{4,}$/.test(tr) && tr.length < 60) {
-        const el = document.createElement("h2"); el.textContent = toTitleCase(tr);
-        parent.appendChild(el); i++; continue;
-      }
-      if (/^(phase|step)\s+\d+[:.]/i.test(tr)) {
-        const el = document.createElement("h2"); el.innerHTML = fmt(tr);
-        parent.appendChild(el); i++; continue;
-      }
-      if (/^[-*•]\s/.test(tr)) {
-        const ul = document.createElement("ul");
-        while (i < lines.length && /^[-*•]\s/.test(lines[i].trim())) {
-          const li = document.createElement("li"); li.innerHTML = fmt(lines[i].trim().replace(/^[-*•]\s/,""));
-          ul.appendChild(li); i++;
-        }
-        parent.appendChild(ul); continue;
-      }
-      if (/^\d+\.\s/.test(tr) && !/^(phase|step)\s+\d+/i.test(tr)) {
-        const ol = document.createElement("ol");
-        while (i < lines.length && /^\d+\.\s/.test(lines[i].trim())) {
-          const li = document.createElement("li"); li.innerHTML = fmt(lines[i].trim().replace(/^\d+\.\s/,""));
-          ol.appendChild(li); i++;
-        }
-        parent.appendChild(ol); continue;
-      }
-      if (i < 6 && /^[A-Za-z ]{2,20}:\s.{1,80}$/.test(tr)) { i++; continue; }
-      const p = document.createElement("p"); p.innerHTML = fmt(tr);
-      parent.appendChild(p); i++;
+    if (part.type === "code") {
+      parent.appendChild(buildCodeBlock(part.lang, part.content));
+      return;
     }
+    if (part.type === "mathblock") {
+      parent.appendChild(buildMathBlock(part.content));
+      return;
+    }
+
+    // ── Text block: split into logical blocks separated by blank lines ──
+    // Each "block" is one or more lines that belong together.
+    const rawBlocks = part.content.split(/\n{2,}/);   // double-newline = block separator
+
+    rawBlocks.forEach(block => {
+      const lines = block.split("\n").map(l => l.trimEnd());
+      const firstTrimmed = lines[0]?.trim() || "";
+      if (!firstTrimmed) return;
+
+      // ── Horizontal rule ──
+      if (/^[━─=\-]{4,}$/.test(firstTrimmed)) {
+        parent.appendChild(document.createElement("hr"));
+        return;
+      }
+
+      // ── Callout NOTE ──
+      if (/^NOTE[: ]/i.test(firstTrimmed)) {
+        const co = document.createElement("div"); co.className = "callout c-warn";
+        co.innerHTML = `<span class="callout-head">⚠ Note</span>${fmtInline(block.replace(/^NOTE[: ]*/i,""))}`;
+        parent.appendChild(co); return;
+      }
+
+      // ── Callout TIP ──
+      if (/^TIP[: ]/i.test(firstTrimmed)) {
+        const co = document.createElement("div"); co.className = "callout c-tip";
+        co.innerHTML = `<span class="callout-head">💡 Tip</span>${fmtInline(block.replace(/^TIP[: ]*/i,""))}`;
+        parent.appendChild(co); return;
+      }
+
+      // ── ATX Heading (## or ###) ──
+      if (/^#{1,4}\s/.test(firstTrimmed)) {
+        const lv = firstTrimmed.match(/^(#{1,4})/)[0].length;
+        const tag = lv <= 2 ? "h2" : "h3";
+        const el = document.createElement(tag);
+        el.innerHTML = fmtInline(firstTrimmed.replace(/^#{1,4}\s+/, ""));
+        parent.appendChild(el); return;
+      }
+
+      // ── Setext-style heading (line of ===== or ----- under text) ──
+      if (lines.length >= 2 && /^[=]{3,}$/.test(lines[1]?.trim())) {
+        const el = document.createElement("h2"); el.innerHTML = fmtInline(firstTrimmed);
+        parent.appendChild(el); return;
+      }
+      if (lines.length >= 2 && /^[-]{3,}$/.test(lines[1]?.trim())) {
+        const el = document.createElement("h3"); el.innerHTML = fmtInline(firstTrimmed);
+        parent.appendChild(el); return;
+      }
+
+      // ── Bold section title pattern: **Title** alone on a line ──
+      if (/^\*\*[^*]+\*\*$/.test(firstTrimmed) && lines.length === 1) {
+        const el = document.createElement("h3");
+        el.innerHTML = fmtInline(firstTrimmed);
+        parent.appendChild(el); return;
+      }
+
+      // ── ALL-CAPS section heading (e.g. "CONCEPTUAL EXPLANATION") ──
+      if (/^[A-Z][A-Z0-9 \-&:\/]{3,}$/.test(firstTrimmed) && firstTrimmed.length < 70 && lines.length === 1) {
+        const el = document.createElement("h2"); el.textContent = toTitleCase(firstTrimmed);
+        parent.appendChild(el); return;
+      }
+
+      // ── Phase/Step heading ──
+      if (/^(PHASE|STEP)\s+\d+[:.]/i.test(firstTrimmed)) {
+        const el = document.createElement("h2"); el.innerHTML = fmtInline(firstTrimmed);
+        parent.appendChild(el); return;
+      }
+
+      // ── Numbered or lettered heading e.g. "1. Define the problem" ──
+      // Only treat as heading if line is short (< 80 chars) and there's no continuation
+      if (/^\d+\.\s+[A-Z]/.test(firstTrimmed) && firstTrimmed.length < 80 && lines.length === 1) {
+        const el = document.createElement("h3"); el.innerHTML = fmtInline(firstTrimmed);
+        parent.appendChild(el); return;
+      }
+
+      // ── Bullet list ──
+      if (lines.every(l => !l.trim() || /^[-*•]\s/.test(l.trim()))) {
+        const ul = document.createElement("ul");
+        lines.forEach(l => {
+          const t = l.trim();
+          if (!t) return;
+          // handle sub-items (indented)
+          if (/^\s{2,}[-*•]\s/.test(l)) {
+            const sub = ul.lastElementChild?.querySelector("ul") || (() => {
+              const s = document.createElement("ul"); ul.lastElementChild?.appendChild(s); return s;
+            })();
+            const li = document.createElement("li"); li.innerHTML = fmtInline(t.replace(/^[-*•]\s/,""));
+            sub.appendChild(li);
+          } else {
+            const li = document.createElement("li"); li.innerHTML = fmtInline(t.replace(/^[-*•]\s/,""));
+            ul.appendChild(li);
+          }
+        });
+        if (ul.children.length) parent.appendChild(ul);
+        return;
+      }
+
+      // ── Ordered list ──
+      if (lines.every(l => !l.trim() || /^\d+[.)]\s/.test(l.trim()))) {
+        // Don't treat single numbered lines as lists (already handled as headings above)
+        if (lines.filter(l=>l.trim()).length >= 2 || /^\d+[.)]\s/.test(firstTrimmed)) {
+          const ol = document.createElement("ol");
+          lines.forEach(l => {
+            const t = l.trim(); if (!t) return;
+            const li = document.createElement("li"); li.innerHTML = fmtInline(t.replace(/^\d+[.)]\s/,""));
+            ol.appendChild(li);
+          });
+          if (ol.children.length) { parent.appendChild(ol); return; }
+        }
+      }
+
+      // ── Metadata line at the very start (e.g. "Topic: X", "Duration: X") — skip ──
+      if (/^[A-Za-z][A-Za-z ]{1,24}:\s.{1,120}$/.test(firstTrimmed) && lines.length === 1) {
+        // Only skip if it looks like a metadata key: value line (not a sentence)
+        const key = firstTrimmed.split(":")[0];
+        const SKIP_KEYS = /^(topic|difficulty|duration|track|skill level|estimated read time|time commitment|learner level|assessment date|generated)$/i;
+        if (SKIP_KEYS.test(key.trim())) return;
+      }
+
+      // ── Default: paragraph ──
+      // Join all lines in the block into one paragraph (handles word wrap)
+      const combined = lines.map(l => l.trim()).filter(Boolean).join(" ");
+      if (!combined) return;
+      const p = document.createElement("p");
+      p.innerHTML = fmtInline(combined);
+      parent.appendChild(p);
+    });
   });
 }
 
-function fmt(s) {
-  return esc(s)
-    .replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>")
-    .replace(/\*(.+?)\*/g,"<em>$1</em>")
-    .replace(/`(.+?)`/g,"<code>$1</code>")
-    .replace(/\[(.+?)\]\((.+?)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>');
+// ══════════════════════════════════════════════════════════════════════
+//  INLINE FORMATTER  — bold, italic, inline code, links, inline math
+// ══════════════════════════════════════════════════════════════════════
+function fmtInline(s) {
+  // Escape HTML first, then restore our markup
+  let out = esc(s);
+  // Bold
+  out = out.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+  // Italic
+  out = out.replace(/(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)/g, "<em>$1</em>");
+  // Inline code
+  out = out.replace(/`([^`]+)`/g, "<code>$1</code>");
+  // Links
+  out = out.replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  // Inline math \( ... \) — render via KaTeX if available
+  out = out.replace(/\\\((.+?)\\\)/g, (_, math) => {
+    try {
+      return window.katex
+        ? `<span class="math-inline">${window.katex.renderToString(math, { throwOnError: false })}</span>`
+        : `<em>${math}</em>`;
+    } catch { return `<em>${math}</em>`; }
+  });
+  return out;
 }
+
+function buildMathBlock(latex) {
+  const div = document.createElement("div"); div.className = "math-block";
+  try {
+    if (window.katex) {
+      div.innerHTML = window.katex.renderToString(latex, { throwOnError: false, displayMode: true });
+    } else {
+      // KaTeX not loaded yet — store latex and render later
+      div.dataset.latex = latex;
+      div.textContent = latex;
+      div.style.fontStyle = "italic";
+    }
+  } catch { div.textContent = latex; }
+  return div;
+}
+
+function renderDeferredMath(container) {
+  if (!window.katex) return;
+  container.querySelectorAll(".math-block[data-latex]").forEach(div => {
+    try {
+      div.innerHTML = window.katex.renderToString(div.dataset.latex, { throwOnError: false, displayMode: true });
+      delete div.dataset.latex;
+    } catch {}
+  });
+  // Also run auto-render for any remaining \( \) or \[ \] in prose
+  if (window.renderMathInElement) {
+    renderMathInElement(container, {
+      delimiters: [
+        { left: "\\[", right: "\\]", display: true },
+        { left: "\\(", right: "\\)", display: false },
+      ],
+      throwOnError: false,
+    });
+  }
+}
+
+function fmt(s) { return fmtInline(s); }  // backwards compat
 function toTitleCase(s) { return s.toLowerCase().replace(/\b\w/g, c => c.toUpperCase()); }
 
 // ══════════════════════════════════════════════════════════════════════
