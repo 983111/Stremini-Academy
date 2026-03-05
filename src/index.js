@@ -752,4 +752,5 @@ async function callAI(apiKey, systemPrompt, history, userQuery) {
     res = await fetch(url, { method: "POST", headers, body: buildBody("MBZUAI-IFM/K2-Think-v2") });
   }
   return res;
+
 }
