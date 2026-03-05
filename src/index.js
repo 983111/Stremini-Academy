@@ -51,6 +51,12 @@ const TRUSTED_ORIGINS = new Set([
   "https://stremini.academy",
   "https://app.stremini.academy",
   "https://stremini-academy.pages.dev",    // Cloudflare Pages preview
+  "http://localhost",
+  "http://localhost:3000",
+  "http://localhost:5500",
+  "http://127.0.0.1",
+  "http://127.0.0.1:5500",
+  "null",   // file:// origin — browsers send "null" for local file requests
 ]);
 
 function getCorsHeaders(requestOrigin) {
