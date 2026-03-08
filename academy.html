@@ -11,33 +11,15 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="window._katexReady=true"></script>
 <style>
-/* ── RESET & ROOT ──────────────────────────────────── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#f7f5f2;
-  --surface:#fff;
-  --surface2:#f2f0ec;
-  --surface3:#ece9e4;
-  --border:#e4e0d8;
-  --border2:#ece9e2;
-  --txt:#1a1814;
-  --txt2:#6b6459;
-  --muted:#9e9589;
-  --amber:#d97706;
-  --amber2:#b45309;
-  --amber-bg:#fffbf5;
-  --amber-border:#fde68a;
-  --violet:#7c3aed;
-  --violet-bg:#f5f3ff;
-  --green:#059669;
-  --green-bg:#d1fae5;
-  --green-border:#a7f3d0;
-  --red:#991b1b;
-  --red-bg:#fee2e2;
-  --red-border:#fecaca;
-  --blue:#1d4ed8;
-  --blue-bg:#eff6ff;
-  --blue-border:#bfdbfe;
+  --bg:#f7f5f2;--surface:#fff;--surface2:#f2f0ec;--surface3:#ece9e4;
+  --border:#e4e0d8;--border2:#ece9e2;--txt:#1a1814;--txt2:#6b6459;--muted:#9e9589;
+  --amber:#d97706;--amber2:#b45309;--amber-bg:#fffbf5;--amber-border:#fde68a;
+  --violet:#7c3aed;--violet-bg:#f5f3ff;
+  --green:#059669;--green-bg:#d1fae5;--green-border:#a7f3d0;
+  --red:#991b1b;--red-bg:#fee2e2;--red-border:#fecaca;
+  --blue:#1d4ed8;--blue-bg:#eff6ff;--blue-border:#bfdbfe;
   --shadow:0 1px 3px rgba(0,0,0,.07),0 1px 2px rgba(0,0,0,.04);
   --shadow-md:0 4px 14px rgba(0,0,0,.09),0 2px 6px rgba(0,0,0,.04);
   --shadow-lg:0 10px 30px rgba(0,0,0,.12),0 4px 12px rgba(0,0,0,.06);
@@ -48,155 +30,164 @@ button{font-family:'DM Sans',sans-serif;cursor:pointer}
 a{color:var(--amber);text-decoration:none}
 a:hover{text-decoration:underline}
 
-/* ── SHELL ─────────────────────────────────────────── */
-.shell{display:grid;grid-template-columns:280px 1fr;height:100vh;overflow:hidden}
+/* ── SHELL ── */
+.shell{display:grid;grid-template-columns:300px 1fr;height:100vh;overflow:hidden}
 
-/* ── SIDEBAR ────────────────────────────────────────── */
+/* ── SIDEBAR ── */
 .sidebar{background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
-
-.sb-head{padding:20px 18px 16px;border-bottom:1px solid var(--border2);flex-shrink:0}
-.logo{display:flex;align-items:center;gap:10px;margin-bottom:18px;cursor:pointer}
-.logo-icon{width:34px;height:34px;background:var(--txt);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:var(--shadow)}
-.logo-icon svg{width:17px;height:17px}
-.logo-text .logo-name{font-family:'Lora',serif;font-size:16px;font-weight:600;letter-spacing:-.3px;line-height:1.2}
+.sb-head{padding:16px 16px 12px;border-bottom:1px solid var(--border2);flex-shrink:0}
+.logo{display:flex;align-items:center;gap:10px;margin-bottom:12px;cursor:pointer}
+.logo-icon{width:32px;height:32px;background:var(--txt);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:var(--shadow)}
+.logo-icon svg{width:16px;height:16px}
+.logo-text .logo-name{font-family:'Lora',serif;font-size:15px;font-weight:600;letter-spacing:-.3px;line-height:1.2}
 .logo-text .logo-sub{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-top:1px}
+.xp-row{display:flex;gap:5px;flex-wrap:wrap}
+.xp-chip{display:flex;align-items:center;gap:4px;padding:3px 8px;background:var(--surface2);border:1px solid var(--border);border-radius:20px;font-size:11px;font-weight:500;color:var(--txt2)}
+.xp-chip .val{color:var(--amber2);font-weight:600}
 
-.sb-label{font-size:10.5px;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+/* Sidebar search */
+.sb-search{padding:8px 12px;border-bottom:1px solid var(--border2);flex-shrink:0}
+.sb-search-input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r2);padding:6px 10px 6px 30px;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--txt);outline:none;transition:border-color .15s;background-image:url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239e9589' stroke-width='2.5' stroke-linecap='round' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:9px center}
+.sb-search-input:focus{border-color:var(--amber);background-color:var(--surface)}
+.sb-search-input::placeholder{color:var(--muted)}
 
 .sb-scroll{flex:1;overflow-y:auto;padding:0}
 .sb-scroll::-webkit-scrollbar{width:3px}
 .sb-scroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
 
-.sb-sec{padding:14px 18px;border-bottom:1px solid var(--border2)}
-.sb-sec:last-child{border-bottom:none}
+/* Tier sections */
+.tier-section{border-bottom:1px solid var(--border2)}
+.tier-header{display:flex;align-items:center;gap:8px;padding:10px 14px 8px;cursor:pointer;user-select:none}
+.tier-header:hover{background:var(--surface2)}
+.tier-label{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);flex:1}
+.tier-count{font-size:10px;color:var(--muted);background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:1px 6px}
+.tier-chevron{color:var(--muted);transition:transform .2s;flex-shrink:0}
+.tier-section.open .tier-chevron{transform:rotate(90deg)}
+.tier-tracks{display:none;padding:0 8px 8px}
+.tier-section.open .tier-tracks{display:block}
 
-/* Track tabs in sidebar */
-.track-list{display:flex;flex-direction:column;gap:2px}
+/* Track tabs */
 .track-item{
-  display:flex;align-items:center;gap:9px;padding:8px 10px;
-  border-radius:var(--r2);cursor:pointer;font-size:13px;color:var(--txt2);
-  border:1px solid transparent;transition:all .14s;
+  display:flex;align-items:center;gap:8px;padding:7px 8px;
+  border-radius:var(--r2);cursor:pointer;font-size:12.5px;color:var(--txt2);
+  border:1px solid transparent;transition:all .13s;margin-bottom:2px;
 }
 .track-item:hover{background:var(--surface2);color:var(--txt)}
 .track-item.active{background:var(--amber-bg);border-color:var(--amber-border);color:var(--amber2);font-weight:500}
-.track-icon{font-size:16px;flex-shrink:0}
+.track-icon{font-size:14px;flex-shrink:0;width:20px;text-align:center}
 .track-info{flex:1;min-width:0}
-.track-name{font-size:12.5px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.track-meta{font-size:11px;color:var(--muted);margin-top:1px}
-.track-prog-bar{height:2px;background:var(--surface3);border-radius:1px;margin-top:4px;overflow:hidden}
-.track-prog-fill{height:100%;background:var(--amber);border-radius:1px;transition:width .4s ease}
+.track-name{font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.3}
+.track-meta{font-size:10.5px;color:var(--muted);margin-top:1px}
+.track-prog-bar{height:2px;background:var(--surface3);border-radius:1px;margin-top:3px;overflow:hidden}
+.track-prog-fill{height:100%;border-radius:1px;transition:width .4s ease}
+.track-color-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
 
-/* Topic list */
-.topic-list{display:flex;flex-direction:column;gap:1px;margin-top:2px}
+/* Topics sidebar */
+.topic-list{display:flex;flex-direction:column;gap:1px}
 .topic-row{
-  display:flex;align-items:center;gap:8px;padding:7px 10px;
-  border-radius:var(--r2);cursor:pointer;font-size:12.5px;color:var(--txt2);
+  display:flex;align-items:center;gap:7px;padding:6px 10px;
+  border-radius:var(--r2);cursor:pointer;font-size:12px;color:var(--txt2);
   transition:all .12s;border:1px solid transparent;
 }
 .topic-row:hover{background:var(--surface2);color:var(--txt)}
 .topic-row.active{background:var(--amber-bg);border-color:var(--amber-border);color:var(--amber2);font-weight:500}
-.topic-row.done .topic-status-dot{background:var(--green)}
 .topic-row.done{color:var(--txt)}
-.topic-status-dot{width:6px;height:6px;border-radius:50%;background:var(--border);flex-shrink:0;transition:background .2s}
+.topic-status-dot{width:5px;height:5px;border-radius:50%;background:var(--border);flex-shrink:0;transition:background .2s}
 .topic-row.active .topic-status-dot{background:var(--amber)}
-.topic-label{flex:1;line-height:1.35}
-.topic-type-tag{font-size:10px;font-weight:600;padding:1px 6px;border-radius:3px;flex-shrink:0}
+.topic-row.done .topic-status-dot{background:var(--green)}
+.topic-label{flex:1;line-height:1.3}
+.topic-type-tag{font-size:9.5px;font-weight:700;padding:1px 5px;border-radius:3px;flex-shrink:0}
 .tt-quiz{background:#fef3c7;color:#92400e}
 .tt-project{background:var(--violet-bg);color:var(--violet)}
 .topic-done-check{color:var(--green);flex-shrink:0;opacity:0;transition:opacity .2s}
 .topic-row.done .topic-done-check{opacity:1}
 
 /* Sidebar footer */
-.sb-footer{padding:12px 18px;border-top:1px solid var(--border);flex-shrink:0}
-.sf-track-name{font-size:11.5px;font-weight:600;color:var(--txt2);margin-bottom:5px}
-.sf-pct-row{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:4px}
+.sb-footer{padding:10px 14px;border-top:1px solid var(--border);flex-shrink:0}
+.sf-track-name{font-size:11px;font-weight:600;color:var(--txt2);margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sf-pct-row{display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted);margin-bottom:3px}
 .sf-bar{height:3px;background:var(--surface3);border-radius:2px;overflow:hidden}
 .sf-fill{height:100%;background:var(--amber);border-radius:2px;transition:width .5s ease}
 
-/* XP chips */
-.xp-row{display:flex;gap:6px;margin-top:8px}
-.xp-chip{display:flex;align-items:center;gap:4px;padding:3px 9px;background:var(--surface2);border:1px solid var(--border);border-radius:20px;font-size:11.5px;font-weight:500;color:var(--txt2)}
-.xp-chip .val{color:var(--amber2);font-weight:600}
-
-/* ── MAIN ───────────────────────────────────────────── */
+/* ── MAIN ── */
 .main{display:flex;flex-direction:column;overflow:hidden;background:var(--bg)}
-
-/* Topbar */
-.topbar{padding:12px 26px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-shrink:0;box-shadow:var(--shadow)}
-.tb-left{display:flex;align-items:center;gap:8px;flex:1}
-.breadcrumb{display:flex;align-items:center;gap:5px;font-size:12.5px;color:var(--muted)}
-.bc-link{cursor:pointer;color:var(--txt2);transition:color .12s}
+.topbar{padding:10px 24px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-shrink:0;box-shadow:var(--shadow)}
+.tb-left{display:flex;align-items:center;gap:8px;flex:1;min-width:0}
+.breadcrumb{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden}
+.bc-link{cursor:pointer;color:var(--txt2);transition:color .12s;white-space:nowrap}
 .bc-link:hover{color:var(--amber)}
 .bc-sep{color:var(--border)}
-.bc-current{color:var(--txt);font-weight:500}
-.tb-right{display:flex;align-items:center;gap:7px}
-
-.pill{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border:1px solid var(--border);border-radius:20px;font-size:11.5px;font-weight:500;background:var(--surface2)}
+.bc-current{color:var(--txt);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:300px}
+.tb-right{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.pill{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border:1px solid var(--border);border-radius:20px;font-size:11px;font-weight:500;background:var(--surface2)}
 .pill-amber{color:var(--amber2);border-color:var(--amber-border);background:var(--amber-bg)}
-.pill-green{color:var(--green);border-color:var(--green-border);background:var(--green-bg)}
 .pill-dot{width:5px;height:5px;border-radius:50%;background:currentColor}
-
-.ghost-btn{display:inline-flex;align-items:center;gap:5px;padding:6px 13px;background:transparent;border:1.5px solid var(--border);border-radius:var(--r2);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;color:var(--txt2);cursor:pointer;transition:all .14s}
+.ghost-btn{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;background:transparent;border:1.5px solid var(--border);border-radius:var(--r2);font-family:'DM Sans',sans-serif;font-size:11.5px;font-weight:500;color:var(--txt2);cursor:pointer;transition:all .14s}
 .ghost-btn:hover{background:var(--surface);border-color:var(--muted);color:var(--txt)}
-.btn-amber{background:var(--amber)!important;color:#fff!important;border-color:var(--amber)!important;font-weight:600!important}
-.btn-amber:hover{background:var(--amber2)!important;border-color:var(--amber2)!important}
 
-/* ── PAGE SCROLL ──────────────────────────────────── */
 .page-wrap{flex:1;overflow-y:auto}
 .page-wrap::-webkit-scrollbar{width:5px}
 .page-wrap::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
-.page{max-width:820px;margin:0 auto;padding:32px 28px 80px}
+.page{max-width:840px;margin:0 auto;padding:28px 26px 80px}
 
-/* ── HOME ─────────────────────────────────────────── */
-.home-hero{text-align:center;padding:40px 0 32px}
-.home-hero h1{font-family:'Lora',serif;font-size:32px;font-weight:500;letter-spacing:-.5px;margin-bottom:10px;color:var(--txt);line-height:1.25}
+/* ── HOME ── */
+.home-hero{text-align:center;padding:36px 0 28px}
+.home-hero h1{font-family:'Lora',serif;font-size:30px;font-weight:500;letter-spacing:-.5px;margin-bottom:10px;line-height:1.25}
 .home-hero h1 em{font-style:italic;color:var(--amber2)}
-.home-hero p{font-size:14.5px;color:var(--txt2);max-width:440px;margin:0 auto 28px;line-height:1.7}
+.home-hero p{font-size:14px;color:var(--txt2);max-width:460px;margin:0 auto 24px;line-height:1.7}
 
-.home-stats{display:flex;justify-content:center;gap:10px;margin-bottom:32px;flex-wrap:wrap}
-.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 22px;text-align:center;min-width:110px;box-shadow:var(--shadow)}
-.stat-card .sn{font-family:'Lora',serif;font-size:26px;font-weight:500;color:var(--amber2);line-height:1}
-.stat-card .sl{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-top:3px}
+.home-stats{display:flex;justify-content:center;gap:8px;margin-bottom:32px;flex-wrap:wrap}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:12px 18px;text-align:center;min-width:100px;box-shadow:var(--shadow)}
+.stat-card .sn{font-family:'Lora',serif;font-size:24px;font-weight:500;color:var(--amber2);line-height:1}
+.stat-card .sl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-top:3px}
 
-.track-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;max-width:620px;margin:0 auto}
+/* Tier sections on home */
+.home-tier{margin-bottom:32px}
+.home-tier-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.home-tier-label{font-family:'Lora',serif;font-size:16px;font-weight:500;color:var(--txt)}
+.home-tier-badge{padding:2px 8px;border-radius:20px;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.4px}
+.tier-0-badge{background:#e0f2fe;color:#0369a1}
+.tier-1-badge{background:#dcfce7;color:#15803d}
+.tier-2-badge{background:#fef3c7;color:#b45309}
+.tier-3-badge{background:#fce7f3;color:#be185d}
+.tier-4-badge{background:#ede9fe;color:#6d28d9}
+.tier-5-badge{background:#fee2e2;color:#dc2626}
+.home-tier-sub{font-size:12px;color:var(--muted);margin-left:auto}
+
+.track-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.track-grid-2{grid-template-columns:repeat(2,1fr)}
 .track-card{
   background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);
-  padding:20px;cursor:pointer;transition:all .18s;box-shadow:var(--shadow);
+  padding:16px;cursor:pointer;transition:all .18s;box-shadow:var(--shadow);
 }
-.track-card:hover{border-color:var(--amber);background:var(--amber-bg);transform:translateY(-2px);box-shadow:var(--shadow-md)}
-.tc-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.tc-icon{font-size:22px}
-.tc-title{font-family:'Lora',serif;font-size:15px;font-weight:500;color:var(--txt)}
-.tc-desc{font-size:12.5px;color:var(--muted);line-height:1.5;margin-bottom:12px}
-.tc-foot{display:flex;align-items:center;justify-content:space-between;font-size:12px}
-.tc-done-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:20px;color:var(--amber2);font-weight:600}
-.tc-action{color:var(--muted)}
-.track-card .track-prog-bar{margin-top:10px}
+.track-card:hover{border-color:var(--amber);background:var(--amber-bg);transform:translateY(-1px);box-shadow:var(--shadow-md)}
+.tc-head{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.tc-icon{font-size:18px}
+.tc-title{font-family:'Lora',serif;font-size:13.5px;font-weight:500;color:var(--txt);line-height:1.3}
+.tc-desc{font-size:11.5px;color:var(--muted);line-height:1.5;margin-bottom:10px}
+.tc-foot{display:flex;align-items:center;justify-content:space-between;font-size:11px}
+.tc-done-badge{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:20px;font-weight:600}
+.tc-color-bar{height:2px;border-radius:1px;margin-top:8px;overflow:hidden;background:var(--surface3)}
+.tc-color-fill{height:100%;border-radius:1px;transition:width .4s}
 
-/* ── LESSON VIEW ──────────────────────────────────── */
-.lview{animation:fadeUp .24s ease}
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-
-.l-badge{
-  display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:20px;
-  font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;
-  margin-bottom:10px;
-}
+/* ── LESSON ── */
+.lview{animation:fadeUp .22s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+.l-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
 .lb-lesson{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border)}
 .lb-quiz{background:#fef3c7;color:#92400e;border:1px solid var(--amber-border)}
 .lb-project{background:var(--violet-bg);color:var(--violet);border:1px solid #ddd6fe}
-
-.l-title{font-family:'Lora',serif;font-size:26px;font-weight:500;color:var(--txt);letter-spacing:-.4px;line-height:1.25;margin-bottom:8px}
-.l-meta{display:flex;align-items:center;gap:14px;font-size:12px;color:var(--muted);margin-bottom:16px;flex-wrap:wrap}
+.l-title{font-family:'Lora',serif;font-size:25px;font-weight:500;color:var(--txt);letter-spacing:-.4px;line-height:1.25;margin-bottom:8px}
+.l-meta{display:flex;align-items:center;gap:12px;font-size:11.5px;color:var(--muted);margin-bottom:14px;flex-wrap:wrap}
 .l-meta-item{display:flex;align-items:center;gap:4px}
 
-.prog-strip{display:flex;align-items:center;gap:10px;padding:9px 13px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);margin-bottom:24px;box-shadow:var(--shadow)}
-.ps-label{font-size:11px;color:var(--muted);flex-shrink:0}
+.prog-strip{display:flex;align-items:center;gap:9px;padding:8px 12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);margin-bottom:22px;box-shadow:var(--shadow)}
+.ps-label{font-size:10.5px;color:var(--muted);flex-shrink:0}
 .ps-bar{flex:1;height:3px;background:var(--surface3);border-radius:2px;overflow:hidden}
 .ps-fill{height:100%;background:var(--amber);border-radius:2px;transition:width .5s ease}
 .ps-pct{font-size:11px;font-weight:700;color:var(--amber2);flex-shrink:0}
 
-/* ── PROSE ────────────────────────────────────────── */
+/* ── PROSE ── */
 .prose{font-size:14.5px;line-height:1.82;color:var(--txt2)}
 .prose h2{font-family:'Lora',serif;font-size:18px;font-weight:500;color:var(--txt);margin:28px 0 10px;border-bottom:1px solid var(--border2);padding-bottom:8px;letter-spacing:-.2px}
 .prose h2:first-child{margin-top:0}
@@ -210,16 +201,9 @@ a:hover{text-decoration:underline}
 .prose code{font-family:'DM Mono',monospace;font-size:12px;background:var(--surface2);border:1px solid var(--border);border-radius:3px;padding:1px 5px;color:#1e40af}
 .prose hr{border:none;border-top:1px solid var(--border);margin:20px 0}
 .prose a{color:var(--amber);text-decoration:underline}
-/* Math */
-.prose .math-block{
-  overflow-x:auto;padding:14px 18px;background:var(--surface2);
-  border:1px solid var(--border);border-radius:var(--r2);margin:14px 0;
-  text-align:center;font-size:15px;
-}
+.prose .math-block{overflow-x:auto;padding:12px 16px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r2);margin:14px 0;text-align:center;font-size:15px}
 .prose .math-inline .katex{font-size:1em}
 .katex-display{margin:0!important}
-
-/* Callouts */
 .callout{border-radius:var(--r2);padding:12px 15px;margin:14px 0;border-left:3px solid;font-size:13.5px;line-height:1.65}
 .callout-head{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;display:block}
 .c-note{background:var(--blue-bg);border-color:var(--blue);color:#1e40af}
@@ -229,320 +213,246 @@ a:hover{text-decoration:underline}
 .c-warn{background:#fef3c7;border-color:var(--amber);color:#92400e}
 .c-warn .callout-head{color:var(--amber2)}
 
-/* ── CODE BLOCK ───────────────────────────────────── */
-.cblock{margin:16px 0;border-radius:var(--r);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow)}
-.cblock-top{display:flex;align-items:center;justify-content:space-between;padding:8px 14px;background:var(--surface2);border-bottom:1px solid var(--border)}
-.cblock-lang{display:flex;align-items:center;gap:8px}
-.mac{display:flex;gap:5px}
-.mac span{width:9px;height:9px;border-radius:50%}
+/* ── CODE BLOCK ── */
+.cblock{margin:14px 0;border-radius:var(--r);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow)}
+.cblock-top{display:flex;align-items:center;justify-content:space-between;padding:7px 12px;background:var(--surface2);border-bottom:1px solid var(--border)}
+.cblock-lang{display:flex;align-items:center;gap:7px}
+.mac{display:flex;gap:4px}
+.mac span{width:8px;height:8px;border-radius:50%}
 .mac span:nth-child(1){background:#ff5f57}
 .mac span:nth-child(2){background:#febc2e}
 .mac span:nth-child(3){background:#28c840}
-.lang-lbl{font-family:'DM Mono',monospace;font-size:10.5px;color:var(--muted);letter-spacing:.3px}
-.copy-btn{display:flex;align-items:center;gap:4px;background:none;border:1px solid var(--border);color:var(--muted);font-size:10.5px;font-family:'DM Sans',sans-serif;padding:3px 8px;border-radius:4px;cursor:pointer;transition:all .13s}
+.lang-lbl{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.3px}
+.copy-btn{display:flex;align-items:center;gap:4px;background:none;border:1px solid var(--border);color:var(--muted);font-size:10px;font-family:'DM Sans',sans-serif;padding:2px 7px;border-radius:3px;cursor:pointer;transition:all .13s}
 .copy-btn:hover{background:var(--surface);color:var(--txt2);border-color:var(--muted)}
 .copy-btn.copied{border-color:var(--green-border);color:var(--green)}
 .cblock pre{margin:0}
-.cblock pre code.hljs{font-family:'DM Mono',monospace;font-size:12.5px;line-height:1.7;padding:16px 18px;background:var(--surface);display:block;overflow-x:auto}
+.cblock pre code.hljs{font-family:'DM Mono',monospace;font-size:12px;line-height:1.7;padding:14px 16px;background:var(--surface);display:block;overflow-x:auto}
 
-/* ── QUIZ ─────────────────────────────────────────── */
-.quiz-section{margin-top:28px;border-top:1px solid var(--border);padding-top:24px}
-.quiz-hd{display:flex;align-items:center;gap:8px;margin-bottom:18px}
-.quiz-hd-title{font-family:'Lora',serif;font-size:16px;font-weight:500;color:var(--txt)}
-.quiz-hd-count{padding:2px 9px;background:#fef3c7;border:1px solid var(--amber-border);border-radius:20px;font-size:11px;font-weight:600;color:#92400e}
-.quiz-hd-xp{font-size:11.5px;color:var(--muted);margin-left:auto}
-
-.q-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:18px 20px;margin-bottom:10px;transition:border-color .2s,background .2s;box-shadow:var(--shadow)}
+/* ── QUIZ ── */
+.quiz-section{margin-top:28px;border-top:1px solid var(--border);padding-top:22px}
+.quiz-hd{display:flex;align-items:center;gap:8px;margin-bottom:16px}
+.quiz-hd-title{font-family:'Lora',serif;font-size:15px;font-weight:500;color:var(--txt)}
+.quiz-hd-count{padding:2px 8px;background:#fef3c7;border:1px solid var(--amber-border);border-radius:20px;font-size:10.5px;font-weight:600;color:#92400e}
+.quiz-hd-xp{font-size:11px;color:var(--muted);margin-left:auto}
+.q-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:16px 18px;margin-bottom:10px;transition:border-color .2s,background .2s;box-shadow:var(--shadow)}
 .q-card.q-ok{border-color:var(--green-border);background:var(--green-bg)}
 .q-card.q-err{border-color:var(--red-border)}
 .q-num{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px}
-.q-text{font-size:14.5px;font-weight:500;color:var(--txt);line-height:1.5;margin-bottom:13px;font-family:'Lora',serif}
-.q-opts{display:flex;flex-direction:column;gap:6px}
-.q-opt{
-  display:flex;align-items:center;gap:9px;padding:9px 13px;
-  background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--r2);
-  cursor:pointer;font-size:13.5px;color:var(--txt2);transition:all .13s;
-}
+.q-text{font-size:14px;font-weight:500;color:var(--txt);line-height:1.5;margin-bottom:12px;font-family:'Lora',serif}
+.q-opts{display:flex;flex-direction:column;gap:5px}
+.q-opt{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--r2);cursor:pointer;font-size:13px;color:var(--txt2);transition:all .13s}
 .q-opt:hover:not(.locked){border-color:var(--amber-border);background:var(--amber-bg);color:var(--txt)}
 .q-opt.sel{border-color:var(--amber);background:var(--amber-bg);color:var(--amber2)}
 .q-opt.opt-right{border-color:var(--green-border);background:var(--green-bg);color:var(--green);font-weight:500}
 .q-opt.opt-wrong{border-color:var(--red-border);background:var(--red-bg);color:var(--red)}
 .q-opt.locked{cursor:default}
-.opt-key{
-  width:23px;height:23px;border-radius:5px;border:1.5px solid var(--border);
-  background:var(--surface);display:flex;align-items:center;justify-content:center;
-  font-size:10.5px;font-weight:700;color:var(--muted);font-family:'DM Mono',monospace;flex-shrink:0;
-}
+.opt-key{width:22px;height:22px;border-radius:4px;border:1.5px solid var(--border);background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--muted);font-family:'DM Mono',monospace;flex-shrink:0}
 .q-opt.sel .opt-key{border-color:var(--amber);background:var(--amber);color:#fff}
 .q-opt.opt-right .opt-key{border-color:var(--green);background:var(--green);color:#fff}
 .q-opt.opt-wrong .opt-key{border-color:var(--red-border);color:var(--red)}
-.q-feedback{margin-top:9px;padding:10px 13px;border-radius:var(--r2);font-size:13px;line-height:1.55;display:none}
+.q-feedback{margin-top:8px;padding:9px 12px;border-radius:var(--r2);font-size:12.5px;line-height:1.55;display:none}
 .q-feedback.show{display:block}
 .fb-ok{background:var(--green-bg);border:1px solid var(--green-border);color:#065f46}
 .fb-err{background:var(--red-bg);border:1px solid var(--red-border);color:var(--red)}
-.q-check{margin-top:9px;padding:7px 16px;background:var(--amber);color:#fff;border:none;border-radius:var(--r2);font-size:12.5px;font-weight:600;display:none;align-items:center;gap:5px;cursor:pointer;transition:all .14s}
+.q-check{margin-top:8px;padding:6px 14px;background:var(--amber);color:#fff;border:none;border-radius:var(--r2);font-size:12px;font-weight:600;display:none;align-items:center;gap:5px;cursor:pointer;transition:all .14s}
 .q-check.show{display:inline-flex}
 .q-check:hover{background:var(--amber2)}
-
-.q-result{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:28px;text-align:center;margin-top:14px;display:none;box-shadow:var(--shadow)}
+.q-result{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:24px;text-align:center;margin-top:12px;display:none;box-shadow:var(--shadow)}
 .q-result.show{display:block;animation:fadeUp .3s ease}
-.qr-score{font-family:'Lora',serif;font-size:50px;font-weight:500;line-height:1;margin-bottom:6px}
-.qr-score.s-great{color:var(--green)}
-.qr-score.s-ok{color:var(--amber2)}
-.qr-score.s-bad{color:var(--red)}
-.qr-msg{font-size:13.5px;color:var(--txt2);margin-bottom:20px}
+.qr-score{font-family:'Lora',serif;font-size:46px;font-weight:500;line-height:1;margin-bottom:6px}
+.qr-score.s-great{color:var(--green)}.qr-score.s-ok{color:var(--amber2)}.qr-score.s-bad{color:var(--red)}
+.qr-msg{font-size:13px;color:var(--txt2);margin-bottom:18px}
 .qr-acts{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
-.qr-btn{padding:8px 18px;border-radius:var(--r2);font-size:13px;font-weight:600;cursor:pointer;border:none;display:flex;align-items:center;gap:6px;transition:all .14s}
-.qr-primary{background:var(--amber);color:#fff}
-.qr-primary:hover{background:var(--amber2)}
-.qr-ghost{background:var(--surface2);color:var(--txt2);border:1.5px solid var(--border)}
-.qr-ghost:hover{border-color:var(--muted);color:var(--txt)}
+.qr-btn{padding:7px 16px;border-radius:var(--r2);font-size:12.5px;font-weight:600;cursor:pointer;border:none;display:flex;align-items:center;gap:5px;transition:all .14s}
+.qr-primary{background:var(--amber);color:#fff}.qr-primary:hover{background:var(--amber2)}
+.qr-ghost{background:var(--surface2);color:var(--txt2);border:1.5px solid var(--border)}.qr-ghost:hover{border-color:var(--muted)}
 
-/* ── LESSON FOOTER NAV ──────────────────────────────── */
-.l-footer{display:flex;justify-content:space-between;align-items:center;margin-top:36px;padding-top:20px;border-top:1px solid var(--border)}
-.lf-btn{display:flex;align-items:center;gap:6px;padding:9px 15px;border-radius:var(--r2);font-size:12.5px;font-weight:500;border:none;cursor:pointer;transition:all .14s}
-.lf-prev{background:var(--surface2);color:var(--txt2);border:1.5px solid var(--border)}
-.lf-prev:hover{border-color:var(--muted);color:var(--txt)}
-.lf-next{background:var(--amber);color:#fff;font-weight:600}
-.lf-next:hover{background:var(--amber2)}
-.lf-done{background:var(--green-bg);color:var(--green);border:1.5px solid var(--green-border);font-weight:600}
-.lf-done:hover{background:#bbf7d0}
+/* ── LESSON FOOTER ── */
+.l-footer{display:flex;justify-content:space-between;align-items:center;margin-top:36px;padding-top:18px;border-top:1px solid var(--border)}
+.lf-btn{display:flex;align-items:center;gap:5px;padding:8px 13px;border-radius:var(--r2);font-size:12px;font-weight:500;border:none;cursor:pointer;transition:all .14s;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lf-prev{background:var(--surface2);color:var(--txt2);border:1.5px solid var(--border)}.lf-prev:hover{border-color:var(--muted)}
+.lf-next{background:var(--amber);color:#fff;font-weight:600}.lf-next:hover{background:var(--amber2)}
+.lf-done{background:var(--green-bg);color:var(--green);border:1.5px solid var(--green-border);font-weight:600}.lf-done:hover{background:#bbf7d0}
 
-/* ── IDEA WORKSHOP ─────────────────────────────────── */
-.idea-section{
-  margin-top:28px;border-top:1px solid var(--border);padding-top:24px;
-}
-.idea-hd{display:flex;align-items:center;gap:8px;margin-bottom:16px}
-.idea-hd-title{font-family:'Lora',serif;font-size:16px;font-weight:500;color:var(--txt)}
-.idea-hd-badge{padding:2px 9px;background:var(--violet-bg);border:1px solid #ddd6fe;border-radius:20px;font-size:11px;font-weight:600;color:var(--violet)}
-.idea-desc{font-size:13.5px;color:var(--txt2);margin-bottom:14px;line-height:1.65}
-
-.idea-input-wrap{
-  background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);
-  overflow:hidden;transition:border-color .15s,box-shadow .15s;box-shadow:var(--shadow);
-}
+/* ── IDEA WORKSHOP ── */
+.idea-section{margin-top:28px;border-top:1px solid var(--border);padding-top:22px}
+.idea-hd{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.idea-hd-title{font-family:'Lora',serif;font-size:15px;font-weight:500;color:var(--txt)}
+.idea-hd-badge{padding:2px 8px;background:var(--violet-bg);border:1px solid #ddd6fe;border-radius:20px;font-size:10.5px;font-weight:600;color:var(--violet)}
+.idea-desc{font-size:13px;color:var(--txt2);margin-bottom:12px;line-height:1.65}
+.idea-input-wrap{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);overflow:hidden;transition:border-color .15s,box-shadow .15s;box-shadow:var(--shadow)}
 .idea-input-wrap:focus-within{border-color:var(--violet);box-shadow:0 0 0 3px rgba(124,58,237,.08),var(--shadow)}
-.idea-ta{
-  width:100%;border:none;background:transparent;padding:14px 16px;font-family:'DM Sans',sans-serif;
-  font-size:13.5px;color:var(--txt);min-height:88px;max-height:180px;resize:none;outline:none;line-height:1.65;
-}
+.idea-ta{width:100%;border:none;background:transparent;padding:12px 14px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--txt);min-height:80px;max-height:160px;resize:none;outline:none;line-height:1.65}
 .idea-ta::placeholder{color:var(--muted)}
-.idea-bar{display:flex;align-items:center;justify-content:space-between;padding:9px 13px;background:var(--surface2);border-top:1px solid var(--border)}
+.idea-bar{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:var(--surface2);border-top:1px solid var(--border)}
 .idea-hint{font-size:11px;color:var(--muted)}
-.idea-send{display:flex;align-items:center;gap:5px;padding:7px 16px;background:var(--violet);color:#fff;border:none;border-radius:var(--r2);font-size:12.5px;font-weight:600;cursor:pointer;transition:all .14s;box-shadow:0 1px 3px rgba(124,58,237,.3)}
-.idea-send:hover{background:#6d28d9;transform:translateY(-1px);box-shadow:0 3px 8px rgba(124,58,237,.35)}
-.idea-send:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
-
-.idea-loading{display:flex;align-items:center;gap:10px;padding:16px;background:var(--violet-bg);border:1px solid #ddd6fe;border-radius:var(--r2);font-size:13px;color:var(--violet);margin-top:14px;font-weight:500}
-.idea-dots span{width:5px;height:5px;background:var(--violet);border-radius:50%;display:inline-block;margin:0 2px;animation:bounce .9s infinite}
+.idea-send{display:flex;align-items:center;gap:5px;padding:6px 14px;background:var(--violet);color:#fff;border:none;border-radius:var(--r2);font-size:12px;font-weight:600;cursor:pointer;transition:all .14s;box-shadow:0 1px 3px rgba(124,58,237,.3)}
+.idea-send:hover{background:#6d28d9;transform:translateY(-1px)}
+.idea-send:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.idea-loading{display:flex;align-items:center;gap:10px;padding:14px;background:var(--violet-bg);border:1px solid #ddd6fe;border-radius:var(--r2);font-size:12.5px;color:var(--violet);margin-top:12px;font-weight:500}
+.idea-dots span{width:4px;height:4px;background:var(--violet);border-radius:50%;display:inline-block;margin:0 2px;animation:bounce .9s infinite}
 .idea-dots span:nth-child(2){animation-delay:.15s}
 .idea-dots span:nth-child(3){animation-delay:.3s}
 @keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-4px)}}
+.idea-output{margin-top:14px;background:var(--surface);border:1.5px solid #ddd6fe;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-md);animation:fadeUp .25s ease}
+.idea-output-head{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:linear-gradient(to right,var(--violet-bg),#faf8ff);border-bottom:1.5px solid #ddd6fe}
+.io-head-left{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--violet)}
+.idea-output-body{padding:24px 28px}
+.idea-output-body .prose{font-size:14px;line-height:1.8}
 
-/* ── Idea output panel — full-width, readable ── */
-.idea-output{
-  margin-top:16px;
-  background:var(--surface);
-  border:1.5px solid #ddd6fe;
-  border-radius:var(--r);
-  overflow:hidden;
-  box-shadow:var(--shadow-md);
-  animation:fadeUp .25s ease;
-}
-.idea-output-head{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:12px 18px;
-  background:linear-gradient(to right, var(--violet-bg), #faf8ff);
-  border-bottom:1.5px solid #ddd6fe;
-}
-.io-head-left{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--violet)}
-.idea-output-body{
-  padding:28px 32px;
-  /* No max-height — let content breathe fully */
-  overflow-y:visible;
-}
-/* Prose inside idea output gets slightly larger type for readability */
-.idea-output-body .prose{font-size:14.5px;line-height:1.85;color:var(--txt2)}
-.idea-output-body .prose h2{font-size:17px;margin-top:26px}
-.idea-output-body .prose h3{font-size:15px;margin-top:18px}
-.idea-output-body .prose p{margin-bottom:14px}
-.idea-output-body .prose ul,.idea-output-body .prose ol{margin-bottom:14px}
-.idea-output-body .prose li{margin-bottom:6px;line-height:1.65}
-/* Code blocks inside idea output */
-.idea-output-body .cblock{margin:14px 0}
-/* Subtle section divider */
-.idea-output-body .prose hr{margin:22px 0;border-color:var(--border2)}
-
-/* ── LOADING / ERROR STATES ─────────────────────────── */
+/* ── LOADING / ERROR ── */
 .loading{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:360px;gap:14px}
-.spinner{width:30px;height:30px;border:2px solid var(--border);border-top-color:var(--amber);border-radius:50%;animation:spin .7s linear infinite}
+.spinner{width:28px;height:28px;border:2px solid var(--border);border-top-color:var(--amber);border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.loading-text{font-family:'Lora',serif;font-size:15px;color:var(--txt2)}
-.loading-sub{font-size:12px;color:var(--muted);text-align:center;max-width:280px;line-height:1.5}
-
-/* Full-page error state */
-.error-page{
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  min-height:420px;padding:40px 20px;text-align:center;
-}
-.error-page-icon{
-  width:56px;height:56px;background:var(--red-bg);border:1.5px solid var(--red-border);
-  border-radius:14px;display:flex;align-items:center;justify-content:center;
-  margin-bottom:20px;color:var(--red);
-}
-.error-page-title{
-  font-family:'Lora',serif;font-size:20px;font-weight:500;color:var(--txt);
-  margin-bottom:8px;letter-spacing:-.2px;
-}
-.error-page-msg{
-  font-size:13.5px;color:var(--txt2);max-width:460px;line-height:1.7;margin-bottom:24px;
-}
-.error-diagnosis{
-  background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
-  padding:16px 20px;max-width:500px;width:100%;margin-bottom:22px;text-align:left;
-  box-shadow:var(--shadow);
-}
+.loading-text{font-family:'Lora',serif;font-size:14px;color:var(--txt2)}
+.loading-sub{font-size:11.5px;color:var(--muted);text-align:center;max-width:280px;line-height:1.5}
+.error-page{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:420px;padding:40px 20px;text-align:center}
+.error-page-icon{width:52px;height:52px;background:var(--red-bg);border:1.5px solid var(--red-border);border-radius:13px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;color:var(--red)}
+.error-page-title{font-family:'Lora',serif;font-size:19px;font-weight:500;color:var(--txt);margin-bottom:8px}
+.error-page-msg{font-size:13px;color:var(--txt2);max-width:460px;line-height:1.7;margin-bottom:22px}
+.error-diagnosis{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 18px;max-width:500px;width:100%;margin-bottom:20px;text-align:left;box-shadow:var(--shadow)}
 .ed-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:10px}
-.ed-row{display:flex;align-items:flex-start;gap:9px;padding:8px 0;border-bottom:1px solid var(--border2);font-size:12.5px;color:var(--txt2);line-height:1.5}
+.ed-row{display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid var(--border2);font-size:12px;color:var(--txt2);line-height:1.5}
 .ed-row:last-child{border-bottom:none}
-.ed-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:4px}
-.ed-dot-red{background:var(--red)}
-.ed-dot-amber{background:var(--amber)}
-.ed-dot-green{background:var(--green)}
+.ed-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.ed-dot-red{background:var(--red)}.ed-dot-amber{background:var(--amber)}.ed-dot-green{background:var(--green)}
 .ed-row strong{color:var(--txt);font-weight:600}
 .error-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
-.ea-btn{
-  display:inline-flex;align-items:center;gap:6px;padding:9px 18px;
-  border-radius:var(--r2);font-size:13px;font-weight:600;cursor:pointer;
-  border:none;transition:all .14s;
-}
-.ea-primary{background:var(--txt);color:#fff}
-.ea-primary:hover{background:#2d2a26}
-.ea-ghost{background:var(--surface2);color:var(--txt2);border:1.5px solid var(--border)}
-.ea-ghost:hover{border-color:var(--muted);color:var(--txt)}
-/* Inline small error (inside idea workshop etc.) */
-.error-box{background:var(--red-bg);border:1px solid var(--red-border);border-radius:var(--r);padding:14px 18px;display:flex;gap:10px;margin:14px 0}
+.ea-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--r2);font-size:12.5px;font-weight:600;cursor:pointer;border:none;transition:all .14s}
+.ea-primary{background:var(--txt);color:#fff}.ea-primary:hover{background:#2d2a26}
+.ea-ghost{background:var(--surface2);color:var(--txt2);border:1.5px solid var(--border)}.ea-ghost:hover{border-color:var(--muted)}
+.error-box{background:var(--red-bg);border:1px solid var(--red-border);border-radius:var(--r);padding:12px 16px;display:flex;gap:9px;margin:12px 0}
 .error-icon{color:var(--red);flex-shrink:0;margin-top:1px}
-.error-title{font-weight:600;color:var(--red);font-size:13px;margin-bottom:3px}
-.error-msg{font-size:12.5px;color:var(--red);line-height:1.55;opacity:.85}
-.error-retry{margin-top:8px;padding:5px 12px;background:transparent;color:var(--red);border:1px solid var(--red-border);border-radius:var(--r2);font-size:12px;font-weight:600;cursor:pointer;transition:all .14s}
-.error-retry:hover{background:#fecaca50}
+.error-title{font-weight:600;color:var(--red);font-size:12.5px;margin-bottom:3px}
+.error-msg{font-size:12px;color:var(--red);line-height:1.55;opacity:.85}
 
-/* ── SETUP MODAL ─────────────────────────────────────── */
+/* ── SETUP MODAL ── */
 .modal-overlay{position:fixed;inset:0;background:rgba(26,24,20,.6);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(3px)}
-.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:28px;width:100%;max-width:460px;box-shadow:var(--shadow-lg)}
-.modal-icon{width:42px;height:42px;background:var(--txt);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;box-shadow:var(--shadow)}
-.modal-icon svg{width:20px;height:20px}
-.modal-title{font-family:'Lora',serif;font-size:19px;font-weight:500;color:var(--txt);margin-bottom:5px}
-.modal-sub{font-size:13px;color:var(--txt2);margin-bottom:20px;line-height:1.65}
-.modal-label{font-size:11.5px;font-weight:600;color:var(--txt2);margin-bottom:5px;display:block}
-.modal-input{
-  width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r2);
-  padding:10px 13px;font-family:'DM Mono',monospace;font-size:12.5px;color:var(--txt);
-  outline:none;transition:border-color .15s;
-}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:26px;width:100%;max-width:460px;box-shadow:var(--shadow-lg)}
+.modal-icon{width:40px;height:40px;background:var(--txt);border-radius:9px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;box-shadow:var(--shadow)}
+.modal-icon svg{width:18px;height:18px}
+.modal-title{font-family:'Lora',serif;font-size:18px;font-weight:500;color:var(--txt);margin-bottom:5px}
+.modal-sub{font-size:12.5px;color:var(--txt2);margin-bottom:18px;line-height:1.65}
+.modal-label{font-size:11px;font-weight:600;color:var(--txt2);margin-bottom:5px;display:block}
+.modal-input{width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r2);padding:9px 12px;font-family:'DM Mono',monospace;font-size:12px;color:var(--txt);outline:none;transition:border-color .15s}
 .modal-input:focus{border-color:var(--amber)}
 .modal-input::placeholder{color:var(--muted)}
-.modal-note{font-size:11.5px;color:var(--muted);margin-top:7px;line-height:1.55}
-.modal-note code{font-family:'DM Mono',monospace;font-size:11px;background:var(--surface2);padding:1px 4px;border-radius:3px}
-.modal-actions{display:flex;gap:8px;margin-top:20px}
-.btn-primary{flex:1;padding:10px;background:var(--txt);color:#fff;border:none;border-radius:var(--r2);font-size:13.5px;font-weight:600;cursor:pointer;transition:background .14s}
+.modal-note{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.55}
+.modal-note code{font-family:'DM Mono',monospace;font-size:10.5px;background:var(--surface2);padding:1px 4px;border-radius:3px}
+.modal-actions{display:flex;gap:8px;margin-top:18px}
+.btn-primary{flex:1;padding:9px;background:var(--txt);color:#fff;border:none;border-radius:var(--r2);font-size:13px;font-weight:600;cursor:pointer;transition:background .14s}
 .btn-primary:hover{background:#2d2a26}
-.btn-ghost-m{padding:10px 17px;background:transparent;color:var(--txt2);border:1.5px solid var(--border);border-radius:var(--r2);font-size:13px;font-weight:500;cursor:pointer;transition:all .14s}
-.btn-ghost-m:hover{border-color:var(--muted);color:var(--txt)}
+.btn-ghost-m{padding:9px 15px;background:transparent;color:var(--txt2);border:1.5px solid var(--border);border-radius:var(--r2);font-size:12.5px;font-weight:500;cursor:pointer;transition:all .14s}
+.btn-ghost-m:hover{border-color:var(--muted)}
 
-/* ── ANIMATION ──────────────────────────────────── */
+/* Search results overlay */
+.search-results{position:absolute;left:8px;right:8px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);box-shadow:var(--shadow-md);z-index:100;max-height:320px;overflow-y:auto;display:none}
+.search-results.open{display:block}
+.sr-item{display:flex;align-items:center;gap:8px;padding:8px 12px;cursor:pointer;border-bottom:1px solid var(--border2);font-size:12px;transition:background .12s}
+.sr-item:last-child{border-bottom:none}
+.sr-item:hover{background:var(--surface2)}
+.sr-icon{font-size:13px;width:18px;text-align:center;flex-shrink:0}
+.sr-info{flex:1;min-width:0}
+.sr-title{color:var(--txt);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sr-track{font-size:10.5px;color:var(--muted);margin-top:1px}
+.sr-tag{font-size:9.5px;font-weight:700;padding:1px 5px;border-radius:3px}
+
 ::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 
-@media(max-width:800px){
+@media(max-width:900px){
   .shell{grid-template-columns:1fr}
   .sidebar{display:none}
-  .page{padding:18px 14px 60px}
-  .l-title{font-size:21px}
-  .track-grid{grid-template-columns:1fr}
-  .home-stats{gap:6px}
+  .page{padding:16px 12px 60px}
+  .l-title{font-size:20px}
+  .track-grid{grid-template-columns:repeat(2,1fr)}
+  .track-grid-2{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
-
 <div class="shell">
 
-  <!-- ═══════════════════════════════ SIDEBAR ════════════════════════════════ -->
-  <aside class="sidebar">
-    <div class="sb-head">
-      <div class="logo" onclick="showHome()">
-        <div class="logo-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round">
-            <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/>
-            <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/>
-          </svg>
-        </div>
-        <div class="logo-text">
-          <div class="logo-name">Stremini</div>
-          <div class="logo-sub">Academy</div>
-        </div>
+<!-- ══════════ SIDEBAR ══════════ -->
+<aside class="sidebar">
+  <div class="sb-head">
+    <div class="logo" onclick="showHome()">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round">
+          <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/>
+          <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/>
+        </svg>
       </div>
-      <div class="xp-row">
-        <div class="xp-chip">🔥 <span class="val" id="streakV">0</span> streak</div>
-        <div class="xp-chip">⚡ <span class="val" id="xpV">0</span> XP</div>
+      <div class="logo-text">
+        <div class="logo-name">Stremini</div>
+        <div class="logo-sub">Academy</div>
       </div>
     </div>
+    <div class="xp-row">
+      <div class="xp-chip">🔥 <span class="val" id="streakV">0</span> streak</div>
+      <div class="xp-chip">⚡ <span class="val" id="xpV">0</span> XP</div>
+      <div class="xp-chip">✓ <span class="val" id="doneV">0</span> done</div>
+    </div>
+  </div>
 
-    <div class="sb-scroll">
-      <div class="sb-sec">
-        <div class="sb-label">Tracks</div>
-        <div class="track-list" id="trackList"></div>
+  <div class="sb-search" style="position:relative">
+    <input class="sb-search-input" id="sbSearch" type="text" placeholder="Search 517 topics…" autocomplete="off" oninput="searchTopics(this.value)" onfocus="searchTopics(this.value)" onblur="setTimeout(()=>closeSearch(),200)"/>
+    <div class="search-results" id="searchResults"></div>
+  </div>
+
+  <div class="sb-scroll" id="sbScroll">
+    <div id="tierList"></div>
+    <div id="topicsSec" style="display:none">
+      <div style="padding:10px 14px 4px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border2)">
+        <span class="sb-label" id="topicsLabel" style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--txt2)"></span>
+        <button style="margin-left:auto;background:none;border:none;color:var(--muted);font-size:11px;cursor:pointer;padding:2px 5px;border-radius:3px" onclick="closeTopics()">✕ close</button>
       </div>
-      <div class="sb-sec" id="topicsSec" style="display:none">
-        <div class="sb-label" id="topicsLabel">Topics</div>
+      <div style="padding:6px 8px">
         <div class="topic-list" id="topicList"></div>
       </div>
     </div>
+  </div>
 
-    <div class="sb-footer" id="sbFooter" style="display:none">
-      <div class="sf-track-name" id="sfTrackName"></div>
-      <div class="sf-pct-row">
-        <span id="sfDone">0 / 0 topics</span>
-        <span id="sfPct" style="font-weight:600;color:var(--amber2)">0%</span>
-      </div>
-      <div class="sf-bar"><div class="sf-fill" id="sfFill" style="width:0%"></div></div>
+  <div class="sb-footer" id="sbFooter" style="display:none">
+    <div class="sf-track-name" id="sfTrackName"></div>
+    <div class="sf-pct-row">
+      <span id="sfDone">0 / 0 topics</span>
+      <span id="sfPct" style="font-weight:600;color:var(--amber2)">0%</span>
     </div>
-  </aside>
+    <div class="sf-bar"><div class="sf-fill" id="sfFill" style="width:0%"></div></div>
+  </div>
+</aside>
 
-  <!-- ═══════════════════════════════ MAIN ══════════════════════════════════ -->
-  <div class="main">
-
-    <!-- TOPBAR -->
-    <header class="topbar">
-      <div class="tb-left">
-        <div class="breadcrumb" id="breadcrumb">
-          <span class="bc-link" onclick="showHome()">Academy</span>
-        </div>
+<!-- ══════════ MAIN ══════════ -->
+<div class="main">
+  <header class="topbar">
+    <div class="tb-left">
+      <div class="breadcrumb" id="breadcrumb">
+        <span class="bc-link" onclick="showHome()">Academy</span>
       </div>
-      <div class="tb-right">
-        <div class="pill pill-amber" id="statusPill" style="display:none">
-          <span class="pill-dot"></span><span id="statusTxt">Loading…</span>
-        </div>
-        <button class="ghost-btn" onclick="openSetup()">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-            <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
-          </svg>
-          Setup
-        </button>
-      </div>
-    </header>
-
-    <!-- PAGE -->
-    <div class="page-wrap">
-      <div class="page" id="page"></div>
     </div>
+    <div class="tb-right">
+      <div class="pill pill-amber" id="statusPill" style="display:none">
+        <span class="pill-dot"></span><span id="statusTxt">Loading…</span>
+      </div>
+      <button class="ghost-btn" onclick="openSetup()">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+        </svg>
+        Setup
+      </button>
+    </div>
+  </header>
+
+  <div class="page-wrap">
+    <div class="page" id="page"></div>
   </div>
 </div>
+</div>
 
-<!-- ═══════════════════════════════ SETUP MODAL ═══════════════════════════════ -->
+<!-- ══════════ SETUP MODAL ══════════ -->
 <div class="modal-overlay" id="setupModal" style="display:none">
   <div class="modal">
     <div class="modal-icon">
@@ -564,107 +474,625 @@ a:hover{text-decoration:underline}
 </div>
 
 <script>
-// ══════════════════════════════════════════════════════════════════════
-//  CURRICULUM DATA
-// ══════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
+//  CURRICULUM — 517 topics across 21 tracks
+// ══════════════════════════════════════════════════════
+const TIER_META = {
+  0: { label: "Tier 0 — Foundations",      badge: "tier-0-badge",  desc: "Mathematics & Programming" },
+  1: { label: "Tier 1 — Classical ML",     badge: "tier-1-badge",  desc: "Traditional Machine Learning" },
+  2: { label: "Tier 2 — Core Deep Learning", badge: "tier-2-badge", desc: "Neural Networks, Vision, NLP, RL" },
+  3: { label: "Tier 3 — Advanced Systems", badge: "tier-3-badge",  desc: "LLMs, Agents, RAG, GNNs, Time Series" },
+  4: { label: "Tier 4 — Expert & Applied", badge: "tier-4-badge",  desc: "Hardware, Safety, Research, Domains" },
+  5: { label: "Tier 5 — Capstone",         badge: "tier-5-badge",  desc: "Build & Ship AI Products" },
+};
+
 const TRACKS = {
-  "AI Foundations": { icon: "🧠", topics: [
-    { id: "af-python",  title: "Python for AI",           type: "lesson" },
-    { id: "af-numpy",   title: "NumPy & Arrays",           type: "lesson" },
-    { id: "af-pandas",  title: "Pandas & DataFrames",      type: "lesson" },
-    { id: "af-viz",     title: "Data Visualisation",       type: "lesson" },
-    { id: "af-linalg",  title: "Linear Algebra Basics",    type: "lesson" },
-    { id: "af-prob",    title: "Probability & Statistics",  type: "lesson" },
-    { id: "af-optim",   title: "Optimisation Concepts",    type: "lesson" },
-    { id: "af-quiz",    title: "Foundations Quiz",         type: "quiz"   },
+  "Mathematics for AI":{ icon:"∑", tier:0, color:"#0ea5e9", topics:[
+    {id:"math-vectors",title:"Vectors & Vector Spaces",type:"lesson"},
+    {id:"math-matrices",title:"Matrices & Matrix Operations",type:"lesson"},
+    {id:"math-linalg-sys",title:"Linear Systems & Gaussian Elimination",type:"lesson"},
+    {id:"math-det",title:"Determinants & Inverses",type:"lesson"},
+    {id:"math-eigen",title:"Eigenvalues & Eigenvectors",type:"lesson"},
+    {id:"math-svd",title:"Singular Value Decomposition",type:"lesson"},
+    {id:"math-pca-math",title:"PCA via Linear Algebra",type:"lesson"},
+    {id:"math-tensors",title:"Tensors & Multi-linear Algebra",type:"lesson"},
+    {id:"math-limits",title:"Limits & Continuity",type:"lesson"},
+    {id:"math-derivatives",title:"Derivatives & Differentiation Rules",type:"lesson"},
+    {id:"math-chain-rule",title:"Chain Rule & Composite Functions",type:"lesson"},
+    {id:"math-partial",title:"Partial Derivatives",type:"lesson"},
+    {id:"math-gradient",title:"Gradients & Directional Derivatives",type:"lesson"},
+    {id:"math-hessian",title:"Hessian Matrix & Second-Order Methods",type:"lesson"},
+    {id:"math-integral",title:"Integration & Area Under Curves",type:"lesson"},
+    {id:"math-multical",title:"Multivariable Calculus",type:"lesson"},
+    {id:"math-jacobian",title:"Jacobians & Change of Variables",type:"lesson"},
+    {id:"math-prob-basics",title:"Probability Fundamentals",type:"lesson"},
+    {id:"math-cond-prob",title:"Conditional Probability & Bayes",type:"lesson"},
+    {id:"math-random-vars",title:"Random Variables & Distributions",type:"lesson"},
+    {id:"math-expectation",title:"Expectation, Variance & Moments",type:"lesson"},
+    {id:"math-gaussian",title:"Gaussian Distribution in Depth",type:"lesson"},
+    {id:"math-joint-dist",title:"Joint & Marginal Distributions",type:"lesson"},
+    {id:"math-clt",title:"Central Limit Theorem",type:"lesson"},
+    {id:"math-mle",title:"Maximum Likelihood Estimation",type:"lesson"},
+    {id:"math-map",title:"MAP Estimation & Priors",type:"lesson"},
+    {id:"math-hypothesis",title:"Hypothesis Testing",type:"lesson"},
+    {id:"math-info-theory",title:"Information Theory & Entropy",type:"lesson"},
+    {id:"math-kl",title:"KL Divergence & Cross-Entropy",type:"lesson"},
+    {id:"math-convex",title:"Convex Functions & Sets",type:"lesson"},
+    {id:"math-lagrange",title:"Lagrange Multipliers & Constraints",type:"lesson"},
+    {id:"math-grad-desc",title:"Gradient Descent in Full Detail",type:"lesson"},
+    {id:"math-newton",title:"Newton's Method & Quasi-Newton",type:"lesson"},
+    {id:"math-quiz",title:"Mathematics Foundations Quiz",type:"quiz"},
   ]},
-  "Machine Learning": { icon: "⚙️", topics: [
-    { id: "ml-intro",    title: "What is Machine Learning?", type: "lesson"  },
-    { id: "ml-linear",   title: "Linear Regression",          type: "lesson"  },
-    { id: "ml-logistic", title: "Logistic Regression",         type: "lesson"  },
-    { id: "ml-trees",    title: "Decision Trees",             type: "lesson"  },
-    { id: "ml-forests",  title: "Random Forests & Boosting",  type: "lesson"  },
-    { id: "ml-svm",      title: "Support Vector Machines",    type: "lesson"  },
-    { id: "ml-cluster",  title: "Clustering — K-Means",       type: "lesson"  },
-    { id: "ml-eval",     title: "Model Evaluation",           type: "lesson"  },
-    { id: "ml-project",  title: "Project: Spam Classifier",   type: "project" },
-    { id: "ml-quiz",     title: "Machine Learning Quiz",      type: "quiz"    },
+  "Python & Engineering Foundations":{ icon:"🐍", tier:0, color:"#f59e0b", topics:[
+    {id:"py-basics",title:"Python Syntax & Data Types",type:"lesson"},
+    {id:"py-control",title:"Control Flow & Functions",type:"lesson"},
+    {id:"py-oop",title:"Object-Oriented Python",type:"lesson"},
+    {id:"py-functional",title:"Functional Programming in Python",type:"lesson"},
+    {id:"py-generators",title:"Generators, Iterators & Context Managers",type:"lesson"},
+    {id:"py-decorators",title:"Decorators & Metaprogramming",type:"lesson"},
+    {id:"py-async",title:"Async Python & Concurrency",type:"lesson"},
+    {id:"py-typing",title:"Type Hints & Static Analysis",type:"lesson"},
+    {id:"py-testing",title:"Testing & Debugging AI Code",type:"lesson"},
+    {id:"py-profiling",title:"Profiling & Performance Optimization",type:"lesson"},
+    {id:"py-numpy",title:"NumPy — Arrays & Broadcasting",type:"lesson"},
+    {id:"py-numpy-adv",title:"NumPy Advanced — Vectorisation Tricks",type:"lesson"},
+    {id:"py-pandas",title:"Pandas — DataFrames & Series",type:"lesson"},
+    {id:"py-pandas-adv",title:"Pandas Advanced — GroupBy, Merge, Reshape",type:"lesson"},
+    {id:"py-matplotlib",title:"Matplotlib — Plots & Figures",type:"lesson"},
+    {id:"py-seaborn",title:"Seaborn & Statistical Visualisation",type:"lesson"},
+    {id:"py-plotly",title:"Plotly — Interactive Visualisation",type:"lesson"},
+    {id:"py-scipy",title:"SciPy — Scientific Computing",type:"lesson"},
+    {id:"py-sql",title:"SQL for Data Scientists",type:"lesson"},
+    {id:"py-git",title:"Git & Version Control for ML",type:"lesson"},
+    {id:"py-docker",title:"Docker for ML Environments",type:"lesson"},
+    {id:"py-linux",title:"Linux & Shell Scripting for AI",type:"lesson"},
+    {id:"py-project",title:"Project: End-to-End Data Pipeline",type:"project"},
+    {id:"py-quiz",title:"Programming Foundations Quiz",type:"quiz"},
   ]},
-  "Deep Learning": { icon: "🔥", topics: [
-    { id: "dl-nn",          title: "Neural Networks",           type: "lesson"  },
-    { id: "dl-bp",          title: "Backpropagation",           type: "lesson"  },
-    { id: "dl-activations", title: "Activation Functions",      type: "lesson"  },
-    { id: "dl-cnn",         title: "Convolutional Networks",    type: "lesson"  },
-    { id: "dl-rnn",         title: "RNNs & LSTMs",              type: "lesson"  },
-    { id: "dl-attention",   title: "Attention Mechanism",       type: "lesson"  },
-    { id: "dl-transformer", title: "Transformers",              type: "lesson"  },
-    { id: "dl-llm",         title: "LLMs — BERT & GPT",         type: "lesson"  },
-    { id: "dl-project",     title: "Project: Image Classifier", type: "project" },
-    { id: "dl-quiz",        title: "Deep Learning Quiz",        type: "quiz"    },
+  "Classical Machine Learning":{ icon:"⚙️", tier:1, color:"#10b981", topics:[
+    {id:"ml-what",title:"What is Machine Learning?",type:"lesson"},
+    {id:"ml-taxonomy",title:"Supervised, Unsupervised, RL",type:"lesson"},
+    {id:"ml-data-splits",title:"Train / Val / Test Splits",type:"lesson"},
+    {id:"ml-bias-variance",title:"Bias-Variance Tradeoff",type:"lesson"},
+    {id:"ml-overfitting",title:"Overfitting, Underfitting & Regularisation",type:"lesson"},
+    {id:"ml-cross-val",title:"Cross-Validation Strategies",type:"lesson"},
+    {id:"ml-linear-reg",title:"Linear Regression from Scratch",type:"lesson"},
+    {id:"ml-poly-reg",title:"Polynomial & Nonlinear Regression",type:"lesson"},
+    {id:"ml-ridge-lasso",title:"Ridge, Lasso & ElasticNet",type:"lesson"},
+    {id:"ml-logistic",title:"Logistic Regression in Depth",type:"lesson"},
+    {id:"ml-glm",title:"Generalised Linear Models",type:"lesson"},
+    {id:"ml-trees",title:"Decision Trees",type:"lesson"},
+    {id:"ml-bagging",title:"Bagging & Random Forests",type:"lesson"},
+    {id:"ml-boosting",title:"Boosting — AdaBoost & Gradient Boosting",type:"lesson"},
+    {id:"ml-xgboost",title:"XGBoost in Depth",type:"lesson"},
+    {id:"ml-lightgbm",title:"LightGBM & CatBoost",type:"lesson"},
+    {id:"ml-svm",title:"Support Vector Machines",type:"lesson"},
+    {id:"ml-kernel",title:"Kernel Methods & the Kernel Trick",type:"lesson"},
+    {id:"ml-knn",title:"k-Nearest Neighbours",type:"lesson"},
+    {id:"ml-ann-search",title:"Approximate Nearest Neighbour Search",type:"lesson"},
+    {id:"ml-naive-bayes",title:"Naive Bayes Classifier",type:"lesson"},
+    {id:"ml-gmm",title:"Gaussian Mixture Models",type:"lesson"},
+    {id:"ml-hmm",title:"Hidden Markov Models",type:"lesson"},
+    {id:"ml-kmeans",title:"K-Means Clustering",type:"lesson"},
+    {id:"ml-hierarchical",title:"Hierarchical Clustering",type:"lesson"},
+    {id:"ml-dbscan",title:"DBSCAN & Density-Based Clustering",type:"lesson"},
+    {id:"ml-spectral",title:"Spectral Clustering",type:"lesson"},
+    {id:"ml-pca",title:"Principal Component Analysis",type:"lesson"},
+    {id:"ml-ica",title:"Independent Component Analysis",type:"lesson"},
+    {id:"ml-tsne",title:"t-SNE & UMAP",type:"lesson"},
+    {id:"ml-lda",title:"Linear Discriminant Analysis",type:"lesson"},
+    {id:"ml-metrics-cls",title:"Classification Metrics",type:"lesson"},
+    {id:"ml-metrics-reg",title:"Regression Metrics",type:"lesson"},
+    {id:"ml-roc-auc",title:"ROC Curves & AUC",type:"lesson"},
+    {id:"ml-calib",title:"Probability Calibration",type:"lesson"},
+    {id:"ml-imbalanced",title:"Imbalanced Datasets & SMOTE",type:"lesson"},
+    {id:"ml-feat-eng",title:"Feature Engineering Deep Dive",type:"lesson"},
+    {id:"ml-feat-select",title:"Feature Selection Methods",type:"lesson"},
+    {id:"ml-encoding",title:"Encoding Categorical Variables",type:"lesson"},
+    {id:"ml-scaling",title:"Scaling, Normalisation & Standardisation",type:"lesson"},
+    {id:"ml-missing",title:"Handling Missing Data",type:"lesson"},
+    {id:"ml-hyperparam",title:"Hyperparameter Tuning",type:"lesson"},
+    {id:"ml-optuna",title:"Optuna & Bayesian Optimisation",type:"lesson"},
+    {id:"ml-pipeline",title:"Scikit-learn Pipelines",type:"lesson"},
+    {id:"ml-project",title:"Project: Full ML System — Fraud Detection",type:"project"},
+    {id:"ml-quiz",title:"Classical ML Quiz",type:"quiz"},
   ]},
-  "AI Systems": { icon: "🤖", topics: [
-    { id: "sys-rag",     title: "RAG Architecture",      type: "lesson"  },
-    { id: "sys-vec",     title: "Vector Databases",      type: "lesson"  },
-    { id: "sys-embed",   title: "Embeddings",            type: "lesson"  },
-    { id: "sys-agents",  title: "AI Agents",             type: "lesson"  },
-    { id: "sys-deploy",  title: "Model Deployment",      type: "lesson"  },
-    { id: "sys-project", title: "Project: RAG Chatbot",  type: "project" },
-    { id: "sys-quiz",    title: "AI Systems Quiz",       type: "quiz"    },
+  "Deep Learning":{ icon:"🔥", tier:2, color:"#ef4444", topics:[
+    {id:"dl-perceptron",title:"Perceptron & McCulloch-Pitts Neuron",type:"lesson"},
+    {id:"dl-mlp",title:"Multi-Layer Perceptrons",type:"lesson"},
+    {id:"dl-activations",title:"Activation Functions — Complete Guide",type:"lesson"},
+    {id:"dl-backprop",title:"Backpropagation — Derivation from Scratch",type:"lesson"},
+    {id:"dl-init",title:"Weight Initialisation Strategies",type:"lesson"},
+    {id:"dl-batchnorm",title:"Batch Normalisation",type:"lesson"},
+    {id:"dl-layernorm",title:"Layer Norm, Group Norm, Instance Norm",type:"lesson"},
+    {id:"dl-dropout",title:"Dropout & Regularisation",type:"lesson"},
+    {id:"dl-loss-fns",title:"Loss Functions — Full Reference",type:"lesson"},
+    {id:"dl-sgd",title:"Stochastic Gradient Descent",type:"lesson"},
+    {id:"dl-momentum",title:"Momentum & Nesterov",type:"lesson"},
+    {id:"dl-adam",title:"Adam, AdaGrad, RMSProp",type:"lesson"},
+    {id:"dl-lr-schedule",title:"Learning Rate Scheduling",type:"lesson"},
+    {id:"dl-warmup",title:"Warmup, Cosine Annealing, OneCycle",type:"lesson"},
+    {id:"dl-conv",title:"Convolution Operation",type:"lesson"},
+    {id:"dl-cnn",title:"CNN Architecture Design",type:"lesson"},
+    {id:"dl-pooling",title:"Pooling, Strides & Receptive Field",type:"lesson"},
+    {id:"dl-alexnet",title:"AlexNet, VGG & History of CNNs",type:"lesson"},
+    {id:"dl-resnet",title:"ResNet & Skip Connections",type:"lesson"},
+    {id:"dl-inception",title:"Inception, MobileNet & EfficientNet",type:"lesson"},
+    {id:"dl-depthwise",title:"Depthwise Separable Convolutions",type:"lesson"},
+    {id:"dl-rnn",title:"Recurrent Neural Networks",type:"lesson"},
+    {id:"dl-vanishing",title:"Vanishing & Exploding Gradients",type:"lesson"},
+    {id:"dl-lstm",title:"Long Short-Term Memory Networks",type:"lesson"},
+    {id:"dl-gru",title:"Gated Recurrent Units",type:"lesson"},
+    {id:"dl-seq2seq",title:"Sequence-to-Sequence Models",type:"lesson"},
+    {id:"dl-attention",title:"Attention Mechanism — Origins",type:"lesson"},
+    {id:"dl-self-attention",title:"Self-Attention & Scaled Dot-Product",type:"lesson"},
+    {id:"dl-multihead",title:"Multi-Head Attention",type:"lesson"},
+    {id:"dl-positional",title:"Positional Encoding",type:"lesson"},
+    {id:"dl-transformer",title:"The Transformer Architecture",type:"lesson"},
+    {id:"dl-bert",title:"BERT — Bidirectional Pretraining",type:"lesson"},
+    {id:"dl-gpt",title:"GPT Family — Autoregressive LMs",type:"lesson"},
+    {id:"dl-t5",title:"T5, BART & Encoder-Decoder LMs",type:"lesson"},
+    {id:"dl-vit",title:"Vision Transformer (ViT)",type:"lesson"},
+    {id:"dl-vae",title:"Variational Autoencoders",type:"lesson"},
+    {id:"dl-gan",title:"Generative Adversarial Networks",type:"lesson"},
+    {id:"dl-gan-variants",title:"DCGAN, StyleGAN, CycleGAN",type:"lesson"},
+    {id:"dl-diffusion",title:"Diffusion Models — DDPM & DDIM",type:"lesson"},
+    {id:"dl-flow",title:"Normalising Flows",type:"lesson"},
+    {id:"dl-score",title:"Score-Based Generative Models",type:"lesson"},
+    {id:"dl-pytorch",title:"PyTorch Fundamentals",type:"lesson"},
+    {id:"dl-pytorch-adv",title:"PyTorch Advanced — Custom Layers, autograd",type:"lesson"},
+    {id:"dl-lightning",title:"PyTorch Lightning",type:"lesson"},
+    {id:"dl-jax",title:"JAX & Flax",type:"lesson"},
+    {id:"dl-mixed-prec",title:"Mixed Precision Training",type:"lesson"},
+    {id:"dl-distributed",title:"Distributed Training — DDP & FSDP",type:"lesson"},
+    {id:"dl-project",title:"Project: Image Classifier from Scratch",type:"project"},
+    {id:"dl-quiz",title:"Deep Learning Quiz",type:"quiz"},
   ]},
-  "Research": { icon: "🔭", topics: [
-    { id: "res-read",     title: "Reading Papers",         type: "lesson" },
-    { id: "res-gaps",     title: "Finding Research Gaps",  type: "lesson" },
-    { id: "res-design",   title: "Experimental Design",    type: "lesson" },
-    { id: "res-writing",  title: "Writing a Paper",        type: "lesson" },
-    { id: "res-abstract", title: "Abstracts & Intros",     type: "lesson" },
-    { id: "res-quiz",     title: "Research Quiz",          type: "quiz"   },
+  "Natural Language Processing":{ icon:"💬", tier:2, color:"#8b5cf6", topics:[
+    {id:"nlp-text-basics",title:"Text Representation Basics",type:"lesson"},
+    {id:"nlp-tokenisation",title:"Tokenisation — BPE, WordPiece, SentencePiece",type:"lesson"},
+    {id:"nlp-bow",title:"Bag of Words & TF-IDF",type:"lesson"},
+    {id:"nlp-word2vec",title:"Word2Vec — Skip-gram & CBOW",type:"lesson"},
+    {id:"nlp-glove",title:"GloVe & FastText",type:"lesson"},
+    {id:"nlp-elmo",title:"Contextual Embeddings — ELMo",type:"lesson"},
+    {id:"nlp-bert-fine",title:"Fine-tuning BERT for Classification",type:"lesson"},
+    {id:"nlp-ner",title:"Named Entity Recognition",type:"lesson"},
+    {id:"nlp-pos",title:"Part-of-Speech Tagging",type:"lesson"},
+    {id:"nlp-dep",title:"Dependency Parsing",type:"lesson"},
+    {id:"nlp-coref",title:"Coreference Resolution",type:"lesson"},
+    {id:"nlp-sentiment",title:"Sentiment Analysis",type:"lesson"},
+    {id:"nlp-text-cls",title:"Text Classification Systems",type:"lesson"},
+    {id:"nlp-summarisation",title:"Text Summarisation",type:"lesson"},
+    {id:"nlp-mt",title:"Machine Translation",type:"lesson"},
+    {id:"nlp-qa",title:"Question Answering",type:"lesson"},
+    {id:"nlp-reading-comp",title:"Machine Reading Comprehension",type:"lesson"},
+    {id:"nlp-nli",title:"Natural Language Inference",type:"lesson"},
+    {id:"nlp-ie",title:"Information Extraction",type:"lesson"},
+    {id:"nlp-dialogue",title:"Dialogue Systems & Chatbots",type:"lesson"},
+    {id:"nlp-topic",title:"Topic Modelling — LDA & NMF",type:"lesson"},
+    {id:"nlp-multilingual",title:"Multilingual NLP & mBERT",type:"lesson"},
+    {id:"nlp-speech",title:"Speech Recognition — Whisper & CTC",type:"lesson"},
+    {id:"nlp-tts",title:"Text-to-Speech — Tacotron & VITS",type:"lesson"},
+    {id:"nlp-eval",title:"NLP Evaluation — BLEU, ROUGE, BERTScore",type:"lesson"},
+    {id:"nlp-project",title:"Project: Production NER + QA Pipeline",type:"project"},
+    {id:"nlp-quiz",title:"NLP Quiz",type:"quiz"},
+  ]},
+  "Computer Vision":{ icon:"👁", tier:2, color:"#06b6d4", topics:[
+    {id:"cv-image-basics",title:"Image Representation & Formats",type:"lesson"},
+    {id:"cv-preprocessing",title:"Image Preprocessing & Augmentation",type:"lesson"},
+    {id:"cv-classic",title:"Classical CV — Filters & Edge Detection",type:"lesson"},
+    {id:"cv-hog",title:"HOG & SIFT Features",type:"lesson"},
+    {id:"cv-cls",title:"Image Classification Deep Dive",type:"lesson"},
+    {id:"cv-transfer",title:"Transfer Learning for Vision",type:"lesson"},
+    {id:"cv-detection",title:"Object Detection — YOLO Family",type:"lesson"},
+    {id:"cv-rcnn",title:"R-CNN, Fast R-CNN, Faster R-CNN",type:"lesson"},
+    {id:"cv-anchor-free",title:"Anchor-Free Detection — FCOS, CenterNet",type:"lesson"},
+    {id:"cv-segmentation",title:"Semantic Segmentation — FCN & U-Net",type:"lesson"},
+    {id:"cv-instance-seg",title:"Instance Segmentation — Mask R-CNN",type:"lesson"},
+    {id:"cv-panoptic",title:"Panoptic Segmentation",type:"lesson"},
+    {id:"cv-keypoint",title:"Pose Estimation & Keypoint Detection",type:"lesson"},
+    {id:"cv-depth",title:"Depth Estimation — Monocular & Stereo",type:"lesson"},
+    {id:"cv-3d",title:"3D Vision — PointNet & NeRF",type:"lesson"},
+    {id:"cv-optical-flow",title:"Optical Flow & Motion Estimation",type:"lesson"},
+    {id:"cv-tracking",title:"Object Tracking — DeepSORT, ByteTrack",type:"lesson"},
+    {id:"cv-face",title:"Face Detection & Recognition",type:"lesson"},
+    {id:"cv-ocr",title:"OCR — TrOCR & Document AI",type:"lesson"},
+    {id:"cv-vit-adv",title:"Vision Transformers — DINO & DeiT",type:"lesson"},
+    {id:"cv-clip",title:"CLIP & Vision-Language Models",type:"lesson"},
+    {id:"cv-sam",title:"Segment Anything Model (SAM)",type:"lesson"},
+    {id:"cv-diffusion-img",title:"Image Generation — Stable Diffusion",type:"lesson"},
+    {id:"cv-video",title:"Video Understanding & Action Recognition",type:"lesson"},
+    {id:"cv-project",title:"Project: Real-Time Object Detection System",type:"project"},
+    {id:"cv-quiz",title:"Computer Vision Quiz",type:"quiz"},
+  ]},
+  "Reinforcement Learning":{ icon:"🎮", tier:2, color:"#f97316", topics:[
+    {id:"rl-intro",title:"What is Reinforcement Learning?",type:"lesson"},
+    {id:"rl-mdp",title:"Markov Decision Processes",type:"lesson"},
+    {id:"rl-bellman",title:"Bellman Equations",type:"lesson"},
+    {id:"rl-dp",title:"Dynamic Programming — Value & Policy Iteration",type:"lesson"},
+    {id:"rl-mc",title:"Monte Carlo Methods",type:"lesson"},
+    {id:"rl-td",title:"Temporal Difference Learning",type:"lesson"},
+    {id:"rl-qlearn",title:"Q-Learning in Depth",type:"lesson"},
+    {id:"rl-sarsa",title:"SARSA & On-Policy Control",type:"lesson"},
+    {id:"rl-dqn",title:"Deep Q-Network (DQN)",type:"lesson"},
+    {id:"rl-dqn-variants",title:"Double DQN, Dueling DQN, Rainbow",type:"lesson"},
+    {id:"rl-pg",title:"Policy Gradient Methods — REINFORCE",type:"lesson"},
+    {id:"rl-a2c",title:"A2C & A3C",type:"lesson"},
+    {id:"rl-ppo",title:"Proximal Policy Optimisation (PPO)",type:"lesson"},
+    {id:"rl-trpo",title:"Trust Region Policy Optimisation",type:"lesson"},
+    {id:"rl-sac",title:"Soft Actor-Critic (SAC)",type:"lesson"},
+    {id:"rl-td3",title:"TD3 & Continuous Control",type:"lesson"},
+    {id:"rl-model-based",title:"Model-Based RL — Dyna & MuZero",type:"lesson"},
+    {id:"rl-multi-agent",title:"Multi-Agent RL",type:"lesson"},
+    {id:"rl-hier",title:"Hierarchical RL",type:"lesson"},
+    {id:"rl-imitation",title:"Imitation Learning & Inverse RL",type:"lesson"},
+    {id:"rl-rlhf",title:"RLHF — RL from Human Feedback",type:"lesson"},
+    {id:"rl-gym",title:"OpenAI Gym & Custom Environments",type:"lesson"},
+    {id:"rl-project",title:"Project: Train a Game-Playing Agent",type:"project"},
+    {id:"rl-quiz",title:"Reinforcement Learning Quiz",type:"quiz"},
+  ]},
+  "Large Language Models":{ icon:"🧬", tier:3, color:"#ec4899", topics:[
+    {id:"llm-scaling",title:"Scaling Laws for LLMs",type:"lesson"},
+    {id:"llm-arch",title:"Modern LLM Architecture Deep Dive",type:"lesson"},
+    {id:"llm-pretraining",title:"Pretraining — Data, Tokeniser, Objectives",type:"lesson"},
+    {id:"llm-gpt-full",title:"GPT-1 through GPT-4 — Full Evolution",type:"lesson"},
+    {id:"llm-llama",title:"LLaMA, LLaMA-2 & LLaMA-3",type:"lesson"},
+    {id:"llm-mistral",title:"Mistral, Mixtral & MoE Architectures",type:"lesson"},
+    {id:"llm-gemma",title:"Gemma, Phi & Small Language Models",type:"lesson"},
+    {id:"llm-kv-cache",title:"KV Cache & Inference Efficiency",type:"lesson"},
+    {id:"llm-context",title:"Long Context — RoPE, ALiBi, YaRN",type:"lesson"},
+    {id:"llm-moe",title:"Mixture of Experts in LLMs",type:"lesson"},
+    {id:"llm-sft",title:"Supervised Fine-Tuning (SFT)",type:"lesson"},
+    {id:"llm-rlhf-llm",title:"RLHF for LLMs — InstructGPT",type:"lesson"},
+    {id:"llm-dpo",title:"DPO, ORPO & Preference Optimisation",type:"lesson"},
+    {id:"llm-peft",title:"Parameter-Efficient Fine-Tuning — LoRA",type:"lesson"},
+    {id:"llm-qlora",title:"QLoRA & 4-bit Quantisation",type:"lesson"},
+    {id:"llm-prompt-eng",title:"Prompt Engineering — Full Playbook",type:"lesson"},
+    {id:"llm-few-shot",title:"Few-Shot & Zero-Shot Prompting",type:"lesson"},
+    {id:"llm-cot",title:"Chain-of-Thought & Reasoning",type:"lesson"},
+    {id:"llm-rag",title:"Retrieval-Augmented Generation",type:"lesson"},
+    {id:"llm-tool-use",title:"Tool Use & Function Calling",type:"lesson"},
+    {id:"llm-agents-llm",title:"LLM-Powered Agents",type:"lesson"},
+    {id:"llm-eval-bench",title:"LLM Evaluation — MMLU, HellaSwag, HumanEval",type:"lesson"},
+    {id:"llm-hallucination",title:"Hallucination — Causes & Mitigations",type:"lesson"},
+    {id:"llm-quantisation",title:"Quantisation — GPTQ, AWQ, GGUF",type:"lesson"},
+    {id:"llm-speculative",title:"Speculative Decoding",type:"lesson"},
+    {id:"llm-vllm",title:"vLLM, TGI & High-Throughput Serving",type:"lesson"},
+    {id:"llm-safety",title:"LLM Safety — Alignment & Red-Teaming",type:"lesson"},
+    {id:"llm-project",title:"Project: Fine-Tune & Deploy Your Own LLM",type:"project"},
+    {id:"llm-quiz",title:"LLM Quiz",type:"quiz"},
+  ]},
+  "Multimodal AI":{ icon:"🌐", tier:3, color:"#14b8a6", topics:[
+    {id:"mm-what",title:"What is Multimodal AI?",type:"lesson"},
+    {id:"mm-clip-deep",title:"CLIP — Contrastive Language-Image Pretraining",type:"lesson"},
+    {id:"mm-align",title:"ALIGN & Dual-Encoder Models",type:"lesson"},
+    {id:"mm-flamingo",title:"Flamingo & Visual Language Models",type:"lesson"},
+    {id:"mm-llava",title:"LLaVA & Open Multimodal LLMs",type:"lesson"},
+    {id:"mm-gpt4v",title:"GPT-4V & Gemini Vision",type:"lesson"},
+    {id:"mm-img-gen",title:"Image Generation Pipelines — DALL-E, Midjourney",type:"lesson"},
+    {id:"mm-stable-diff",title:"Stable Diffusion — Architecture & Training",type:"lesson"},
+    {id:"mm-controlnet",title:"ControlNet & Guided Generation",type:"lesson"},
+    {id:"mm-img-edit",title:"Image Editing — InstructPix2Pix",type:"lesson"},
+    {id:"mm-video-gen",title:"Video Generation — Sora & Runway",type:"lesson"},
+    {id:"mm-audio-llm",title:"Audio Language Models — AudioPaLM",type:"lesson"},
+    {id:"mm-cross-modal",title:"Cross-Modal Retrieval",type:"lesson"},
+    {id:"mm-grounding",title:"Visual Grounding & Referring Expressions",type:"lesson"},
+    {id:"mm-docai",title:"Document AI — Layout + Vision + Text",type:"lesson"},
+    {id:"mm-project",title:"Project: Multimodal Q&A System",type:"project"},
+    {id:"mm-quiz",title:"Multimodal AI Quiz",type:"quiz"},
+  ]},
+  "MLOps & AI Systems":{ icon:"🔧", tier:3, color:"#64748b", topics:[
+    {id:"mlops-design",title:"ML System Design Principles",type:"lesson"},
+    {id:"mlops-data-eng",title:"Data Engineering for ML",type:"lesson"},
+    {id:"mlops-feat-store",title:"Feature Stores — Feast & Tecton",type:"lesson"},
+    {id:"mlops-versioning",title:"Data Versioning — DVC & LakeFS",type:"lesson"},
+    {id:"mlops-experiment",title:"Experiment Tracking — MLflow & W&B",type:"lesson"},
+    {id:"mlops-pipeline",title:"ML Pipelines — Kubeflow & Airflow",type:"lesson"},
+    {id:"mlops-serving",title:"Model Serving — TorchServe & BentoML",type:"lesson"},
+    {id:"mlops-triton",title:"NVIDIA Triton Inference Server",type:"lesson"},
+    {id:"mlops-fastapi",title:"Building ML APIs with FastAPI",type:"lesson"},
+    {id:"mlops-docker-ml",title:"Docker & Kubernetes for ML",type:"lesson"},
+    {id:"mlops-monitoring",title:"Model Monitoring & Data Drift",type:"lesson"},
+    {id:"mlops-ab-test",title:"A/B Testing & Canary Deployments",type:"lesson"},
+    {id:"mlops-shadow",title:"Shadow Mode & Champion-Challenger",type:"lesson"},
+    {id:"mlops-ci-cd",title:"CI/CD for Machine Learning",type:"lesson"},
+    {id:"mlops-cloud-aws",title:"AWS SageMaker",type:"lesson"},
+    {id:"mlops-cloud-gcp",title:"Google Vertex AI",type:"lesson"},
+    {id:"mlops-cloud-azure",title:"Azure ML Studio",type:"lesson"},
+    {id:"mlops-cost",title:"Cost Optimisation for ML Workloads",type:"lesson"},
+    {id:"mlops-project",title:"Project: End-to-End MLOps Pipeline",type:"project"},
+    {id:"mlops-quiz",title:"MLOps Quiz",type:"quiz"},
+  ]},
+  "AI Agents & Agentic Systems":{ icon:"🤖", tier:3, color:"#a855f7", topics:[
+    {id:"ag-what",title:"What are AI Agents?",type:"lesson"},
+    {id:"ag-react",title:"ReAct — Reasoning + Acting",type:"lesson"},
+    {id:"ag-tools",title:"Tool Use & API Integration",type:"lesson"},
+    {id:"ag-planning",title:"Task Planning & Decomposition",type:"lesson"},
+    {id:"ag-memory",title:"Agent Memory Systems",type:"lesson"},
+    {id:"ag-reflection",title:"Self-Reflection & Self-Correction",type:"lesson"},
+    {id:"ag-langchain",title:"LangChain — Agents & Chains",type:"lesson"},
+    {id:"ag-llamaindex",title:"LlamaIndex",type:"lesson"},
+    {id:"ag-autogen",title:"AutoGen & Multi-Agent Orchestration",type:"lesson"},
+    {id:"ag-crewai",title:"CrewAI & Role-Based Agents",type:"lesson"},
+    {id:"ag-browser",title:"Browser & Computer Use Agents",type:"lesson"},
+    {id:"ag-code-agent",title:"Coding Agents — SWE-bench Approaches",type:"lesson"},
+    {id:"ag-eval-agents",title:"Evaluating Agentic Systems",type:"lesson"},
+    {id:"ag-safety",title:"Agent Safety & Sandboxing",type:"lesson"},
+    {id:"ag-mcp",title:"Model Context Protocol (MCP)",type:"lesson"},
+    {id:"ag-project",title:"Project: Build a Research Agent",type:"project"},
+    {id:"ag-quiz",title:"AI Agents Quiz",type:"quiz"},
+  ]},
+  "RAG & Knowledge Systems":{ icon:"📚", tier:3, color:"#0284c7", topics:[
+    {id:"rag-why",title:"Why RAG? Problems with Pure LLMs",type:"lesson"},
+    {id:"rag-embeddings",title:"Embeddings for Retrieval",type:"lesson"},
+    {id:"rag-vector-dbs",title:"Vector Databases — Pinecone, Weaviate, Qdrant",type:"lesson"},
+    {id:"rag-pgvector",title:"pgvector & Supabase Vector",type:"lesson"},
+    {id:"rag-chunking",title:"Chunking Strategies",type:"lesson"},
+    {id:"rag-indexing",title:"Indexing & ANN Algorithms — HNSW",type:"lesson"},
+    {id:"rag-retrieval",title:"Retrieval Methods — Dense & Sparse",type:"lesson"},
+    {id:"rag-hybrid",title:"Hybrid Retrieval & BM25 + Embeddings",type:"lesson"},
+    {id:"rag-reranking",title:"Reranking — Cross-Encoders & Cohere Rerank",type:"lesson"},
+    {id:"rag-advanced",title:"Advanced RAG — HyDE, RAPTOR, ColBERT",type:"lesson"},
+    {id:"rag-graph",title:"GraphRAG & Knowledge Graphs",type:"lesson"},
+    {id:"rag-eval",title:"RAG Evaluation — Ragas & ARES",type:"lesson"},
+    {id:"rag-multimodal",title:"Multimodal RAG",type:"lesson"},
+    {id:"rag-project",title:"Project: Production RAG Chatbot",type:"project"},
+    {id:"rag-quiz",title:"RAG & Knowledge Systems Quiz",type:"quiz"},
+  ]},
+  "Graph Neural Networks":{ icon:"🕸", tier:3, color:"#0891b2", topics:[
+    {id:"gnn-graphs",title:"Graph Theory for ML",type:"lesson"},
+    {id:"gnn-spectral",title:"Spectral Graph Convolutions",type:"lesson"},
+    {id:"gnn-gcn",title:"Graph Convolutional Networks (GCN)",type:"lesson"},
+    {id:"gnn-gat",title:"Graph Attention Networks (GAT)",type:"lesson"},
+    {id:"gnn-graphsage",title:"GraphSAGE — Inductive Learning",type:"lesson"},
+    {id:"gnn-gin",title:"Graph Isomorphism Network (GIN)",type:"lesson"},
+    {id:"gnn-mpnn",title:"Message Passing Neural Networks",type:"lesson"},
+    {id:"gnn-link-pred",title:"Link Prediction",type:"lesson"},
+    {id:"gnn-node-cls",title:"Node Classification",type:"lesson"},
+    {id:"gnn-graph-cls",title:"Graph Classification",type:"lesson"},
+    {id:"gnn-hetero",title:"Heterogeneous Graphs",type:"lesson"},
+    {id:"gnn-kg",title:"Knowledge Graph Embeddings — TransE, RotatE",type:"lesson"},
+    {id:"gnn-rec",title:"Graph-Based Recommender Systems",type:"lesson"},
+    {id:"gnn-mol",title:"Molecular Property Prediction",type:"lesson"},
+    {id:"gnn-project",title:"Project: Citation Network Classifier",type:"project"},
+    {id:"gnn-quiz",title:"GNN Quiz",type:"quiz"},
+  ]},
+  "Time Series & Forecasting":{ icon:"📈", tier:3, color:"#65a30d", topics:[
+    {id:"ts-basics",title:"Time Series Fundamentals",type:"lesson"},
+    {id:"ts-decomposition",title:"Trend, Seasonality & Decomposition",type:"lesson"},
+    {id:"ts-stationarity",title:"Stationarity & Differencing",type:"lesson"},
+    {id:"ts-arima",title:"ARIMA & SARIMA",type:"lesson"},
+    {id:"ts-exp-smooth",title:"Exponential Smoothing — ETS",type:"lesson"},
+    {id:"ts-prophet",title:"Facebook Prophet",type:"lesson"},
+    {id:"ts-lstm-ts",title:"LSTMs for Time Series",type:"lesson"},
+    {id:"ts-tcn",title:"Temporal Convolutional Networks",type:"lesson"},
+    {id:"ts-nbeats",title:"N-BEATS & N-HiTS",type:"lesson"},
+    {id:"ts-transformer-ts",title:"Transformers for Time Series — PatchTST",type:"lesson"},
+    {id:"ts-timegpt",title:"TimeGPT & Foundation Models for TS",type:"lesson"},
+    {id:"ts-anomaly",title:"Anomaly Detection in Time Series",type:"lesson"},
+    {id:"ts-causal",title:"Causal Inference in Time Series",type:"lesson"},
+    {id:"ts-multivariate",title:"Multivariate Forecasting",type:"lesson"},
+    {id:"ts-project",title:"Project: Energy Demand Forecaster",type:"project"},
+    {id:"ts-quiz",title:"Time Series Quiz",type:"quiz"},
+  ]},
+  "Bayesian & Probabilistic ML":{ icon:"🎲", tier:3, color:"#7c3aed", topics:[
+    {id:"bayes-theorem",title:"Bayesian Inference Framework",type:"lesson"},
+    {id:"bayes-conjugate",title:"Conjugate Priors",type:"lesson"},
+    {id:"bayes-mcmc",title:"Markov Chain Monte Carlo (MCMC)",type:"lesson"},
+    {id:"bayes-hmc",title:"Hamiltonian Monte Carlo",type:"lesson"},
+    {id:"bayes-vi",title:"Variational Inference",type:"lesson"},
+    {id:"bayes-em",title:"Expectation-Maximisation Algorithm",type:"lesson"},
+    {id:"bayes-gp",title:"Gaussian Processes",type:"lesson"},
+    {id:"bayes-gp-reg",title:"Gaussian Process Regression",type:"lesson"},
+    {id:"bayes-bnn",title:"Bayesian Neural Networks",type:"lesson"},
+    {id:"bayes-pyro",title:"Pyro & NumPyro",type:"lesson"},
+    {id:"bayes-uncertainty",title:"Uncertainty Quantification",type:"lesson"},
+    {id:"bayes-conformal",title:"Conformal Prediction",type:"lesson"},
+    {id:"bayes-causal",title:"Causal Bayesian Networks",type:"lesson"},
+    {id:"bayes-project",title:"Project: Bayesian A/B Testing System",type:"project"},
+    {id:"bayes-quiz",title:"Bayesian ML Quiz",type:"quiz"},
+  ]},
+  "AI Hardware & Efficiency":{ icon:"⚡", tier:4, color:"#d97706", topics:[
+    {id:"hw-gpu",title:"GPU Architecture for Deep Learning",type:"lesson"},
+    {id:"hw-cuda",title:"CUDA Programming Fundamentals",type:"lesson"},
+    {id:"hw-memory",title:"GPU Memory Management",type:"lesson"},
+    {id:"hw-tpu",title:"TPUs & Custom AI Accelerators",type:"lesson"},
+    {id:"hw-quant",title:"Quantisation — INT8, FP16, BF16",type:"lesson"},
+    {id:"hw-pruning",title:"Model Pruning — Structured & Unstructured",type:"lesson"},
+    {id:"hw-distill",title:"Knowledge Distillation",type:"lesson"},
+    {id:"hw-nas",title:"Neural Architecture Search (NAS)",type:"lesson"},
+    {id:"hw-onnx",title:"ONNX & Model Export",type:"lesson"},
+    {id:"hw-trt",title:"TensorRT & Inference Optimisation",type:"lesson"},
+    {id:"hw-flash-attn",title:"FlashAttention & Memory-Efficient Transformers",type:"lesson"},
+    {id:"hw-compilation",title:"torch.compile & XLA Compilation",type:"lesson"},
+    {id:"hw-edge",title:"Edge AI — TFLite & Core ML",type:"lesson"},
+    {id:"hw-project",title:"Project: Optimise a Model for Edge Deployment",type:"project"},
+    {id:"hw-quiz",title:"AI Hardware & Efficiency Quiz",type:"quiz"},
+  ]},
+  "AI Safety & Alignment":{ icon:"🛡", tier:4, color:"#dc2626", topics:[
+    {id:"safe-what",title:"What is AI Safety?",type:"lesson"},
+    {id:"safe-alignment",title:"The Alignment Problem",type:"lesson"},
+    {id:"safe-mesa-opt",title:"Mesa-Optimisation & Inner Misalignment",type:"lesson"},
+    {id:"safe-outer",title:"Outer Alignment & Reward Hacking",type:"lesson"},
+    {id:"safe-interp",title:"Mechanistic Interpretability",type:"lesson"},
+    {id:"safe-circuits",title:"Circuits & Features in Transformers",type:"lesson"},
+    {id:"safe-probing",title:"Probing Classifiers & Representation Analysis",type:"lesson"},
+    {id:"safe-saliency",title:"Saliency Maps & Attribution Methods",type:"lesson"},
+    {id:"safe-lime-shap",title:"LIME & SHAP for Explainability",type:"lesson"},
+    {id:"safe-red-team",title:"Red-Teaming & Adversarial Attacks",type:"lesson"},
+    {id:"safe-jailbreak",title:"Jailbreaking & Prompt Injection",type:"lesson"},
+    {id:"safe-watermark",title:"AI Watermarking & Detection",type:"lesson"},
+    {id:"safe-bias",title:"Bias, Fairness & Representational Harms",type:"lesson"},
+    {id:"safe-privacy",title:"Privacy — Federated Learning & Differential Privacy",type:"lesson"},
+    {id:"safe-robust",title:"Adversarial Robustness — PGD, FGSM",type:"lesson"},
+    {id:"safe-governance",title:"AI Governance, Policy & Regulation",type:"lesson"},
+    {id:"safe-project",title:"Project: Audit an LLM for Safety",type:"project"},
+    {id:"safe-quiz",title:"AI Safety Quiz",type:"quiz"},
+  ]},
+  "AI Research Methods":{ icon:"🔭", tier:4, color:"#6366f1", topics:[
+    {id:"res-reading",title:"How to Read a Research Paper",type:"lesson"},
+    {id:"res-landscape",title:"Mapping the Research Landscape",type:"lesson"},
+    {id:"res-gaps",title:"Finding Research Gaps",type:"lesson"},
+    {id:"res-hypothesis",title:"Forming a Falsifiable Hypothesis",type:"lesson"},
+    {id:"res-baselines",title:"Choosing Baselines & Ablations",type:"lesson"},
+    {id:"res-experiment",title:"Experimental Design for ML",type:"lesson"},
+    {id:"res-stats-test",title:"Statistical Significance in ML",type:"lesson"},
+    {id:"res-reproduce",title:"Reproducibility Crisis & Best Practices",type:"lesson"},
+    {id:"res-ablation",title:"Ablation Studies",type:"lesson"},
+    {id:"res-writing-abs",title:"Writing the Abstract",type:"lesson"},
+    {id:"res-writing-intro",title:"Writing the Introduction",type:"lesson"},
+    {id:"res-writing-rw",title:"Writing Related Work",type:"lesson"},
+    {id:"res-writing-method",title:"Writing the Methodology",type:"lesson"},
+    {id:"res-writing-exp",title:"Writing Experiments & Results",type:"lesson"},
+    {id:"res-tables",title:"Tables, Figures & Visualisations for Papers",type:"lesson"},
+    {id:"res-review",title:"Writing & Responding to Peer Reviews",type:"lesson"},
+    {id:"res-venues",title:"Conference & Journal Venues Guide",type:"lesson"},
+    {id:"res-arxiv",title:"arXiv & Open Science",type:"lesson"},
+    {id:"res-project",title:"Project: Write a Conference Paper",type:"project"},
+    {id:"res-quiz",title:"Research Methods Quiz",type:"quiz"},
+  ]},
+  "Self-Supervised & Representation Learning":{ icon:"🧩", tier:4, color:"#2563eb", topics:[
+    {id:"ssl-what",title:"Self-Supervised Learning — Why & How",type:"lesson"},
+    {id:"ssl-contrastive",title:"Contrastive Learning — SimCLR, MoCo",type:"lesson"},
+    {id:"ssl-byol",title:"BYOL & Non-Contrastive Methods",type:"lesson"},
+    {id:"ssl-simsiam",title:"SimSiam & Collapse Avoidance",type:"lesson"},
+    {id:"ssl-barlow",title:"Barlow Twins & VICReg",type:"lesson"},
+    {id:"ssl-dino",title:"DINO & DINO-v2",type:"lesson"},
+    {id:"ssl-mae",title:"Masked Autoencoders (MAE)",type:"lesson"},
+    {id:"ssl-bert-ssl",title:"BERT as Self-Supervised Learning",type:"lesson"},
+    {id:"ssl-downstream",title:"Linear Probing & Fine-Tuning",type:"lesson"},
+    {id:"ssl-project",title:"Project: Learn Representations on Custom Data",type:"project"},
+    {id:"ssl-quiz",title:"Self-Supervised Learning Quiz",type:"quiz"},
+  ]},
+  "Meta-Learning & Few-Shot Learning":{ icon:"🎓", tier:4, color:"#7c3aed", topics:[
+    {id:"meta-what",title:"What is Meta-Learning?",type:"lesson"},
+    {id:"meta-maml",title:"MAML — Model-Agnostic Meta-Learning",type:"lesson"},
+    {id:"meta-reptile",title:"Reptile & First-Order Approximations",type:"lesson"},
+    {id:"meta-proto",title:"Prototypical Networks",type:"lesson"},
+    {id:"meta-match",title:"Matching Networks & Relation Networks",type:"lesson"},
+    {id:"meta-icl",title:"In-Context Learning as Meta-Learning",type:"lesson"},
+    {id:"meta-zero-shot",title:"Zero-Shot Generalisation",type:"lesson"},
+    {id:"meta-project",title:"Project: Few-Shot Image Classifier",type:"project"},
+    {id:"meta-quiz",title:"Meta-Learning Quiz",type:"quiz"},
+  ]},
+  "Geometric Deep Learning":{ icon:"🔺", tier:4, color:"#0369a1", topics:[
+    {id:"geo-symmetry",title:"Symmetry & Equivariance in DL",type:"lesson"},
+    {id:"geo-e3nn",title:"E(3)-Equivariant Neural Networks",type:"lesson"},
+    {id:"geo-point-cloud",title:"Point Cloud Deep Learning",type:"lesson"},
+    {id:"geo-mesh",title:"Mesh Neural Networks",type:"lesson"},
+    {id:"geo-implicit",title:"Implicit Neural Representations",type:"lesson"},
+    {id:"geo-nerf-deep",title:"NeRF in Depth",type:"lesson"},
+    {id:"geo-3dgs",title:"3D Gaussian Splatting",type:"lesson"},
+    {id:"geo-project",title:"Project: 3D Scene Reconstruction",type:"project"},
+    {id:"geo-quiz",title:"Geometric Deep Learning Quiz",type:"quiz"},
+  ]},
+  "AI in Healthcare":{ icon:"🏥", tier:4, color:"#059669", topics:[
+    {id:"health-intro",title:"AI in Healthcare Overview",type:"lesson"},
+    {id:"health-medical-img",title:"Medical Image Analysis — X-Ray, MRI, CT",type:"lesson"},
+    {id:"health-ehr",title:"Electronic Health Records & Clinical NLP",type:"lesson"},
+    {id:"health-drug",title:"Drug Discovery with AI",type:"lesson"},
+    {id:"health-protein",title:"AlphaFold & Protein Structure Prediction",type:"lesson"},
+    {id:"health-genomics",title:"Genomics & AI — Sequence Modelling",type:"lesson"},
+    {id:"health-survival",title:"Survival Analysis & Clinical Outcomes",type:"lesson"},
+    {id:"health-federated",title:"Federated Learning for Healthcare",type:"lesson"},
+    {id:"health-ethics",title:"Ethics, Regulation & FDA Approval in Health AI",type:"lesson"},
+    {id:"health-project",title:"Project: Chest X-Ray Diagnosis System",type:"project"},
+    {id:"health-quiz",title:"Healthcare AI Quiz",type:"quiz"},
+  ]},
+  "AI in Finance":{ icon:"💹", tier:4, color:"#15803d", topics:[
+    {id:"fin-intro",title:"AI in Finance Overview",type:"lesson"},
+    {id:"fin-algotrading",title:"Algorithmic Trading with ML",type:"lesson"},
+    {id:"fin-rl-trading",title:"Reinforcement Learning for Trading",type:"lesson"},
+    {id:"fin-fraud",title:"Fraud Detection Systems",type:"lesson"},
+    {id:"fin-credit",title:"Credit Scoring & Risk Modelling",type:"lesson"},
+    {id:"fin-sentiment-fin",title:"Financial Sentiment & News Analysis",type:"lesson"},
+    {id:"fin-forecasting",title:"Asset Price Forecasting",type:"lesson"},
+    {id:"fin-portfolio",title:"Portfolio Optimisation with AI",type:"lesson"},
+    {id:"fin-nlp-fin",title:"FinNLP — Earnings Calls & Reports",type:"lesson"},
+    {id:"fin-project",title:"Project: Quantitative Trading Strategy",type:"project"},
+    {id:"fin-quiz",title:"Finance AI Quiz",type:"quiz"},
+  ]},
+  "Robotics & Embodied AI":{ icon:"🦾", tier:4, color:"#b45309", topics:[
+    {id:"rob-intro",title:"Robotics & AI — Foundations",type:"lesson"},
+    {id:"rob-kinematics",title:"Robot Kinematics & Dynamics",type:"lesson"},
+    {id:"rob-perception",title:"Robot Perception — SLAM & Localisation",type:"lesson"},
+    {id:"rob-manipulation",title:"Manipulation & Grasping",type:"lesson"},
+    {id:"rob-motion-plan",title:"Motion Planning",type:"lesson"},
+    {id:"rob-sim",title:"Simulation — MuJoCo, IsaacGym",type:"lesson"},
+    {id:"rob-sim2real",title:"Sim-to-Real Transfer",type:"lesson"},
+    {id:"rob-imitate",title:"Imitation Learning for Robots",type:"lesson"},
+    {id:"rob-rt",title:"RT-1, RT-2 & Foundation Models for Robotics",type:"lesson"},
+    {id:"rob-project",title:"Project: Train a Robotic Arm in Simulation",type:"project"},
+    {id:"rob-quiz",title:"Robotics AI Quiz",type:"quiz"},
+  ]},
+  "Recommender Systems":{ icon:"⭐", tier:4, color:"#9333ea", topics:[
+    {id:"rec-intro",title:"Recommender Systems Overview",type:"lesson"},
+    {id:"rec-collab",title:"Collaborative Filtering",type:"lesson"},
+    {id:"rec-content",title:"Content-Based Filtering",type:"lesson"},
+    {id:"rec-mf",title:"Matrix Factorisation — ALS & SVD++",type:"lesson"},
+    {id:"rec-deep",title:"Deep Learning for RecSys — NCF, Wide&Deep",type:"lesson"},
+    {id:"rec-seq",title:"Sequential Recommendation — BERT4Rec",type:"lesson"},
+    {id:"rec-two-tower",title:"Two-Tower Retrieval Models",type:"lesson"},
+    {id:"rec-gnn-rec",title:"Graph Neural Networks for RecSys",type:"lesson"},
+    {id:"rec-llm-rec",title:"LLMs for Recommendation",type:"lesson"},
+    {id:"rec-bandit",title:"Contextual Bandits & Exploration",type:"lesson"},
+    {id:"rec-eval",title:"Offline & Online Evaluation of RecSys",type:"lesson"},
+    {id:"rec-project",title:"Project: End-to-End Recommender",type:"project"},
+    {id:"rec-quiz",title:"Recommender Systems Quiz",type:"quiz"},
+  ]},
+  "Build AI Products":{ icon:"🚀", tier:5, color:"#1d4ed8", topics:[
+    {id:"prod-ideation",title:"AI Product Ideation & Validation",type:"lesson"},
+    {id:"prod-prd",title:"Writing an AI Product PRD",type:"lesson"},
+    {id:"prod-stack",title:"Choosing Your AI Tech Stack",type:"lesson"},
+    {id:"prod-api",title:"Building AI APIs — REST & Streaming",type:"lesson"},
+    {id:"prod-ui",title:"AI UI Patterns — Chatbots, Copilots, Search",type:"lesson"},
+    {id:"prod-streaming",title:"Streaming LLM Responses",type:"lesson"},
+    {id:"prod-ux",title:"UX for AI Products — Trust & Error States",type:"lesson"},
+    {id:"prod-eval-prod",title:"Evals in Production",type:"lesson"},
+    {id:"prod-cost-llm",title:"LLM Cost Management at Scale",type:"lesson"},
+    {id:"prod-security",title:"AI Product Security",type:"lesson"},
+    {id:"prod-gtm",title:"Go-to-Market for AI Products",type:"lesson"},
+    {id:"prod-project",title:"Capstone: Ship an AI SaaS Product",type:"project"},
+    {id:"prod-quiz",title:"AI Product Building Quiz",type:"quiz"},
   ]},
 };
 
-// ══════════════════════════════════════════════════════════════════════
-//  PERSISTENT STATE  — survives page refresh
-// ══════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════════════════
 const ST = {
   workerUrl: localStorage.getItem("sa_url") || "https://stremini-academy.vishwajeetadkine705.workers.dev",
-  // last open topic & track
   lastTrack: localStorage.getItem("sa_last_track") || null,
   lastTopic: localStorage.getItem("sa_last_topic") || null,
-  // completed topic IDs
   done: new Set(JSON.parse(localStorage.getItem("sa_done") || "[]")),
-  // cached AI responses per topic ID
   cache: JSON.parse(localStorage.getItem("sa_cache") || "{}"),
   xp: parseInt(localStorage.getItem("sa_xp") || "0"),
   streak: parseInt(localStorage.getItem("sa_streak") || "0"),
-  // active state (not persisted)
-  track: null,
-  topic: null,
+  track: null, topic: null,
 };
 
 function persist() {
-  localStorage.setItem("sa_done",   JSON.stringify([...ST.done]));
-  localStorage.setItem("sa_xp",     String(ST.xp));
+  localStorage.setItem("sa_done", JSON.stringify([...ST.done]));
+  localStorage.setItem("sa_xp", String(ST.xp));
   localStorage.setItem("sa_streak", String(ST.streak));
-  localStorage.setItem("sa_cache",  JSON.stringify(ST.cache));
+  localStorage.setItem("sa_cache", JSON.stringify(ST.cache));
   if (ST.track) localStorage.setItem("sa_last_track", ST.track);
   if (ST.topic) localStorage.setItem("sa_last_topic", ST.topic);
 }
 
-// ══════════════════════════════════════════════════════════════════════
-//  UTILS
-// ══════════════════════════════════════════════════════════════════════
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-function scrollTop() { document.querySelector(".page-wrap").scrollTo({ top: 0, behavior: "smooth" }); }
+function scrollTop() { document.querySelector(".page-wrap").scrollTo({ top:0, behavior:"smooth" }); }
+function flashXP(n) { ST.xp += n; $("xpV").textContent = ST.xp; persist(); }
+function setStatus(vis, txt) { const p=$("statusPill"); if(!vis){p.style.display="none";return;} p.style.display="inline-flex"; $("statusTxt").textContent=txt; }
 
-function flashXP(n) {
-  ST.xp += n; $("xpV").textContent = ST.xp; persist();
-}
+// ── TOTAL COUNTS ──
+const totalAll = Object.values(TRACKS).reduce((s,t)=>s+t.topics.length,0);
 
-function setStatus(visible, text) {
-  const p = $("statusPill");
-  if (!visible) { p.style.display = "none"; return; }
-  p.style.display = "inline-flex";
-  $("statusTxt").textContent = text;
+function refreshCounters() {
+  $("doneV").textContent = ST.done.size;
+  $("xpV").textContent = ST.xp;
+  $("streakV").textContent = ST.streak;
 }
 
 function refreshProgress() {
@@ -672,96 +1100,138 @@ function refreshProgress() {
   const topics = TRACKS[ST.track].topics;
   const done = topics.filter(t => ST.done.has(t.id)).length;
   const pct = Math.round(done / topics.length * 100);
-  $("sfFill").style.width  = pct + "%";
-  $("sfPct").textContent   = pct + "%";
-  $("sfDone").textContent  = `${done} / ${topics.length} topics`;
+  $("sfFill").style.width = pct + "%";
+  $("sfPct").textContent = pct + "%";
+  $("sfDone").textContent = `${done} / ${topics.length} topics`;
   $("sfTrackName").textContent = ST.track;
   $("sbFooter").style.display = "block";
-  // also update sidebar track list progress bars
-  document.querySelectorAll(".track-item").forEach(el => {
-    if (el.dataset.track === ST.track) {
-      const fill = el.querySelector(".track-prog-fill");
-      if (fill) fill.style.width = pct + "%";
-    }
-  });
 }
 
-// ══════════════════════════════════════════════════════════════════════
-//  SETUP MODAL
-// ══════════════════════════════════════════════════════════════════════
-function openSetup() {
-  $("workerUrlInput").value = ST.workerUrl;
-  $("setupModal").style.display = "flex";
-}
+// ── SETUP ──
+function openSetup() { $("workerUrlInput").value = ST.workerUrl; $("setupModal").style.display = "flex"; }
 function closeSetup() { $("setupModal").style.display = "none"; }
 function saveSetup() {
   const url = $("workerUrlInput").value.trim();
   if (!url) { alert("Please enter your Worker URL."); return; }
-  ST.workerUrl = url;
-  localStorage.setItem("sa_url", url);
-  closeSetup();
+  ST.workerUrl = url; localStorage.setItem("sa_url", url); closeSetup();
   if (ST.topic) { delete ST.cache[ST.topic]; persist(); loadTopic(ST.topic); }
 }
 
-// ══════════════════════════════════════════════════════════════════════
-//  BOOT — resume where user left off
-// ══════════════════════════════════════════════════════════════════════
-(function boot() {
-  $("xpV").textContent     = ST.xp;
-  $("streakV").textContent = ST.streak;
-  buildTrackList();
+// ── SEARCH ──
+function searchTopics(q) {
+  const res = $("searchResults");
+  if (!q || q.length < 2) { res.className = "search-results"; return; }
+  const matches = [];
+  for (const [trackName, track] of Object.entries(TRACKS)) {
+    for (const t of track.topics) {
+      if (t.title.toLowerCase().includes(q.toLowerCase())) {
+        matches.push({ track: trackName, topic: t, icon: track.icon, color: track.color });
+        if (matches.length >= 12) break;
+      }
+    }
+    if (matches.length >= 12) break;
+  }
+  if (!matches.length) { res.className = "search-results"; return; }
+  const tagMap = { quiz: `<span class="sr-tag tt-quiz">Quiz</span>`, project: `<span class="sr-tag tt-project">Build</span>` };
+  res.innerHTML = matches.map(m => `
+    <div class="sr-item" onclick="selectTrackAndTopic('${esc(m.track)}','${m.topic.id}')">
+      <span class="sr-icon">${m.icon}</span>
+      <div class="sr-info">
+        <div class="sr-title">${esc(m.topic.title)} ${tagMap[m.topic.type]||""}</div>
+        <div class="sr-track">${esc(m.track)}</div>
+      </div>
+    </div>`).join("");
+  res.className = "search-results open";
+}
+function closeSearch() { $("searchResults").className = "search-results"; }
+function selectTrackAndTopic(track, topicId) {
+  closeSearch(); $("sbSearch").value = "";
+  selectTrack(track, topicId);
+}
 
+// ══════════════════════════════════════════════════════
+//  BOOT
+// ══════════════════════════════════════════════════════
+(function boot() {
+  refreshCounters();
+  buildTierList();
   if (ST.lastTrack && TRACKS[ST.lastTrack]) {
-    // Resume previous session
     ST.track = ST.lastTrack;
     activateTrackItem(ST.lastTrack);
     buildTopicList(ST.lastTrack);
     refreshProgress();
-    const resumeTopic = ST.lastTopic || TRACKS[ST.lastTrack].topics.find(t => !ST.done.has(t.id))?.id
-                         || TRACKS[ST.lastTrack].topics[0].id;
+    const resumeTopic = (ST.lastTopic && TRACKS[ST.lastTrack].topics.find(t=>t.id===ST.lastTopic))
+      ? ST.lastTopic
+      : (TRACKS[ST.lastTrack].topics.find(t=>!ST.done.has(t.id)) || TRACKS[ST.lastTrack].topics[0]).id;
     loadTopic(resumeTopic);
   } else {
     showHome();
   }
 })();
 
-// ══════════════════════════════════════════════════════════════════════
-//  SIDEBAR — TRACK LIST
-// ══════════════════════════════════════════════════════════════════════
-function buildTrackList() {
-  const el = $("trackList"); el.innerHTML = "";
-  Object.entries(TRACKS).forEach(([name, d]) => {
-    const done  = d.topics.filter(t => ST.done.has(t.id)).length;
-    const total = d.topics.length;
-    const pct   = Math.round(done / total * 100);
-    const div = document.createElement("div");
-    div.className = "track-item";
-    div.dataset.track = name;
-    div.id = "ti_" + name.replace(/\s/g,"_");
-    div.innerHTML = `
-      <span class="track-icon">${d.icon}</span>
-      <div class="track-info">
-        <div class="track-name">${esc(name)}</div>
-        <div class="track-meta">${done}/${total} done</div>
-        <div class="track-prog-bar"><div class="track-prog-fill" style="width:${pct}%"></div></div>
-      </div>`;
-    div.onclick = () => selectTrack(name);
-    el.appendChild(div);
-  });
+// ══════════════════════════════════════════════════════
+//  SIDEBAR — TIER LIST
+// ══════════════════════════════════════════════════════
+function buildTierList() {
+  const el = $("tierList"); el.innerHTML = "";
+  // Group tracks by tier
+  const tiers = {};
+  for (const [name, d] of Object.entries(TRACKS)) {
+    if (!tiers[d.tier]) tiers[d.tier] = [];
+    tiers[d.tier].push([name, d]);
+  }
+  for (const [tier, trackPairs] of Object.entries(tiers).sort((a,b)=>a[0]-b[0])) {
+    const meta = TIER_META[tier] || { label: `Tier ${tier}`, badge: "", desc: "" };
+    const sec = document.createElement("div");
+    sec.className = "tier-section" + (tier <= 1 ? " open" : "");
+    sec.id = "tier_" + tier;
+    const totalTopics = trackPairs.reduce((s,[,d])=>s+d.topics.length,0);
+    sec.innerHTML = `
+      <div class="tier-header" onclick="toggleTier(${tier})">
+        <span class="tier-label">${meta.label}</span>
+        <span class="tier-count">${totalTopics} topics</span>
+        <svg class="tier-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </div>
+      <div class="tier-tracks" id="tier_tracks_${tier}"></div>`;
+    el.appendChild(sec);
+    const tracksEl = sec.querySelector(`#tier_tracks_${tier}`);
+    for (const [name, d] of trackPairs) {
+      const doneCount = d.topics.filter(t=>ST.done.has(t.id)).length;
+      const pct = Math.round(doneCount/d.topics.length*100);
+      const item = document.createElement("div");
+      item.className = "track-item";
+      item.dataset.track = name;
+      item.id = "ti_" + name.replace(/\s/g,"_");
+      item.innerHTML = `
+        <span class="track-icon">${d.icon}</span>
+        <div class="track-info">
+          <div class="track-name">${esc(name)}</div>
+          <div class="track-meta">${d.topics.length} topics · ${doneCount} done</div>
+          <div class="track-prog-bar"><div class="track-prog-fill" style="width:${pct}%;background:${d.color}"></div></div>
+        </div>`;
+      item.onclick = () => selectTrack(name);
+      tracksEl.appendChild(item);
+    }
+  }
+}
+
+function toggleTier(tier) {
+  const sec = $("tier_" + tier);
+  if (sec) sec.classList.toggle("open");
 }
 
 function activateTrackItem(name) {
-  document.querySelectorAll(".track-item").forEach(e => {
-    e.classList.toggle("active", e.dataset.track === name);
-  });
+  document.querySelectorAll(".track-item").forEach(e => e.classList.toggle("active", e.dataset.track === name));
 }
 
-// ══════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 //  SIDEBAR — TOPIC LIST
-// ══════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 function buildTopicList(trackName) {
   const sec = $("topicsSec"); sec.style.display = "block";
-  $("topicsLabel").textContent = trackName;
+  $("topicsLabel").textContent = TRACKS[trackName].icon + " " + trackName;
   const el = $("topicList"); el.innerHTML = "";
   TRACKS[trackName].topics.forEach(t => {
     const div = document.createElement("div");
@@ -774,117 +1244,157 @@ function buildTopicList(trackName) {
       <span class="topic-status-dot"></span>
       <span class="topic-label">${esc(t.title)}</span>
       ${tag}
-      <svg class="topic-done-check" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+      <svg class="topic-done-check" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
         <polyline points="20 6 9 17 4 12"/>
       </svg>`;
     div.onclick = () => loadTopic(t.id);
     el.appendChild(div);
   });
+  // scroll to active
+  setTimeout(() => {
+    const active = $("tr_" + ST.topic);
+    if (active) active.scrollIntoView({ block: "nearest" });
+  }, 50);
+}
+
+function closeTopics() {
+  $("topicsSec").style.display = "none";
+  $("sbFooter").style.display = "none";
 }
 
 function topicActivate(id) {
-  document.querySelectorAll(".topic-row").forEach(e => {
-    e.classList.toggle("active", e.id === "tr_" + id);
-  });
+  document.querySelectorAll(".topic-row").forEach(e => e.classList.toggle("active", e.id === "tr_" + id));
 }
-
 function topicMarkDone(id) {
-  const el = $("tr_" + id);
-  if (el) el.classList.add("done");
+  const el = $("tr_" + id); if (el) el.classList.add("done");
 }
 
-// ══════════════════════════════════════════════════════════════════════
-//  BREADCRUMB
-// ══════════════════════════════════════════════════════════════════════
+// ── BREADCRUMB ──
 function setBreadcrumb(parts) {
   const bc = $("breadcrumb");
   let html = `<span class="bc-link" onclick="showHome()">Academy</span>`;
   parts.forEach((p, i) => {
     html += `<span class="bc-sep">›</span>`;
-    if (i === parts.length - 1) {
-      html += `<span class="bc-current">${esc(p.label)}</span>`;
-    } else {
-      html += `<span class="bc-link" onclick="${p.action}">${esc(p.label)}</span>`;
-    }
+    if (i === parts.length - 1) html += `<span class="bc-current">${esc(p.label)}</span>`;
+    else html += `<span class="bc-link" onclick="${p.action}">${esc(p.label)}</span>`;
   });
   bc.innerHTML = html;
 }
 
-// ══════════════════════════════════════════════════════════════════════
-//  HOME SCREEN
-// ══════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
+//  HOME
+// ══════════════════════════════════════════════════════
 function showHome() {
   ST.track = null; ST.topic = null;
-  $("topicsSec").style.display = "none";
-  $("sbFooter").style.display  = "none";
   activateTrackItem(null);
   setStatus(false);
   setBreadcrumb([]);
 
   const pg = $("page"); pg.innerHTML = "";
+  const totalDone = ST.done.size;
 
-  const totalDone  = [...ST.done].length;
-  const totalAll   = Object.values(TRACKS).reduce((s, t) => s + t.topics.length, 0);
-  const totalTracks = Object.keys(TRACKS).length;
-
+  // Hero
   const hero = document.createElement("div"); hero.className = "home-hero";
   hero.innerHTML = `
-    <h1>Learn <em>AI & Machine Learning</em><br/>topic by topic.</h1>
-    <p>Structured lessons, working code examples, and quizzes — all generated live by AI, tailored to your level.</p>
+    <h1>Learn <em>AI & Machine Learning</em><br/>the complete way.</h1>
+    <p>517 topics across 25 tracks — from linear algebra to LLM fine-tuning, safety, agents, and shipping products. More than any 4-year degree.</p>
     <div class="home-stats">
-      <div class="stat-card"><div class="sn">${totalTracks}</div><div class="sl">Tracks</div></div>
+      <div class="stat-card"><div class="sn">${Object.keys(TRACKS).length}</div><div class="sl">Tracks</div></div>
       <div class="stat-card"><div class="sn">${totalAll}</div><div class="sl">Topics</div></div>
       <div class="stat-card"><div class="sn">${totalDone}</div><div class="sl">Completed</div></div>
       <div class="stat-card"><div class="sn">${ST.xp}</div><div class="sl">XP Earned</div></div>
     </div>`;
   pg.appendChild(hero);
 
-  const grid = document.createElement("div"); grid.className = "track-grid";
-  Object.entries(TRACKS).forEach(([name, d]) => {
-    const done  = d.topics.filter(t => ST.done.has(t.id)).length;
-    const total = d.topics.length;
-    const pct   = Math.round(done / total * 100);
-    const card  = document.createElement("div"); card.className = "track-card";
-    card.innerHTML = `
-      <div class="tc-head">
-        <span class="tc-icon">${d.icon}</span>
-        <span class="tc-title">${esc(name)}</span>
-      </div>
-      <div class="tc-desc">${total} topics · lessons, code &amp; quizzes</div>
-      <div class="tc-foot">
-        <span class="tc-done-badge">${done}/${total} done</span>
-        <span class="tc-action">${done === 0 ? "Start →" : done === total ? "✓ Complete" : "Continue →"}</span>
-      </div>
-      <div class="track-prog-bar"><div class="track-prog-fill" style="width:${pct}%"></div></div>`;
-    card.onclick = () => selectTrack(name);
-    grid.appendChild(card);
-  });
-  pg.appendChild(grid);
+  // Tier sections
+  const tierGroups = {};
+  for (const [name, d] of Object.entries(TRACKS)) {
+    if (!tierGroups[d.tier]) tierGroups[d.tier] = [];
+    tierGroups[d.tier].push([name, d]);
+  }
+
+  const tierLabels = {
+    0: { label:"Foundations", badge:"tier-0-badge", desc:"Mathematics & Programming — build the bedrock everything else stands on." },
+    1: { label:"Classical ML", badge:"tier-1-badge", desc:"Traditional machine learning algorithms in full depth." },
+    2: { label:"Core Deep Learning", badge:"tier-2-badge", desc:"Neural networks, vision, language, and reinforcement learning." },
+    3: { label:"Advanced Systems", badge:"tier-3-badge", desc:"LLMs, agents, RAG, GNNs, time series, Bayesian methods." },
+    4: { label:"Expert & Applied", badge:"tier-4-badge", desc:"Hardware, safety, research, and domain applications." },
+    5: { label:"Capstone", badge:"tier-5-badge", desc:"Build and ship production AI products." },
+  };
+
+  for (const [tier, pairs] of Object.entries(tierGroups).sort((a,b)=>a[0]-b[0])) {
+    const meta = tierLabels[tier] || { label:`Tier ${tier}`, badge:"", desc:"" };
+    const section = document.createElement("div"); section.className = "home-tier";
+
+    const hdr = document.createElement("div"); hdr.className = "home-tier-header";
+    hdr.innerHTML = `
+      <span class="home-tier-label">Tier ${tier} — ${meta.label}</span>
+      <span class="home-tier-badge ${meta.badge}">T${tier}</span>
+      <span class="home-tier-sub">${pairs.reduce((s,[,d])=>s+d.topics.length,0)} topics</span>`;
+    section.appendChild(hdr);
+
+    const desc = document.createElement("p");
+    desc.style.cssText = "font-size:12.5px;color:var(--muted);margin-bottom:12px;line-height:1.5";
+    desc.textContent = meta.desc;
+    section.appendChild(desc);
+
+    const cols = pairs.length <= 2 ? "track-grid track-grid-2" : pairs.length <= 4 ? "track-grid" : "track-grid";
+    const grid = document.createElement("div");
+    grid.className = cols;
+    if (pairs.length > 4) grid.style.gridTemplateColumns = "repeat(3,1fr)";
+
+    for (const [name, d] of pairs) {
+      const done = d.topics.filter(t=>ST.done.has(t.id)).length;
+      const total = d.topics.length;
+      const pct = Math.round(done/total*100);
+      const card = document.createElement("div"); card.className = "track-card";
+      card.innerHTML = `
+        <div class="tc-head">
+          <span class="tc-icon">${d.icon}</span>
+          <span class="tc-title">${esc(name)}</span>
+        </div>
+        <div class="tc-desc">${total} topics · lessons, code &amp; quizzes</div>
+        <div class="tc-foot">
+          <span class="tc-done-badge" style="background:${d.color}18;color:${d.color};border:1px solid ${d.color}40">${done}/${total}</span>
+          <span style="font-size:11px;color:var(--muted)">${done===0?"Start →":done===total?"✓ Complete":"Continue →"}</span>
+        </div>
+        <div class="tc-color-bar"><div class="tc-color-fill" style="width:${pct}%;background:${d.color}"></div></div>`;
+      card.onclick = () => selectTrack(name);
+      grid.appendChild(card);
+    }
+    section.appendChild(grid);
+    pg.appendChild(section);
+  }
 }
 
-// ══════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 //  TRACK SELECTION
-// ══════════════════════════════════════════════════════════════════════
-function selectTrack(name) {
+// ══════════════════════════════════════════════════════
+function selectTrack(name, topicId) {
   ST.track = name;
   activateTrackItem(name);
   buildTopicList(name);
   refreshProgress();
-  // Resume from last visited topic, or find first incomplete
-  let resumeTopic;
-  if (ST.lastTrack === name && ST.lastTopic) {
-    const exists = TRACKS[name].topics.find(t => t.id === ST.lastTopic);
-    resumeTopic = exists ? ST.lastTopic : null;
-  }
+  // Open the right tier in sidebar
+  const tier = TRACKS[name].tier;
+  const sec = $("tier_" + tier);
+  if (sec && !sec.classList.contains("open")) sec.classList.add("open");
+
+  let resumeTopic = topicId;
   if (!resumeTopic) {
-    resumeTopic = (TRACKS[name].topics.find(t => !ST.done.has(t.id)) || TRACKS[name].topics[0]).id;
+    if (ST.lastTrack === name && ST.lastTopic && TRACKS[name].topics.find(t=>t.id===ST.lastTopic))
+      resumeTopic = ST.lastTopic;
+    else
+      resumeTopic = (TRACKS[name].topics.find(t=>!ST.done.has(t.id)) || TRACKS[name].topics[0]).id;
   }
   loadTopic(resumeTopic);
 }
 
-// ══════════════════════════════════════════════════════════════════════
-//  TOPIC LOADER  — with localStorage cache for session persistence
-// ══════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
+//  TOPIC LOADER
+// ══════════════════════════════════════════════════════
+let _loadGen = 0;
+
 async function loadTopic(id) {
   if (!ST.track) return;
   ST.topic = id;
@@ -892,28 +1402,19 @@ async function loadTopic(id) {
   scrollTop();
   persist();
 
-  const pg    = $("page");
+  const pg = $("page");
   const tData = TRACKS[ST.track].topics.find(t => t.id === id);
   if (!tData) return;
 
-  // ── Cache HIT: render immediately ──────────────────────────────────
-  if (ST.cache[id]) {
-    render(id);
-    return;
-  }
+  if (ST.cache[id]) { render(id); return; }
 
-  // ── No Worker URL ──────────────────────────────────────────────────
   if (!ST.workerUrl) {
-    renderError(pg, "Worker URL not configured", "Click Setup in the top-right and enter your Cloudflare Worker URL.", id, "setup");
-    return;
+    renderError(pg, "Worker URL not configured", "Click Setup and enter your Worker URL.", id, "setup"); return;
   }
 
-  // Stamp this load so we can discard results from a superseded request
   const myGen = ++_loadGen;
-
-  // ── Loading state ──────────────────────────────────────────────────
   setStatus(true, "Loading…");
-  setBreadcrumb([{ label: ST.track, action: `selectTrack('${esc(ST.track)}')` }, { label: tData.title }]);
+  setBreadcrumb([{label:ST.track,action:`selectTrack('${esc(ST.track)}')`},{label:tData.title}]);
 
   pg.innerHTML = `
     <div class="loading">
@@ -927,310 +1428,179 @@ async function loadTopic(id) {
   try {
     const mode  = tData.type === "quiz" ? "assess" : tData.type === "project" ? "project" : "teach";
     const query = buildQuery(tData, ST.track);
-
     const res = await fetch(ST.workerUrl, {
-      method:  "POST",
-      headers: { "Content-Type": "application/json" },
-      body:    JSON.stringify({
-        query, mode, history: [],
-        userProfile: {
-          skillLevel: "beginner", track: ST.track,
-          preferredDepth: "conceptual", timePerWeek: "5 hours",
-          learningGoal: `Learn ${tData.title}`,
-        },
+      method: "POST", headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({ query, mode, history:[],
+        userProfile:{ skillLevel:"beginner", track:ST.track, preferredDepth:"conceptual", timePerWeek:"5 hours", learningGoal:`Learn ${tData.title}` }
       }),
     });
-
     if (!res.ok) throw new Error(`Worker returned HTTP ${res.status}.`);
     const data = await res.json();
     if (data.status === "ERROR") throw new Error(data.message || "Worker error.");
-
     const raw = data.content || data.solution || "";
     if (!raw) throw new Error("Worker returned empty content.");
-
-    // Discard if user navigated away while we were fetching
     if (myGen !== _loadGen) return;
-
-    // ── Store in localStorage cache ─────────────────────────────────
     ST.cache[id] = { topic: tData, raw, status: data.status };
     persist();
     setStatus(false);
     render(id);
-
   } catch (err) {
-    if (myGen !== _loadGen) return;  // stale — don't clobber a newer load
+    if (myGen !== _loadGen) return;
     setStatus(false);
-    const msg = (err instanceof TypeError && !err.message) ? "Failed to fetch" : (err.message || "Unknown error");
-    renderError(pg, "Failed to load lesson", msg, id);
+    renderError(pg, "Failed to load lesson", err.message || "Unknown error", id);
   }
 }
 
-// ── Load generation counter — prevents stale render() calls from a prior
-//    loadTopic() overlapping with a newer one's error state. ────────────
-let _loadGen = 0;
-
 function retryTopic(id) { delete ST.cache[id]; persist(); loadTopic(id); }
 
-// ── Detect the type of error to show tailored diagnosis ──────────────
 function classifyError(msg) {
-  const m = (msg || "").toLowerCase();
-  if (m.includes("cors") || m.includes("networkerror") ||
-      m.includes("failed to fetch") || m.includes("load failed") ||
-      m.includes("network request failed") || m.includes("fetch")) {
-    return "cors";
-  }
-  if (m.includes("401") || m.includes("403") || m.includes("unauthorized") || m.includes("forbidden")) {
-    return "auth";
-  }
-  if (m.includes("timeout") || m.includes("timed out") || m.includes("abort")) {
-    return "timeout";
-  }
-  if (m.includes("502") || m.includes("503") || m.includes("504") || m.includes("bad gateway")) {
-    return "server";
-  }
+  const m = (msg||"").toLowerCase();
+  if (m.includes("cors")||m.includes("networkerror")||m.includes("failed to fetch")||m.includes("load failed")) return "cors";
+  if (m.includes("401")||m.includes("403")||m.includes("unauthorized")) return "auth";
+  if (m.includes("timeout")||m.includes("timed out")) return "timeout";
+  if (m.includes("502")||m.includes("503")||m.includes("504")) return "server";
   return "generic";
 }
 
 function renderError(pg, title, msg, topicId, forceKind) {
-  // Wipe the entire page div so NO leftover content (nav, footer, lview) persists
   pg.innerHTML = "";
   const kind = forceKind || classifyError(msg);
-
   const diagRows = {
-    cors: [
-      { dot: "red",   text: "<strong>CORS blocked</strong> — the Worker rejected this page's origin (<code>null</code> for local files). The updated <code>index.js</code> now includes <code>\"null\"</code> and localhost in the trusted-origins list." },
-      { dot: "amber", text: "<strong>To fix:</strong> redeploy the updated <code>index.js</code> to Cloudflare Workers with <code>wrangler deploy</code>, then reload this page." },
-      { dot: "green", text: "<strong>No-redeploy workaround:</strong> open this file via VS Code Live Server or run <code>npx serve .</code> — the origin becomes <code>http://localhost:5500</code> which doesn't trigger the CORS block." },
+    cors:[
+      {dot:"red",text:"<strong>CORS blocked</strong> — the Worker rejected this page's origin."},
+      {dot:"amber",text:"<strong>Fix:</strong> redeploy the updated <code>index.js</code> with <code>wrangler deploy</code>."},
+      {dot:"green",text:"<strong>Workaround:</strong> open this file via <code>npx serve .</code> on localhost."},
     ],
-    setup: [
-      { dot: "red",   text: "<strong>No Worker URL set.</strong> The academy needs a Cloudflare Worker to generate AI lessons." },
-      { dot: "amber", text: "Click <strong>Setup</strong> in the top-right and paste your Worker URL (e.g. <code>https://stremini-academy.yourname.workers.dev</code>)." },
-      { dot: "green", text: "The default URL <code>stremini-academy.vishwajeetadkine705.workers.dev</code> should be pre-filled — if it's missing, add it in Setup." },
+    setup:[
+      {dot:"red",text:"<strong>No Worker URL set.</strong> The academy needs a Cloudflare Worker to generate lessons."},
+      {dot:"amber",text:"Click <strong>Setup</strong> and paste your Worker URL."},
+      {dot:"green",text:"Default: <code>stremini-academy.vishwajeetadkine705.workers.dev</code>"},
     ],
-    auth: [
-      { dot: "red",   text: "<strong>Authentication failed</strong> — the worker returned 401 or 403." },
-      { dot: "amber", text: "Check that <code>MBZUAI_API_KEY</code> is set as a Cloudflare Workers secret and has not expired." },
-      { dot: "green", text: "Run: <code>wrangler secret put MBZUAI_API_KEY</code> then redeploy." },
-    ],
-    timeout: [
-      { dot: "red",   text: "<strong>Request timed out</strong> — the AI API took longer than 30 seconds." },
-      { dot: "amber", text: "This is usually a temporary spike. Try again in a few seconds." },
-      { dot: "green", text: "If it happens consistently, try a simpler topic query." },
-    ],
-    server: [
-      { dot: "red",   text: "<strong>Worker or AI service error</strong> — upstream returned 5xx." },
-      { dot: "amber", text: "Check your Cloudflare Worker logs with <code>wrangler tail</code>." },
-      { dot: "green", text: "Usually transient — retry in a moment." },
-    ],
-    generic: [
-      { dot: "red",   text: `<strong>Error:</strong> ${esc(msg)}` },
-      { dot: "amber", text: "Check the worker is deployed and the URL in Setup is correct." },
-      { dot: "green", text: "Open DevTools (F12) → Console and Network tabs for details." },
-    ],
+    auth:[{dot:"red",text:"<strong>Auth failed.</strong> Check MBZUAI_API_KEY is set as a Worker secret."}],
+    timeout:[{dot:"red",text:"<strong>Timed out.</strong> Try again in a few seconds."}],
+    server:[{dot:"red",text:"<strong>Service error.</strong> Check Cloudflare Worker logs with <code>wrangler tail</code>."}],
+    generic:[{dot:"red",text:`<strong>Error:</strong> ${esc(msg)}`},{dot:"amber",text:"Check the Worker is deployed and the URL in Setup is correct."},{dot:"green",text:"Open DevTools → Console & Network for details."}],
   };
-
-  const rows = (diagRows[kind] || diagRows.generic);
-  const diagHtml = rows.map(r =>
-    `<div class="ed-row"><span class="ed-dot ed-dot-${r.dot}"></span><span>${r.text}</span></div>`
-  ).join("");
-
-  const icons = {
-    cors:    `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>`,
-    setup:   `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>`,
-    auth:    `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>`,
-    timeout: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
-    server:  `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/></svg>`,
-    generic: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`,
-  };
-
-  const titles = {
-    cors:    "CORS Policy Blocked",
-    setup:   "Worker Not Configured",
-    auth:    "Authentication Failed",
-    timeout: "Request Timed Out",
-    server:  "Service Unavailable",
-    generic: title || "Something went wrong",
-  };
-
-  const retryBtn = topicId
-    ? `<button class="ea-btn ea-primary" onclick="retryTopic('${topicId}')">
-         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-           <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/>
-         </svg> Try Again
-       </button>`
-    : "";
-
+  const rows = diagRows[kind]||diagRows.generic;
   pg.innerHTML = `
     <div class="error-page">
-      <div class="error-page-icon">${icons[kind] || icons.generic}</div>
-      <div class="error-page-title">${titles[kind]}</div>
-      <div class="error-page-msg">
-        ${kind === "cors"
-          ? "The browser blocked the fetch because your Worker's CORS policy doesn't allow <code>file://</code> origins. Redeploy the updated <code>index.js</code> or use a local dev server — see the steps below."
-          : kind === "setup"
-          ? "A Worker URL is required to generate lessons. Click <strong>Setup</strong> to configure it."
-          : "The lesson couldn't be loaded. The diagnosis below should help you fix it quickly."
-        }
+      <div class="error-page-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
       </div>
+      <div class="error-page-title">${title}</div>
+      <div class="error-page-msg">The lesson couldn't be loaded. See the steps below.</div>
       <div class="error-diagnosis">
         <div class="ed-label">What to do</div>
-        ${diagHtml}
+        ${rows.map(r=>`<div class="ed-row"><span class="ed-dot ed-dot-${r.dot}"></span><span>${r.text}</span></div>`).join("")}
       </div>
       <div class="error-actions">
-        ${retryBtn}
-        <button class="ea-btn ea-ghost" onclick="openSetup()">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-            <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
-          </svg> Setup
-        </button>
-        <button class="ea-btn ea-ghost" onclick="showHome()">← Back to Tracks</button>
+        ${topicId?`<button class="ea-btn ea-primary" onclick="retryTopic('${topicId}')">↺ Try Again</button>`:""}
+        <button class="ea-btn ea-ghost" onclick="openSetup()">Setup</button>
+        <button class="ea-btn ea-ghost" onclick="showHome()">← Tracks</button>
       </div>
     </div>`;
 }
 
-// ══════════════════════════════════════════════════════════════════════
-//  QUERY BUILDER
-// ══════════════════════════════════════════════════════════════════════
 function buildQuery(topic, track) {
-  if (topic.type === "quiz") {
-    return `Generate a comprehensive quiz covering all topics in the "${track}" track. ` +
-           `Include 6 multiple-choice questions, each testing a different concept. ` +
-           `Format each question with clear A/B/C/D options and mark the correct answer.`;
-  }
-  if (topic.type === "project") {
-    return `Guide me step-by-step through building: "${topic.title}" (${track} track). ` +
-           `Include: a project overview, 4-5 concrete implementation steps each with complete working Python code, ` +
-           `and 3 multiple-choice quiz questions at the end to test understanding. ` +
-           `Label the quiz section clearly with "QUIZ:" before the questions.`;
-  }
-  return `Teach me "${topic.title}" from the ${track} track. ` +
-         `Include: a clear explanation, how it works mathematically/conceptually, ` +
-         `a complete working Python code example, key takeaways, and real-world applications. ` +
-         `End with 3 multiple-choice quiz questions labelled "QUIZ:" to test understanding. ` +
-         `Format each quiz question with A/B/C/D options and mark the correct answer clearly.`;
+  if (topic.type === "quiz") return `Generate a comprehensive quiz covering all key concepts in "${topic.title}" for the "${track}" track. Include 6 multiple-choice questions, each testing a different concept from this specific topic. Format each question with clear A/B/C/D options and mark the correct answer with an explanation.`;
+  if (topic.type === "project") return `Guide me step-by-step through building: "${topic.title}" (${track} track). Include: project overview, required tech stack with install commands, 5 implementation steps each with complete working Python code, expected outputs, common pitfalls, and 3 multiple-choice quiz questions labelled "QUIZ:" at the end.`;
+  return `Teach me "${topic.title}" from the ${track} track. Include: intuitive explanation with analogy, mathematical/conceptual deep dive, complete working Python code example with comments, visual intuition, common misconceptions, real-world applications in industry, and 3 multiple-choice quiz questions labelled "QUIZ:" to test understanding. Format each quiz question with A/B/C/D options and mark the correct answer clearly.`;
 }
 
-// ══════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 //  RENDERER
-// ══════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 function render(id) {
   const { topic, raw } = ST.cache[id];
-  const pg     = $("page"); pg.innerHTML = "";
+  const pg = $("page"); pg.innerHTML = "";
   const topics = TRACKS[ST.track].topics;
-  const idx    = topics.findIndex(t => t.id === id);
-  const done   = topics.filter(t => ST.done.has(t.id)).length;
-  const pct    = Math.round(done / topics.length * 100);
+  const idx = topics.findIndex(t => t.id === id);
+  const done = topics.filter(t => ST.done.has(t.id)).length;
+  const pct = Math.round(done / topics.length * 100);
 
-  setBreadcrumb([
-    { label: ST.track, action: `selectTrack('${esc(ST.track)}')` },
-    { label: topic.title }
-  ]);
+  setBreadcrumb([{label:ST.track,action:`selectTrack('${esc(ST.track)}')`},{label:topic.title}]);
   setStatus(false);
 
   const wrap = document.createElement("div"); wrap.className = "lview";
 
-  // Badge
-  const badgeMap = { lesson: ["lb-lesson","Lesson"], quiz: ["lb-quiz","Quiz"], project: ["lb-project","Project"] };
-  const [bc, bl] = badgeMap[topic.type] || badgeMap.lesson;
-  const badge = document.createElement("div"); badge.className = "l-badge " + bc;
-  badge.textContent = bl;
+  const badgeMap = { lesson:["lb-lesson","Lesson"], quiz:["lb-quiz","Quiz"], project:["lb-project","Project"] };
+  const [bc, bl] = badgeMap[topic.type]||badgeMap.lesson;
+  const badge = document.createElement("div"); badge.className = "l-badge "+bc; badge.textContent = bl;
   wrap.appendChild(badge);
 
-  // Title
   const h = document.createElement("h1"); h.className = "l-title"; h.textContent = topic.title;
   wrap.appendChild(h);
 
-  // Meta
   const meta = document.createElement("div"); meta.className = "l-meta";
   meta.innerHTML = `
-    <span class="l-meta-item">
-      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-        <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-      </svg> ~8 min
-    </span>
-    <span class="l-meta-item">Topic ${idx + 1} of ${topics.length}</span>
-    <span class="l-meta-item">${ST.track}</span>`;
+    <span class="l-meta-item"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> ~8 min</span>
+    <span class="l-meta-item">Topic ${idx+1} of ${topics.length}</span>
+    <span class="l-meta-item" style="color:${TRACKS[ST.track].color}">${ST.track}</span>`;
   wrap.appendChild(meta);
 
-  // Progress strip
   const prog = document.createElement("div"); prog.className = "prog-strip";
-  prog.innerHTML = `
-    <span class="ps-label">Track progress</span>
-    <div class="ps-bar"><div class="ps-fill" style="width:${pct}%"></div></div>
-    <span class="ps-pct">${pct}%</span>`;
+  prog.innerHTML = `<span class="ps-label">Track progress</span><div class="ps-bar"><div class="ps-fill" style="width:${pct}%;background:${TRACKS[ST.track].color}"></div></div><span class="ps-pct" style="color:${TRACKS[ST.track].color}">${pct}%</span>`;
   wrap.appendChild(prog);
 
-  // Parse & render content
   const { proseParts, quizQs } = parseContent(raw);
   const proseEl = document.createElement("div"); proseEl.className = "prose";
   renderProse(proseParts, proseEl);
   wrap.appendChild(proseEl);
 
-  // Quiz section
   if (quizQs.length > 0) wrap.appendChild(buildQuiz(quizQs, id, topics, idx));
-
-  // ── Idea Workshop (NEW FEATURE) ──────────────────────────────────
   wrap.appendChild(buildIdeaWorkshop(topic, ST.track));
 
-  // Footer nav
-  const prev = idx > 0 ? topics[idx - 1] : null;
-  const next = idx < topics.length - 1 ? topics[idx + 1] : null;
+  const prev = idx > 0 ? topics[idx-1] : null;
+  const next = idx < topics.length-1 ? topics[idx+1] : null;
   const footer = document.createElement("div"); footer.className = "l-footer";
 
   if (prev) {
     const pb = document.createElement("button"); pb.className = "lf-btn lf-prev";
-    pb.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> ${esc(prev.title)}`;
-    pb.onclick = () => loadTopic(prev.id);
+    pb.innerHTML = `← ${esc(prev.title)}`; pb.onclick = () => loadTopic(prev.id);
     footer.appendChild(pb);
   } else footer.appendChild(document.createElement("span"));
 
-  const rg = document.createElement("div"); rg.style.cssText = "display:flex;gap:8px;align-items:center";
+  const rg = document.createElement("div"); rg.style.cssText = "display:flex;gap:7px;align-items:center";
   const db = document.createElement("button"); db.className = "lf-btn lf-done";
-  db.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Mark complete`;
+  db.innerHTML = `✓ Mark complete`;
   db.onclick = () => { markDone(id); if (next) loadTopic(next.id); else showHome(); };
   rg.appendChild(db);
 
   if (next) {
     const nb = document.createElement("button"); nb.className = "lf-btn lf-next";
-    nb.innerHTML = `${esc(next.title)} <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>`;
-    nb.onclick = () => { markDone(id); loadTopic(next.id); };
+    nb.innerHTML = `${esc(next.title)} →`; nb.onclick = () => { markDone(id); loadTopic(next.id); };
     rg.appendChild(nb);
   }
   footer.appendChild(rg);
   wrap.appendChild(footer);
   pg.appendChild(wrap);
 
-  pg.querySelectorAll("pre code").forEach(el => { try { hljs.highlightElement(el); } catch (e) {} });
-  // Render math — KaTeX may be deferred, retry after a tick if not ready
+  pg.querySelectorAll("pre code").forEach(el => { try { hljs.highlightElement(el); } catch(e){} });
   renderDeferredMath(pg);
-  if (!window.katex) {
-    window.addEventListener("load", () => renderDeferredMath(pg), { once: true });
-  }
 }
 
-// ══════════════════════════════════════════════════════════════════════
-//  IDEA WORKSHOP  — the new per-course feature
-// ══════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
+//  IDEA WORKSHOP
+// ══════════════════════════════════════════════════════
 function buildIdeaWorkshop(topic, track) {
   const sec = document.createElement("div"); sec.className = "idea-section";
   sec.innerHTML = `
     <div class="idea-hd">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--violet)" stroke-width="2" stroke-linecap="round">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--violet)" stroke-width="2" stroke-linecap="round">
         <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>
       </svg>
       <span class="idea-hd-title">Idea Workshop</span>
-      <span class="idea-hd-badge">New</span>
+      <span class="idea-hd-badge">AI</span>
     </div>
-    <p class="idea-desc">Have a project idea related to <strong>${esc(topic.title)}</strong>? Describe it below and our AI will give you a full personalised guide — tech stack, steps, pitfalls, and code snippets — to build it.</p>
+    <p class="idea-desc">Have a project idea related to <strong>${esc(topic.title)}</strong>? Describe it and get a complete personalised guide — tech stack, steps, pitfalls, and code.</p>
     <div class="idea-input-wrap">
-      <textarea class="idea-ta" id="ideaTa_${topic.id}" placeholder="e.g. I want to build a spam classifier for my email app using the concepts from this lesson…" rows="3"></textarea>
+      <textarea class="idea-ta" id="ideaTa_${topic.id}" placeholder="e.g. I want to build a recommendation system for my music app using what I learned here…" rows="3"></textarea>
       <div class="idea-bar">
-        <span class="idea-hint">Describe your project idea in detail for better guidance</span>
+        <span class="idea-hint">Be specific for better guidance</span>
         <button class="idea-send" id="ideaBtn_${topic.id}" onclick="sendIdea('${topic.id}','${esc(topic.title)}','${esc(track)}')">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-            <line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/>
-          </svg>
-          Guide Me
+          ↑ Guide Me
         </button>
       </div>
     </div>
@@ -1238,485 +1608,234 @@ function buildIdeaWorkshop(topic, track) {
   return sec;
 }
 
+const _ideaRawStore = new WeakMap();
+
 async function sendIdea(topicId, topicTitle, track) {
-  const ta  = $("ideaTa_" + topicId);
-  const btn = $("ideaBtn_" + topicId);
-  const out = $("ideaOut_" + topicId);
+  const ta=$("ideaTa_"+topicId), btn=$("ideaBtn_"+topicId), out=$("ideaOut_"+topicId);
   const idea = ta.value.trim();
   if (!idea) return;
-  if (!ST.workerUrl) { out.innerHTML = `<div class="error-box"><div class="error-icon">!</div><div><div class="error-title">Worker not configured</div><div class="error-msg">Set up your Worker URL first.</div></div></div>`; return; }
-
+  if (!ST.workerUrl) { out.innerHTML=`<div class="error-box"><div class="error-icon">!</div><div><div class="error-title">Worker not configured</div><div class="error-msg">Set up your Worker URL first.</div></div></div>`; return; }
   btn.disabled = true;
-  out.innerHTML = `
-    <div class="idea-loading">
-      <div class="idea-dots"><span></span><span></span><span></span></div>
-      AI is crafting your project guide…
-    </div>`;
-
+  out.innerHTML = `<div class="idea-loading"><div class="idea-dots"><span></span><span></span><span></span></div>AI is crafting your project guide…</div>`;
   try {
     const res = await fetch(ST.workerUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+      method:"POST", headers:{"Content-Type":"application/json"},
       body: JSON.stringify({
-        query: `The user is learning "${topicTitle}" in the "${track}" track. They have a project idea:\n\n"${idea}"\n\nProvide a complete, personalised project guide for this idea. Include: a project overview, required tech stack with install commands, 4-6 implementation steps each with working Python/JS code, common pitfalls to avoid, and how this idea specifically uses what they learned in "${topicTitle}". Be concrete and actionable.`,
-        mode: "project",
-        history: [],
-        userProfile: { skillLevel: "beginner", track, learningGoal: idea },
+        query:`The user is learning "${topicTitle}" in the "${track}" track. Project idea:\n\n"${idea}"\n\nProvide a complete personalised project guide. Include: overview, tech stack with install commands, 4-6 implementation steps each with working code, common pitfalls, and how this uses "${topicTitle}" specifically.`,
+        mode:"project", history:[], userProfile:{skillLevel:"beginner",track,learningGoal:idea},
       }),
     });
-
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
-    if (data.status === "ERROR") throw new Error(data.message);
-    const raw = data.content || data.solution || "";
-    if (!raw) throw new Error("Empty response from AI.");
-
-    // Render idea output in a styled block
+    if (data.status==="ERROR") throw new Error(data.message);
+    const raw = data.content||data.solution||"";
+    if (!raw) throw new Error("Empty response.");
     out.innerHTML = "";
     const box = document.createElement("div"); box.className = "idea-output";
-
-    // Header row
     const head = document.createElement("div"); head.className = "idea-output-head";
     const headLeft = document.createElement("div"); headLeft.className = "io-head-left";
-    headLeft.innerHTML = `
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-        <polyline points="20 6 9 17 4 12"/>
-      </svg>
-      Your Personalised Project Guide`;
-
+    headLeft.innerHTML = `✓ Your Personalised Project Guide`;
     const cpBtn = document.createElement("button"); cpBtn.className = "copy-btn";
-    cpBtn.innerHTML = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy`;
-    // Store raw content in WeakMap — never put it in an HTML attribute
+    cpBtn.innerHTML = `⎘ Copy`;
     _ideaRawStore.set(cpBtn, raw);
     cpBtn.onclick = () => copyText(cpBtn);
-
-    head.appendChild(headLeft);
-    head.appendChild(cpBtn);
-    box.appendChild(head);
-
-    // Body: render parsed prose
+    head.appendChild(headLeft); head.appendChild(cpBtn); box.appendChild(head);
     const body = document.createElement("div"); body.className = "idea-output-body";
     const prose = document.createElement("div"); prose.className = "prose";
     const { proseParts } = parseContent(raw);
     renderProse(proseParts, prose);
-    body.appendChild(prose);
-    box.appendChild(body);
-    out.appendChild(box);
-    box.querySelectorAll("pre code").forEach(el => { try { hljs.highlightElement(el); } catch(e) {} });
+    body.appendChild(prose); box.appendChild(body); out.appendChild(box);
+    box.querySelectorAll("pre code").forEach(el=>{try{hljs.highlightElement(el);}catch(e){}});
     renderDeferredMath(box);
     flashXP(15);
-
-  } catch (err) {
-    out.innerHTML = `<div class="error-box"><div class="error-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/></svg></div><div><div class="error-title">Idea guide failed</div><div class="error-msg">${esc(err.message)}</div></div></div>`;
-  } finally {
-    btn.disabled = false;
-  }
+  } catch(err) {
+    out.innerHTML = `<div class="error-box"><div class="error-icon">!</div><div><div class="error-title">Idea guide failed</div><div class="error-msg">${esc(err.message)}</div></div></div>`;
+  } finally { btn.disabled = false; }
 }
 
-// ── Idea output raw content store — avoids injecting content into HTML attributes ──
-const _ideaRawStore = new WeakMap();
-
 function copyText(btn) {
-  const text = _ideaRawStore.get(btn) || "";
-  navigator.clipboard?.writeText(text).then(() => {
-    const prev = btn.innerHTML;
-    btn.innerHTML = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Copied`;
-    btn.style.color = "var(--green)";
-    btn.style.borderColor = "var(--green-border)";
-    setTimeout(() => {
-      btn.innerHTML = prev;
-      btn.style.color = "";
-      btn.style.borderColor = "";
-    }, 2000);
+  const text = _ideaRawStore.get(btn)||"";
+  navigator.clipboard?.writeText(text).then(()=>{
+    const prev=btn.innerHTML; btn.innerHTML="✓ Copied"; btn.style.color="var(--green)"; btn.style.borderColor="var(--green-border)";
+    setTimeout(()=>{btn.innerHTML=prev;btn.style.color="";btn.style.borderColor="";},2000);
   });
 }
 
-// ══════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 //  CONTENT PARSER
-//  Splits raw worker output into:
-//    proseParts — array of {type:"text"|"code"|"mathblock", content, lang?}
-//    quizQs     — parsed multiple-choice questions
-// ══════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 function parseContent(raw) {
-  // ── 1. Extract quiz questions ──────────────────────────────────────
   const quizQs = [];
   const quizSectionRe = /(?:^QUIZ:?.*$|^MULTIPLE[-\s]?CHOICE.*$|^CONCEPTUAL QUESTIONS.*$)/im;
-  const quizSectionMatch = raw.match(quizSectionRe);
+  const qsm = raw.match(quizSectionRe);
   let proseCut = raw.length;
-  if (quizSectionMatch) {
-    const pos = raw.indexOf(quizSectionMatch[0]);
-    if (pos > raw.length * 0.30) proseCut = pos;
-  }
+  if (qsm) { const pos=raw.indexOf(qsm[0]); if(pos>raw.length*.30) proseCut=pos; }
 
   const qRe = /(?:Question\s*\d+[:.]?\s*|Q\d+[:.]\s*)(.+?)[\r\n]+\s*A[).:]\s*(.+?)[\r\n]+\s*B[).:]\s*(.+?)[\r\n]+\s*C[).:]\s*(.+?)[\r\n]+\s*D[).:]\s*(.+?)[\r\n]+\s*(?:Correct\s+Answer|Answer)[:.]\s*([A-D])\b(?:[\r\n]+\s*Explanation[:.]\s*(.+?))?(?=[\r\n]+(?:Question\s*\d|Q\d)|$)/gis;
   let qm;
-  while ((qm = qRe.exec(raw)) !== null) {
-    const opts    = [qm[2], qm[3], qm[4], qm[5]].map(s => s.trim());
-    const corrKey = qm[6].trim().toUpperCase();
-    const corrIdx = { A:0, B:1, C:2, D:3 }[corrKey] ?? 0;
-    quizQs.push({ question: qm[1].trim(), options: opts, correct: corrIdx, explanation: (qm[7]||"").trim() });
-    if (qm.index < proseCut && qm.index > raw.length * 0.28) proseCut = Math.min(proseCut, qm.index);
+  while((qm=qRe.exec(raw))!==null){
+    const opts=[qm[2],qm[3],qm[4],qm[5]].map(s=>s.trim());
+    const corrIdx={A:0,B:1,C:2,D:3}[qm[6].trim().toUpperCase()]??0;
+    quizQs.push({question:qm[1].trim(),options:opts,correct:corrIdx,explanation:(qm[7]||"").trim()});
+    if(qm.index<proseCut&&qm.index>raw.length*.28) proseCut=Math.min(proseCut,qm.index);
   }
 
-  // ── 2. Prose: strip metadata header lines ─────────────────────────
   let proseRaw = raw.slice(0, proseCut).trim();
-  proseRaw = proseRaw.replace(
-    /^(INTERACTIVE LESSON|LESSON|PROJECT GUIDE|SKILL ASSESSMENT|PERSONALIZED LESSON|Topic|TOPIC|Learner Level|Assessment Date|Track|Skill Level|Duration|Time Commitment|Estimated Read Time|Difficulty)[^\n]*\n?/gim,
-    ""
-  );
-  // Strip leading dividers / equals lines
-  proseRaw = proseRaw.replace(/^[=━─\-]{4,}\s*\n/gm, "\n");
+  proseRaw = proseRaw.replace(/^(INTERACTIVE LESSON|LESSON|PROJECT GUIDE|SKILL ASSESSMENT|PERSONALIZED LESSON|Topic|TOPIC|Learner Level|Assessment Date|Track|Skill Level|Duration|Time Commitment|Estimated Read Time|Difficulty)[^\n]*\n?/gim,"");
+  proseRaw = proseRaw.replace(/^[=━─\-]{4,}\s*\n/gm,"\n");
 
-  // ── 3. Tokenise: code fences → {code} | display math \[…\] → {mathblock} | rest → {text} ──
   const parts = [];
-  // Pattern: code fences OR display math blocks \[…\]
   const tokenRe = /```([a-zA-Z0-9]*)\n?([\s\S]*?)```|\\\[([\s\S]*?)\\\]/g;
-  let last = 0, tm;
-  while ((tm = tokenRe.exec(proseRaw)) !== null) {
-    if (tm.index > last) parts.push({ type: "text", content: proseRaw.slice(last, tm.index) });
-    if (tm[1] !== undefined) {
-      // code fence
-      parts.push({ type: "code", lang: tm[1] || "python", content: tm[2].trimEnd() });
-    } else {
-      // display math \[…\]
-      parts.push({ type: "mathblock", content: tm[3].trim() });
-    }
-    last = tokenRe.lastIndex;
+  let last=0, tm;
+  while((tm=tokenRe.exec(proseRaw))!==null){
+    if(tm.index>last) parts.push({type:"text",content:proseRaw.slice(last,tm.index)});
+    if(tm[1]!==undefined) parts.push({type:"code",lang:tm[1]||"python",content:tm[2].trimEnd()});
+    else parts.push({type:"mathblock",content:tm[3].trim()});
+    last=tokenRe.lastIndex;
   }
-  if (last < proseRaw.length) parts.push({ type: "text", content: proseRaw.slice(last) });
-  return { proseParts: parts, quizQs };
+  if(last<proseRaw.length) parts.push({type:"text",content:proseRaw.slice(last)});
+  return {proseParts:parts,quizQs};
 }
 
-// ══════════════════════════════════════════════════════════════════════
-//  PROSE RENDERER  — block-level, paragraph-aware
-//  Key fix: accumulate consecutive non-blank lines into one paragraph
-//  before emitting a <p>. Blank lines are paragraph separators.
-// ══════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
+//  PROSE RENDERER
+// ══════════════════════════════════════════════════════
 function renderProse(parts, parent) {
   parts.forEach(part => {
-    if (part.type === "code") {
-      parent.appendChild(buildCodeBlock(part.lang, part.content));
-      return;
-    }
-    if (part.type === "mathblock") {
-      parent.appendChild(buildMathBlock(part.content));
-      return;
-    }
-
-    // ── Text block: split into logical blocks separated by blank lines ──
-    // Each "block" is one or more lines that belong together.
-    const rawBlocks = part.content.split(/\n{2,}/);   // double-newline = block separator
-
+    if (part.type==="code") { parent.appendChild(buildCodeBlock(part.lang,part.content)); return; }
+    if (part.type==="mathblock") { parent.appendChild(buildMathBlock(part.content)); return; }
+    const rawBlocks = part.content.split(/\n{2,}/);
     rawBlocks.forEach(block => {
-      const lines = block.split("\n").map(l => l.trimEnd());
-      const firstTrimmed = lines[0]?.trim() || "";
+      const lines = block.split("\n").map(l=>l.trimEnd());
+      const firstTrimmed = lines[0]?.trim()||"";
       if (!firstTrimmed) return;
-
-      // ── Horizontal rule ──
-      if (/^[━─=\-]{4,}$/.test(firstTrimmed)) {
-        parent.appendChild(document.createElement("hr"));
-        return;
+      if (/^[━─=\-]{4,}$/.test(firstTrimmed)) { parent.appendChild(document.createElement("hr")); return; }
+      if (/^NOTE[: ]/i.test(firstTrimmed)) { const co=document.createElement("div");co.className="callout c-warn";co.innerHTML=`<span class="callout-head">⚠ Note</span>${fmtInline(block.replace(/^NOTE[: ]*/i,""))}`;parent.appendChild(co);return; }
+      if (/^TIP[: ]/i.test(firstTrimmed)) { const co=document.createElement("div");co.className="callout c-tip";co.innerHTML=`<span class="callout-head">💡 Tip</span>${fmtInline(block.replace(/^TIP[: ]*/i,""))}`;parent.appendChild(co);return; }
+      if (/^#{1,4}\s/.test(firstTrimmed)) { const lv=firstTrimmed.match(/^(#{1,4})/)[0].length;const el=document.createElement(lv<=2?"h2":"h3");el.innerHTML=fmtInline(firstTrimmed.replace(/^#{1,4}\s+/,""));parent.appendChild(el);return; }
+      if (lines.length>=2&&/^[=]{3,}$/.test(lines[1]?.trim())) { const el=document.createElement("h2");el.innerHTML=fmtInline(firstTrimmed);parent.appendChild(el);return; }
+      if (lines.length>=2&&/^[-]{3,}$/.test(lines[1]?.trim())) { const el=document.createElement("h3");el.innerHTML=fmtInline(firstTrimmed);parent.appendChild(el);return; }
+      if (/^\*\*[^*]+\*\*$/.test(firstTrimmed)&&lines.length===1) { const el=document.createElement("h3");el.innerHTML=fmtInline(firstTrimmed);parent.appendChild(el);return; }
+      if (/^[A-Z][A-Z0-9 \-&:\/]{3,}$/.test(firstTrimmed)&&firstTrimmed.length<70&&lines.length===1) { const el=document.createElement("h2");el.textContent=toTitleCase(firstTrimmed);parent.appendChild(el);return; }
+      if (/^(PHASE|STEP)\s+\d+[:.]/i.test(firstTrimmed)) { const el=document.createElement("h2");el.innerHTML=fmtInline(firstTrimmed);parent.appendChild(el);return; }
+      if (/^\d+\.\s+[A-Z]/.test(firstTrimmed)&&firstTrimmed.length<80&&lines.length===1) { const el=document.createElement("h3");el.innerHTML=fmtInline(firstTrimmed);parent.appendChild(el);return; }
+      if (lines.every(l=>!l.trim()||/^[-*•]\s/.test(l.trim()))) {
+        const ul=document.createElement("ul");
+        lines.forEach(l=>{ const t=l.trim();if(!t)return;const li=document.createElement("li");li.innerHTML=fmtInline(t.replace(/^[-*•]\s/,""));ul.appendChild(li); });
+        if(ul.children.length) parent.appendChild(ul); return;
       }
-
-      // ── Callout NOTE ──
-      if (/^NOTE[: ]/i.test(firstTrimmed)) {
-        const co = document.createElement("div"); co.className = "callout c-warn";
-        co.innerHTML = `<span class="callout-head">⚠ Note</span>${fmtInline(block.replace(/^NOTE[: ]*/i,""))}`;
-        parent.appendChild(co); return;
+      if (lines.every(l=>!l.trim()||/^\d+[.)]\s/.test(l.trim()))&&lines.filter(l=>l.trim()).length>=2) {
+        const ol=document.createElement("ol");
+        lines.forEach(l=>{ const t=l.trim();if(!t)return;const li=document.createElement("li");li.innerHTML=fmtInline(t.replace(/^\d+[.)]\s/,""));ol.appendChild(li); });
+        if(ol.children.length){parent.appendChild(ol);return;}
       }
-
-      // ── Callout TIP ──
-      if (/^TIP[: ]/i.test(firstTrimmed)) {
-        const co = document.createElement("div"); co.className = "callout c-tip";
-        co.innerHTML = `<span class="callout-head">💡 Tip</span>${fmtInline(block.replace(/^TIP[: ]*/i,""))}`;
-        parent.appendChild(co); return;
+      if (/^[A-Za-z][A-Za-z ]{1,24}:\s.{1,120}$/.test(firstTrimmed)&&lines.length===1) {
+        const key=firstTrimmed.split(":")[0];
+        if(/^(topic|difficulty|duration|track|skill level|estimated read time|time commitment|learner level|assessment date|generated)$/i.test(key.trim())) return;
       }
-
-      // ── ATX Heading (## or ###) ──
-      if (/^#{1,4}\s/.test(firstTrimmed)) {
-        const lv = firstTrimmed.match(/^(#{1,4})/)[0].length;
-        const tag = lv <= 2 ? "h2" : "h3";
-        const el = document.createElement(tag);
-        el.innerHTML = fmtInline(firstTrimmed.replace(/^#{1,4}\s+/, ""));
-        parent.appendChild(el); return;
-      }
-
-      // ── Setext-style heading (line of ===== or ----- under text) ──
-      if (lines.length >= 2 && /^[=]{3,}$/.test(lines[1]?.trim())) {
-        const el = document.createElement("h2"); el.innerHTML = fmtInline(firstTrimmed);
-        parent.appendChild(el); return;
-      }
-      if (lines.length >= 2 && /^[-]{3,}$/.test(lines[1]?.trim())) {
-        const el = document.createElement("h3"); el.innerHTML = fmtInline(firstTrimmed);
-        parent.appendChild(el); return;
-      }
-
-      // ── Bold section title pattern: **Title** alone on a line ──
-      if (/^\*\*[^*]+\*\*$/.test(firstTrimmed) && lines.length === 1) {
-        const el = document.createElement("h3");
-        el.innerHTML = fmtInline(firstTrimmed);
-        parent.appendChild(el); return;
-      }
-
-      // ── ALL-CAPS section heading (e.g. "CONCEPTUAL EXPLANATION") ──
-      if (/^[A-Z][A-Z0-9 \-&:\/]{3,}$/.test(firstTrimmed) && firstTrimmed.length < 70 && lines.length === 1) {
-        const el = document.createElement("h2"); el.textContent = toTitleCase(firstTrimmed);
-        parent.appendChild(el); return;
-      }
-
-      // ── Phase/Step heading ──
-      if (/^(PHASE|STEP)\s+\d+[:.]/i.test(firstTrimmed)) {
-        const el = document.createElement("h2"); el.innerHTML = fmtInline(firstTrimmed);
-        parent.appendChild(el); return;
-      }
-
-      // ── Numbered or lettered heading e.g. "1. Define the problem" ──
-      // Only treat as heading if line is short (< 80 chars) and there's no continuation
-      if (/^\d+\.\s+[A-Z]/.test(firstTrimmed) && firstTrimmed.length < 80 && lines.length === 1) {
-        const el = document.createElement("h3"); el.innerHTML = fmtInline(firstTrimmed);
-        parent.appendChild(el); return;
-      }
-
-      // ── Bullet list ──
-      if (lines.every(l => !l.trim() || /^[-*•]\s/.test(l.trim()))) {
-        const ul = document.createElement("ul");
-        lines.forEach(l => {
-          const t = l.trim();
-          if (!t) return;
-          // handle sub-items (indented)
-          if (/^\s{2,}[-*•]\s/.test(l)) {
-            const sub = ul.lastElementChild?.querySelector("ul") || (() => {
-              const s = document.createElement("ul"); ul.lastElementChild?.appendChild(s); return s;
-            })();
-            const li = document.createElement("li"); li.innerHTML = fmtInline(t.replace(/^[-*•]\s/,""));
-            sub.appendChild(li);
-          } else {
-            const li = document.createElement("li"); li.innerHTML = fmtInline(t.replace(/^[-*•]\s/,""));
-            ul.appendChild(li);
-          }
-        });
-        if (ul.children.length) parent.appendChild(ul);
-        return;
-      }
-
-      // ── Ordered list ──
-      if (lines.every(l => !l.trim() || /^\d+[.)]\s/.test(l.trim()))) {
-        // Don't treat single numbered lines as lists (already handled as headings above)
-        if (lines.filter(l=>l.trim()).length >= 2 || /^\d+[.)]\s/.test(firstTrimmed)) {
-          const ol = document.createElement("ol");
-          lines.forEach(l => {
-            const t = l.trim(); if (!t) return;
-            const li = document.createElement("li"); li.innerHTML = fmtInline(t.replace(/^\d+[.)]\s/,""));
-            ol.appendChild(li);
-          });
-          if (ol.children.length) { parent.appendChild(ol); return; }
-        }
-      }
-
-      // ── Metadata line at the very start (e.g. "Topic: X", "Duration: X") — skip ──
-      if (/^[A-Za-z][A-Za-z ]{1,24}:\s.{1,120}$/.test(firstTrimmed) && lines.length === 1) {
-        // Only skip if it looks like a metadata key: value line (not a sentence)
-        const key = firstTrimmed.split(":")[0];
-        const SKIP_KEYS = /^(topic|difficulty|duration|track|skill level|estimated read time|time commitment|learner level|assessment date|generated)$/i;
-        if (SKIP_KEYS.test(key.trim())) return;
-      }
-
-      // ── Default: paragraph ──
-      // Join all lines in the block into one paragraph (handles word wrap)
-      const combined = lines.map(l => l.trim()).filter(Boolean).join(" ");
+      const combined = lines.map(l=>l.trim()).filter(Boolean).join(" ");
       if (!combined) return;
-      const p = document.createElement("p");
-      p.innerHTML = fmtInline(combined);
-      parent.appendChild(p);
+      const p=document.createElement("p");p.innerHTML=fmtInline(combined);parent.appendChild(p);
     });
   });
 }
 
-// ══════════════════════════════════════════════════════════════════════
-//  INLINE FORMATTER  — bold, italic, inline code, links, inline math
-// ══════════════════════════════════════════════════════════════════════
 function fmtInline(s) {
-  // Escape HTML first, then restore our markup
   let out = esc(s);
-  // Bold
-  out = out.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
-  // Italic
-  out = out.replace(/(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)/g, "<em>$1</em>");
-  // Inline code
-  out = out.replace(/`([^`]+)`/g, "<code>$1</code>");
-  // Links
-  out = out.replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
-  // Inline math \( ... \) — render via KaTeX if available
-  out = out.replace(/\\\((.+?)\\\)/g, (_, math) => {
-    try {
-      return window.katex
-        ? `<span class="math-inline">${window.katex.renderToString(math, { throwOnError: false })}</span>`
-        : `<em>${math}</em>`;
-    } catch { return `<em>${math}</em>`; }
-  });
+  out = out.replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>");
+  out = out.replace(/(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)/g,"<em>$1</em>");
+  out = out.replace(/`([^`]+)`/g,"<code>$1</code>");
+  out = out.replace(/\[(.+?)\]\((.+?)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>');
+  out = out.replace(/\\\((.+?)\\\)/g,(_,math)=>{try{return window.katex?`<span class="math-inline">${window.katex.renderToString(math,{throwOnError:false})}</span>`:`<em>${math}</em>`;}catch{return`<em>${math}</em>`;}});
   return out;
 }
-
 function buildMathBlock(latex) {
-  const div = document.createElement("div"); div.className = "math-block";
-  try {
-    if (window.katex) {
-      div.innerHTML = window.katex.renderToString(latex, { throwOnError: false, displayMode: true });
-    } else {
-      // KaTeX not loaded yet — store latex and render later
-      div.dataset.latex = latex;
-      div.textContent = latex;
-      div.style.fontStyle = "italic";
-    }
-  } catch { div.textContent = latex; }
+  const div=document.createElement("div");div.className="math-block";
+  try{if(window.katex){div.innerHTML=window.katex.renderToString(latex,{throwOnError:false,displayMode:true});}else{div.dataset.latex=latex;div.textContent=latex;div.style.fontStyle="italic";}}catch{div.textContent=latex;}
   return div;
 }
-
 function renderDeferredMath(container) {
-  if (!window.katex) return;
-  container.querySelectorAll(".math-block[data-latex]").forEach(div => {
-    try {
-      div.innerHTML = window.katex.renderToString(div.dataset.latex, { throwOnError: false, displayMode: true });
-      delete div.dataset.latex;
-    } catch {}
-  });
-  // Also run auto-render for any remaining \( \) or \[ \] in prose
-  if (window.renderMathInElement) {
-    renderMathInElement(container, {
-      delimiters: [
-        { left: "\\[", right: "\\]", display: true },
-        { left: "\\(", right: "\\)", display: false },
-      ],
-      throwOnError: false,
-    });
-  }
+  if(!window.katex) return;
+  container.querySelectorAll(".math-block[data-latex]").forEach(div=>{try{div.innerHTML=window.katex.renderToString(div.dataset.latex,{throwOnError:false,displayMode:true});delete div.dataset.latex;}catch{}});
+  if(window.renderMathInElement) renderMathInElement(container,{delimiters:[{left:"\\[",right:"\\]",display:true},{left:"\\(",right:"\\)",display:false}],throwOnError:false});
 }
+function toTitleCase(s) { return s.toLowerCase().replace(/\b\w/g,c=>c.toUpperCase()); }
 
-function fmt(s) { return fmtInline(s); }  // backwards compat
-function toTitleCase(s) { return s.toLowerCase().replace(/\b\w/g, c => c.toUpperCase()); }
-
-// ══════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 //  CODE BLOCK BUILDER
-// ══════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 function buildCodeBlock(lang, code) {
-  const w = document.createElement("div"); w.className = "cblock";
-  const top = document.createElement("div"); top.className = "cblock-top";
-  top.innerHTML = `
-    <div class="cblock-lang">
-      <div class="mac"><span></span><span></span><span></span></div>
-      <span class="lang-lbl">${esc(lang || "code")}</span>
-    </div>`;
-  const cp = document.createElement("button"); cp.className = "copy-btn";
-  cp.innerHTML = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy`;
-  cp.onclick = () => {
-    navigator.clipboard?.writeText(code).then(() => {
-      cp.textContent = "✓ Copied"; cp.classList.add("copied");
-      setTimeout(() => {
-        cp.innerHTML = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy`;
-        cp.classList.remove("copied");
-      }, 2000);
-    });
-  };
-  top.appendChild(cp); w.appendChild(top);
-  const pre = document.createElement("pre");
-  const cel = document.createElement("code");
-  if (lang) cel.className = "language-" + lang;
-  cel.textContent = code; pre.appendChild(cel);
-  try { hljs.highlightElement(cel); } catch (e) {}
-  w.appendChild(pre); return w;
+  const w=document.createElement("div");w.className="cblock";
+  const top=document.createElement("div");top.className="cblock-top";
+  top.innerHTML=`<div class="cblock-lang"><div class="mac"><span></span><span></span><span></span></div><span class="lang-lbl">${esc(lang||"code")}</span></div>`;
+  const cp=document.createElement("button");cp.className="copy-btn";
+  cp.innerHTML=`⎘ Copy`;
+  cp.onclick=()=>{navigator.clipboard?.writeText(code).then(()=>{cp.textContent="✓ Copied";cp.classList.add("copied");setTimeout(()=>{cp.innerHTML="⎘ Copy";cp.classList.remove("copied");},2000);});};
+  top.appendChild(cp);w.appendChild(top);
+  const pre=document.createElement("pre");const cel=document.createElement("code");
+  if(lang)cel.className="language-"+lang;cel.textContent=code;pre.appendChild(cel);
+  try{hljs.highlightElement(cel);}catch(e){}
+  w.appendChild(pre);return w;
 }
 
-// ══════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 //  QUIZ BUILDER
-// ══════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 function buildQuiz(questions, topicId, topics, idx) {
-  const wrap = document.createElement("div"); wrap.className = "quiz-section";
-  const KEYS = ["A","B","C","D"];
-
-  const hd = document.createElement("div"); hd.className = "quiz-hd";
-  hd.innerHTML = `
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2.2" stroke-linecap="round">
-      <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
-    </svg>
-    <span class="quiz-hd-title">Knowledge Check</span>
-    <span class="quiz-hd-count">${questions.length} question${questions.length!==1?"s":""}</span>
-    <span class="quiz-hd-xp">+10 XP each correct</span>`;
+  const wrap=document.createElement("div");wrap.className="quiz-section";
+  const KEYS=["A","B","C","D"];
+  const hd=document.createElement("div");hd.className="quiz-hd";
+  hd.innerHTML=`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2.2" stroke-linecap="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg><span class="quiz-hd-title">Knowledge Check</span><span class="quiz-hd-count">${questions.length} question${questions.length!==1?"s":""}</span><span class="quiz-hd-xp">+10 XP each</span>`;
   wrap.appendChild(hd);
 
-  let answered = 0; const results = [];
-  const resultEl = document.createElement("div"); resultEl.className = "q-result";
+  let answered=0;const results=[];
+  const resultEl=document.createElement("div");resultEl.className="q-result";
 
-  questions.forEach((q, qi) => {
-    const card = document.createElement("div"); card.className = "q-card";
-    card.innerHTML = `<div class="q-num">Question ${qi+1} of ${questions.length}</div><div class="q-text">${esc(q.question)}</div>`;
-    const optsEl = document.createElement("div"); optsEl.className = "q-opts";
-    const fb     = document.createElement("div"); fb.className = "q-feedback";
-    const chk    = document.createElement("button"); chk.className = "q-check";
-    chk.innerHTML = `Check Answer <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>`;
-    let sel = null;
-
-    q.options.slice(0,4).forEach((opt, oi) => {
-      const o = document.createElement("div"); o.className = "q-opt";
-      o.innerHTML = `<span class="opt-key">${KEYS[oi]}</span><span>${esc(opt)}</span>`;
-      o.onclick = () => {
-        if (o.classList.contains("locked")) return;
-        optsEl.querySelectorAll(".q-opt").forEach(x => x.classList.remove("sel"));
-        o.classList.add("sel"); sel = oi; chk.classList.add("show");
-      };
+  questions.forEach((q,qi)=>{
+    const card=document.createElement("div");card.className="q-card";
+    card.innerHTML=`<div class="q-num">Question ${qi+1} of ${questions.length}</div><div class="q-text">${esc(q.question)}</div>`;
+    const optsEl=document.createElement("div");optsEl.className="q-opts";
+    const fb=document.createElement("div");fb.className="q-feedback";
+    const chk=document.createElement("button");chk.className="q-check";chk.innerHTML="Check Answer ✓";
+    let sel=null;
+    q.options.slice(0,4).forEach((opt,oi)=>{
+      const o=document.createElement("div");o.className="q-opt";
+      o.innerHTML=`<span class="opt-key">${KEYS[oi]}</span><span>${esc(opt)}</span>`;
+      o.onclick=()=>{if(o.classList.contains("locked"))return;optsEl.querySelectorAll(".q-opt").forEach(x=>x.classList.remove("sel"));o.classList.add("sel");sel=oi;chk.classList.add("show");};
       optsEl.appendChild(o);
     });
-
-    chk.onclick = () => {
-      if (sel === null) return;
-      const ok = sel === q.correct; results.push(ok); answered++;
-      optsEl.querySelectorAll(".q-opt").forEach((o, oi) => {
-        o.classList.add("locked");
-        if (oi === q.correct) o.classList.add("opt-right");
-        else if (oi === sel && !ok) o.classList.add("opt-wrong");
-      });
-      fb.className = "q-feedback show " + (ok ? "fb-ok" : "fb-err");
-      const ct = q.options[q.correct] || "";
-      fb.innerHTML = ok
-        ? `<strong>✓ Correct!</strong> ${esc(q.explanation || "Well done!")}`
-        : `<strong>✗ Incorrect.</strong> Correct: <strong>${esc(ct)}</strong>${q.explanation ? ". " + esc(q.explanation) : ""}`;
-      chk.style.display = "none";
-      if (ok) { flashXP(10); card.classList.add("q-ok"); } else card.classList.add("q-err");
-
-      if (answered === questions.length) {
-        const score = results.filter(Boolean).length;
-        const pct2  = Math.round(score / questions.length * 100);
-        const cls   = pct2 >= 80 ? "s-great" : pct2 >= 50 ? "s-ok" : "s-bad";
-        const msg   = pct2 >= 80 ? "Excellent work!" : pct2 >= 50 ? "Good effort — keep going." : "Review the lesson and try again.";
-        const next  = idx < topics.length - 1 ? topics[idx + 1] : null;
-        resultEl.className = "q-result show";
-        resultEl.innerHTML = `
-          <div class="qr-score ${cls}">${score}/${questions.length}</div>
-          <div class="qr-msg">${pct2}% correct · ${msg}</div>
-          <div class="qr-acts">
-            <button class="qr-btn qr-ghost" onclick="retryQuiz('${topicId}')">↺ Retry</button>
-            ${next
-              ? `<button class="qr-btn qr-primary" onclick="markDone('${topicId}');loadTopic('${next.id}')">Next: ${esc(next.title)} →</button>`
-              : `<button class="qr-btn qr-primary" onclick="showHome()">Back to Tracks</button>`}
-          </div>`;
-        if (pct2 >= 60) markDone(topicId);
+    chk.onclick=()=>{
+      if(sel===null)return;
+      const ok=sel===q.correct;results.push(ok);answered++;
+      optsEl.querySelectorAll(".q-opt").forEach((o,oi)=>{o.classList.add("locked");if(oi===q.correct)o.classList.add("opt-right");else if(oi===sel&&!ok)o.classList.add("opt-wrong");});
+      fb.className="q-feedback show "+(ok?"fb-ok":"fb-err");
+      fb.innerHTML=ok?`<strong>✓ Correct!</strong> ${esc(q.explanation||"Well done!")}`:`<strong>✗ Incorrect.</strong> Correct: <strong>${esc(q.options[q.correct]||"")}</strong>${q.explanation?". "+esc(q.explanation):""}`;
+      chk.style.display="none";
+      if(ok){flashXP(10);card.classList.add("q-ok");}else card.classList.add("q-err");
+      if(answered===questions.length){
+        const score=results.filter(Boolean).length;const pct2=Math.round(score/questions.length*100);
+        const cls=pct2>=80?"s-great":pct2>=50?"s-ok":"s-bad";
+        const msg=pct2>=80?"Excellent work!":pct2>=50?"Good effort — review weak spots.":"Review the lesson and try again.";
+        const next=idx<topics.length-1?topics[idx+1]:null;
+        resultEl.className="q-result show";
+        resultEl.innerHTML=`<div class="qr-score ${cls}">${score}/${questions.length}</div><div class="qr-msg">${pct2}% · ${msg}</div><div class="qr-acts"><button class="qr-btn qr-ghost" onclick="retryQuiz('${topicId}')">↺ Retry</button>${next?`<button class="qr-btn qr-primary" onclick="markDone('${topicId}');loadTopic('${next.id}')">Next: ${esc(next.title)} →</button>`:`<button class="qr-btn qr-primary" onclick="showHome()">Back to Tracks</button>`}</div>`;
+        if(pct2>=60) markDone(topicId);
       }
     };
-    card.appendChild(optsEl); card.appendChild(fb); card.appendChild(chk);
-    wrap.appendChild(card);
+    card.appendChild(optsEl);card.appendChild(fb);card.appendChild(chk);wrap.appendChild(card);
   });
-  wrap.appendChild(resultEl); return wrap;
+  wrap.appendChild(resultEl);return wrap;
 }
-function retryQuiz(id) { delete ST.cache[id]; persist(); loadTopic(id); }
+function retryQuiz(id){delete ST.cache[id];persist();loadTopic(id);}
 
-// ══════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 //  MARK DONE
-// ══════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 function markDone(id) {
   if (ST.done.has(id)) return;
-  ST.done.add(id); flashXP(25); topicMarkDone(id);
-  ST.streak++; $("streakV").textContent = ST.streak;
-  persist(); refreshProgress();
-  buildTrackList(); // refresh sidebar progress bars
+  ST.done.add(id);flashXP(25);topicMarkDone(id);
+  ST.streak++;$("streakV").textContent=ST.streak;$("doneV").textContent=ST.done.size;
+  persist();refreshProgress();buildTierList();
 }
 </script>
 </body>
